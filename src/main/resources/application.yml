@@ -1,0 +1,9 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/mtg
+    username:
+    password:
+    driver-class-name: 'com.mysql.jdbc.Driver'
