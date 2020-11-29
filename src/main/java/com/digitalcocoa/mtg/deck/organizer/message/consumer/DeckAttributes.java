@@ -6,5 +6,5 @@ import org.immutables.value.Value.Immutable;
 
 @Immutable
 public interface DeckAttributes {
-  Set<Format> format();
+  Set<Format> formats();
 }
