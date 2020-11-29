@@ -1,0 +1,86 @@
+databaseChangeLog:
+  -  preConditions:
+  -  runningAs:
+       username: root
+
+  - changeSet:
+      id: create-table-card
+      author: amyers
+#      preConditions:
+#        - onFail: MARK_RAN
+#          not:
+#            tableExists:
+#              tableName: CARD
+      changes:
+        - createTable:
+            tableName: CARD
+            columns:
+              - column:
+                  name: ID
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: NAME
+                  type: varchar(512)
+        - createIndex:
+            clustered: true
+            columns:
+              - column:
+                  descending: true
+                  name: NAME
+            indexName: idx_card_name
+            tableName: CARD
+            unique: false
+
+  - changeSet:
+      id: create-table-formats
+      author: amyers
+#      preConditions:
+#        - onFail: MARK_RAN
+#          not:
+#            tableExists:
+#              tableName: FORMATS
+      changes:
+        createTable:
+          tableName: FORMATS
+          columns:
+            - column:
+                name: ID
+                type: int
+                autoIncrement: true
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: NAME
+                type: varchar(512)
+  - changeSet:
+      id: create-table-banlist
+      author: amyers
+#      preConditions:
+#        - onFail: MARK_RAN
+#          not:
+#            tableExists:
+#              tableName: BANLIST
+      changes:
+        createTable:
+          tableName: BANLIST
+          columns:
+            - column:
+                name: ID
+                type: int
+                autoIncrement: true
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: CARD_NAME
+                type: varchar(512)
+                constraints:
+                  foreignKeyName: fk_banlist_to_card_name
+                  references: CARD(name)
+                  nullable: false
+
