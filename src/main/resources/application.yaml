@@ -12,9 +12,9 @@ spring:
     driver-class-name: 'com.mysql.cj.jdbc.Driver'
     default-schema: mtg
     change-log: classpath:db.changelog-master.yaml
-  kafka:
-    consumer:
-      group-id: service
-      auto-offset-reset: earliest
-    producer:
-      bootstrap-servers: localhost:9092
+#  kafka:
+#    consumer:
+#      group-id: service
+#      auto-offset-reset: earliest
+#    producer:
+#      bootstrap-servers: localhost:9092
