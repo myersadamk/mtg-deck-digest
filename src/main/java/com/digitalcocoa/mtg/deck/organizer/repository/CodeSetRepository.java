@@ -2,6 +2,8 @@ package com.digitalcocoa.mtg.deck.organizer.repository;
 
 import com.digitalcocoa.mtg.deck.organizer.repository.entity.CodifiedValue;
 import com.digitalcocoa.mtg.deck.organizer.repository.entity.ImmutableCodifiedValue;
+import com.digitalcocoa.mtg.deck.organizer.service.Code;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,6 +29,12 @@ public class CodeSetRepository {
   private static final String INSERT_CODE_VALUES =
       """
       INSERT IGNORE INTO CODE_VALUE(CODE_SET_ID, VALUE) VALUES (:codeSetId, :value);
+      """;
+
+  private static final String SELECT_CODE_VALUE_IDS =
+      """
+      SELECT * FROM CODE_VALUE
+      WHERE CODE_SET_ID IN (:meanings)
       """;
 
   private static final String SELECT_CODE_SETS =
@@ -63,16 +71,14 @@ public class CodeSetRepository {
                 .length);
   }
 
-  public record CodeValueEntity(String value, Integer codeSetId) {}
-
-  public Mono<Integer> insertCodeValues(Set<CodeValueEntity> entities) {
+  public Mono<Integer> insertCodeValues(Collection<Code> entities) {
     return Mono.fromCallable(
         () ->
             jdbc.batchUpdate(
                     INSERT_CODE_VALUES,
                     batch(
                         entities.stream()
-                            .map(v -> Map.of("codeSetId", v.codeSetId, "value", v.value))))
+                            .map(v -> Map.of("codeSetId", v.codeSetID(), "value", v.value()))))
                 .length);
   }
 
@@ -92,6 +98,10 @@ public class CodeSetRepository {
             (rs, rowNum) -> ImmutableCodeSetEntity.of(rs.getInt("ID"), rs.getString("MEANING")))
         .stream()
         .collect(Collectors.toMap(CodeSetEntity::getMeaning, CodeSetEntity::getID));
+  }
+
+  public Map<String, Integer> selectCodeValueIDs(Set<Integer> codeSetID) {
+    return null;
   }
 
   @Immutable(builder = false)

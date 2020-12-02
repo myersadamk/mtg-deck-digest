@@ -5,7 +5,6 @@ import com.digitalcocoa.mtg.deck.organizer.client.mtgio.ImmutableFilters;
 import com.digitalcocoa.mtg.deck.organizer.client.mtgio.RawCard;
 import com.digitalcocoa.mtg.deck.organizer.repository.CardRepository;
 import com.digitalcocoa.mtg.deck.organizer.repository.CodeSetRepository;
-import com.digitalcocoa.mtg.deck.organizer.repository.CodeSetRepository.CodeValueEntity;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,53 +29,42 @@ public class CardIngester {
     this.cardRepository = cardRepository;
   }
 
-  private Set<Code> mapCodeValues(Collection<String> values, String meaning) {
+  private Set<Code> mapCodeValues(Collection<String> values, Integer codeSetID) {
     return values.stream().map(value -> new Code(value, meaning)).collect(Collectors.toSet());
   }
 
   public Mono<Void> run() {
     final Set<String> meanings = Set.of("types", "subtypes", "supertypes");
 
-    final Flux<RawCard> cards = catalog.getCards(ImmutableFilters.builder().addSets("KTK").build()).take(100).cache();
+    final Flux<RawCard> cards =
+        catalog.getCards(ImmutableFilters.builder().addSets("KTK").build()).take(100).cache();
 
     final Map<String, Integer> codeSetIDs = new HashMap<>();
+    final Map<String, Integer> codeValues = new HashMap<>();
 
-    return codeSetRepository.insertCodeSets(meanings)
-        .doOnNext(result -> {
-          // log
-        })
+    return codeSetRepository
+        .insertCodeSets(meanings)
+        .doOnNext(encounteredCodes -> codeSetIDs.putAll(codeSetRepository.getCodeSetIds(meanings)))
         .thenMany(cards)
         .flatMap(
             card ->
                 Flux.concat(
-                    Flux.just(mapCodeValues(card.types(), "types")),
-                    Flux.just(mapCodeValues(card.subtypes(), "subtypes")),
-                    Flux.just(mapCodeValues(card.supertypes(), "supertypes"))))
-        .flatMap(Flux::fromIterable)
-        .collectList()
-        .doOnNext(encounteredCodes -> {
-              codeSetIDs.putAll(codeSetRepository.getCodeSetIds(meanings));
-
-              final Set<CodeSetRepository.CodeValueEntity> entities =
-                  encounteredCodes.stream()
-                      .map(
-                          codeValue ->
-                              new CodeValueEntity(
-                                  codeValue.value(), codeSetIDs.get(codeValue.meaning())))
-                      .collect(Collectors.toSet());
-
-              codeSetRepository
-                  .insertCodeValues(entities)
-                  .subscribe(
-                      updatedRows -> {
-                        // log me!
-                      });
-            })
-        .thenMany(cards)
-        .collectList()
-        .doOnNext(lol -> {
-          codeSetIDs.
-          System.out.println("lol");
-        }).then();
+                        Flux.just(mapCodeValues(card.types(), codeSetIDs.get("types"))),
+                        Flux.just(mapCodeValues(card.subtypes(), codeSetIDs.get("subtypes"))),
+                        Flux.just(mapCodeValues(card.supertypes(), codeSetIDs.get("supertypes"))))
+                    .flatMap(Flux::fromIterable)
+                    .collectList()
+                    .flatMap(codeSetRepository::insertCodeValues)
+                    .doOnNext(
+                        results -> {
+                          // log osmething
+                        })
+                    .thenMany(cards)
+                    .collectList()
+                    .doOnNext(
+                        lol -> {
+                          System.out.println("lol");
+                        }))
+        .then();
   }
 }
