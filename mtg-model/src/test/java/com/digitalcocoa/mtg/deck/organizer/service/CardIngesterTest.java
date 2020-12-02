@@ -1,6 +1,5 @@
 package com.digitalcocoa.mtg.deck.organizer.service;
 
-import com.digitalcocoa.mtg.deck.organizer.MtgDeckOrganizerApplication;
 import com.digitalcocoa.mtg.deck.organizer.client.mtgio.MagicTheGatheringApiConfig;
 import com.digitalcocoa.mtg.deck.organizer.repository.CodeSetRepository;
 import java.util.Set;

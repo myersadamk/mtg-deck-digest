@@ -7,14 +7,14 @@ import org.immutables.value.Value.Parameter;
 import org.immutables.value.Value.Style;
 
 @Style(jdkOnly = true)
-@Immutable(builder = true, singleton = true)
-@JsonDeserialize(as = ImmutableRawPage.class)
-interface RawPage {
+@Immutable(builder = false, singleton = true)
+@JsonDeserialize(as = ImmutablePageDTO.class)
+interface PageDTO {
 
   @Parameter
-  List<RawCard> cards();
+  List<MagicCard> cards();
 
-  static RawPage empty() {
-    return ImmutableRawPage.of();
+  static PageDTO empty() {
+    return ImmutablePageDTO.of();
   }
 }

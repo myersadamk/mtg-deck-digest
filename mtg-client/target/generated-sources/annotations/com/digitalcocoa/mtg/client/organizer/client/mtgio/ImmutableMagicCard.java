@@ -1,6 +1,6 @@
 package com.digitalcocoa.mtg.client.organizer.client.mtgio;
 
-import com.digitalcocoa.mtg.client.organizer.client.mtgio.rest.RawCard;
+import com.digitalcocoa.mtg.client.organizer.client.mtgio.rest.MagicCard;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,7 +17,7 @@ import java.util.Set;
 import org.immutables.value.Generated;
 
 /**
- * Immutable implementation of {@link RawCard}.
+ * Immutable implementation of {@link MagicCard}.
  * <p>
  * Use the builder to create immutable instances:
  * {@code ImmutableRawCard.builder()}.
@@ -25,7 +25,7 @@ import org.immutables.value.Generated;
 @Generated(from = "RawCard", generator = "Immutables")
 @SuppressWarnings({"all"})
 @javax.annotation.processing.Generated("org.immutables.processor.ProxyProcessor")
-public final class ImmutableRawCard implements RawCard {
+public final class ImmutableMagicCard implements MagicCard {
   private final Long multiverseid;
   private final String name;
   private final List<String> names;
@@ -41,7 +41,7 @@ public final class ImmutableRawCard implements RawCard {
   private final Set<String> subtypes;
   private final String text;
 
-  private ImmutableRawCard(
+  private ImmutableMagicCard(
       Long multiverseid,
       String name,
       List<String> names,
@@ -199,14 +199,14 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object by setting a <i>present</i> value for the optional {@link RawCard#multiverseid() multiverseid} attribute.
+   * Copy the current immutable object by setting a <i>present</i> value for the optional {@link MagicCard#multiverseid() multiverseid} attribute.
    * @param value The value for multiverseid
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withMultiverseid(long value) {
+  public final ImmutableMagicCard withMultiverseid(long value) {
     Long newValue = value;
     if (Objects.equals(this.multiverseid, newValue)) return this;
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         newValue,
         this.name,
         this.names,
@@ -224,15 +224,15 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object by setting an optional value for the {@link RawCard#multiverseid() multiverseid} attribute.
+   * Copy the current immutable object by setting an optional value for the {@link MagicCard#multiverseid() multiverseid} attribute.
    * An equality check is used on inner nullable value to prevent copying of the same value by returning {@code this}.
    * @param optional A value for multiverseid
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withMultiverseid(Optional<Long> optional) {
+  public final ImmutableMagicCard withMultiverseid(Optional<Long> optional) {
     Long value = optional.orElse(null);
     if (Objects.equals(this.multiverseid, value)) return this;
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         value,
         this.name,
         this.names,
@@ -250,15 +250,15 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object by setting a value for the {@link RawCard#name() name} attribute.
+   * Copy the current immutable object by setting a value for the {@link MagicCard#name() name} attribute.
    * An equals check used to prevent copying of the same value by returning {@code this}.
    * @param value A new value for name
    * @return A modified copy of the {@code this} object
    */
-  public final ImmutableRawCard withName(String value) {
+  public final ImmutableMagicCard withName(String value) {
     String newValue = Objects.requireNonNull(value, "name");
     if (this.name.equals(newValue)) return this;
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         newValue,
         this.names,
@@ -276,13 +276,13 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object with elements that replace the content of {@link RawCard#names() names}.
+   * Copy the current immutable object with elements that replace the content of {@link MagicCard#names() names}.
    * @param elements The elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withNames(String... elements) {
+  public final ImmutableMagicCard withNames(String... elements) {
     List<String> newValue = createUnmodifiableList(false, createSafeList(Arrays.asList(elements), true, false));
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         newValue,
@@ -300,15 +300,15 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object with elements that replace the content of {@link RawCard#names() names}.
+   * Copy the current immutable object with elements that replace the content of {@link MagicCard#names() names}.
    * A shallow reference equality check is used to prevent copying of the same value by returning {@code this}.
    * @param elements An iterable of names elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withNames(Iterable<String> elements) {
+  public final ImmutableMagicCard withNames(Iterable<String> elements) {
     if (this.names == elements) return this;
     List<String> newValue = createUnmodifiableList(false, createSafeList(elements, true, false));
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         newValue,
@@ -326,15 +326,15 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object by setting a value for the {@link RawCard#rarity() rarity} attribute.
+   * Copy the current immutable object by setting a value for the {@link MagicCard#rarity() rarity} attribute.
    * An equals check used to prevent copying of the same value by returning {@code this}.
    * @param value A new value for rarity
    * @return A modified copy of the {@code this} object
    */
-  public final ImmutableRawCard withRarity(String value) {
+  public final ImmutableMagicCard withRarity(String value) {
     String newValue = Objects.requireNonNull(value, "rarity");
     if (this.rarity.equals(newValue)) return this;
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -352,15 +352,15 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object by setting a value for the {@link RawCard#set() set} attribute.
+   * Copy the current immutable object by setting a value for the {@link MagicCard#set() set} attribute.
    * An equals check used to prevent copying of the same value by returning {@code this}.
    * @param value A new value for set
    * @return A modified copy of the {@code this} object
    */
-  public final ImmutableRawCard withSet(String value) {
+  public final ImmutableMagicCard withSet(String value) {
     String newValue = Objects.requireNonNull(value, "set");
     if (this.set.equals(newValue)) return this;
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -378,15 +378,15 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object by setting a value for the {@link RawCard#type() type} attribute.
+   * Copy the current immutable object by setting a value for the {@link MagicCard#type() type} attribute.
    * An equals check used to prevent copying of the same value by returning {@code this}.
    * @param value A new value for type
    * @return A modified copy of the {@code this} object
    */
-  public final ImmutableRawCard withType(String value) {
+  public final ImmutableMagicCard withType(String value) {
     String newValue = Objects.requireNonNull(value, "type");
     if (this.type.equals(newValue)) return this;
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -404,14 +404,14 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object by setting a <i>present</i> value for the optional {@link RawCard#manaCost() manaCost} attribute.
+   * Copy the current immutable object by setting a <i>present</i> value for the optional {@link MagicCard#manaCost() manaCost} attribute.
    * @param value The value for manaCost
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withManaCost(String value) {
+  public final ImmutableMagicCard withManaCost(String value) {
     String newValue = Objects.requireNonNull(value, "manaCost");
     if (Objects.equals(this.manaCost, newValue)) return this;
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -429,15 +429,15 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object by setting an optional value for the {@link RawCard#manaCost() manaCost} attribute.
+   * Copy the current immutable object by setting an optional value for the {@link MagicCard#manaCost() manaCost} attribute.
    * An equality check is used on inner nullable value to prevent copying of the same value by returning {@code this}.
    * @param optional A value for manaCost
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withManaCost(Optional<String> optional) {
+  public final ImmutableMagicCard withManaCost(Optional<String> optional) {
     String value = optional.orElse(null);
     if (Objects.equals(this.manaCost, value)) return this;
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -455,14 +455,14 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object by setting a <i>present</i> value for the optional {@link RawCard#cmc() cmc} attribute.
+   * Copy the current immutable object by setting a <i>present</i> value for the optional {@link MagicCard#cmc() cmc} attribute.
    * @param value The value for cmc
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withCmc(int value) {
+  public final ImmutableMagicCard withCmc(int value) {
     Integer newValue = value;
     if (Objects.equals(this.cmc, newValue)) return this;
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -480,15 +480,15 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object by setting an optional value for the {@link RawCard#cmc() cmc} attribute.
+   * Copy the current immutable object by setting an optional value for the {@link MagicCard#cmc() cmc} attribute.
    * An equality check is used on inner nullable value to prevent copying of the same value by returning {@code this}.
    * @param optional A value for cmc
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withCmc(Optional<Integer> optional) {
+  public final ImmutableMagicCard withCmc(Optional<Integer> optional) {
     Integer value = optional.orElse(null);
     if (Objects.equals(this.cmc, value)) return this;
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -506,13 +506,13 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object with elements that replace the content of {@link RawCard#colorIdentity() colorIdentity}.
+   * Copy the current immutable object with elements that replace the content of {@link MagicCard#colorIdentity() colorIdentity}.
    * @param elements The elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withColorIdentity(String... elements) {
+  public final ImmutableMagicCard withColorIdentity(String... elements) {
     Set<String> newValue = createUnmodifiableSet(createSafeList(Arrays.asList(elements), true, false));
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -530,15 +530,15 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object with elements that replace the content of {@link RawCard#colorIdentity() colorIdentity}.
+   * Copy the current immutable object with elements that replace the content of {@link MagicCard#colorIdentity() colorIdentity}.
    * A shallow reference equality check is used to prevent copying of the same value by returning {@code this}.
    * @param elements An iterable of colorIdentity elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withColorIdentity(Iterable<String> elements) {
+  public final ImmutableMagicCard withColorIdentity(Iterable<String> elements) {
     if (this.colorIdentity == elements) return this;
     Set<String> newValue = createUnmodifiableSet(createSafeList(elements, true, false));
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -556,13 +556,13 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object with elements that replace the content of {@link RawCard#colors() colors}.
+   * Copy the current immutable object with elements that replace the content of {@link MagicCard#colors() colors}.
    * @param elements The elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withColors(String... elements) {
+  public final ImmutableMagicCard withColors(String... elements) {
     Set<String> newValue = createUnmodifiableSet(createSafeList(Arrays.asList(elements), true, false));
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -580,15 +580,15 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object with elements that replace the content of {@link RawCard#colors() colors}.
+   * Copy the current immutable object with elements that replace the content of {@link MagicCard#colors() colors}.
    * A shallow reference equality check is used to prevent copying of the same value by returning {@code this}.
    * @param elements An iterable of colors elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withColors(Iterable<String> elements) {
+  public final ImmutableMagicCard withColors(Iterable<String> elements) {
     if (this.colors == elements) return this;
     Set<String> newValue = createUnmodifiableSet(createSafeList(elements, true, false));
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -606,13 +606,13 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object with elements that replace the content of {@link RawCard#types() types}.
+   * Copy the current immutable object with elements that replace the content of {@link MagicCard#types() types}.
    * @param elements The elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withTypes(String... elements) {
+  public final ImmutableMagicCard withTypes(String... elements) {
     Set<String> newValue = createUnmodifiableSet(createSafeList(Arrays.asList(elements), true, false));
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -630,15 +630,15 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object with elements that replace the content of {@link RawCard#types() types}.
+   * Copy the current immutable object with elements that replace the content of {@link MagicCard#types() types}.
    * A shallow reference equality check is used to prevent copying of the same value by returning {@code this}.
    * @param elements An iterable of types elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withTypes(Iterable<String> elements) {
+  public final ImmutableMagicCard withTypes(Iterable<String> elements) {
     if (this.types == elements) return this;
     Set<String> newValue = createUnmodifiableSet(createSafeList(elements, true, false));
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -656,13 +656,13 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object with elements that replace the content of {@link RawCard#supertypes() supertypes}.
+   * Copy the current immutable object with elements that replace the content of {@link MagicCard#supertypes() supertypes}.
    * @param elements The elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withSupertypes(String... elements) {
+  public final ImmutableMagicCard withSupertypes(String... elements) {
     Set<String> newValue = createUnmodifiableSet(createSafeList(Arrays.asList(elements), true, false));
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -680,15 +680,15 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object with elements that replace the content of {@link RawCard#supertypes() supertypes}.
+   * Copy the current immutable object with elements that replace the content of {@link MagicCard#supertypes() supertypes}.
    * A shallow reference equality check is used to prevent copying of the same value by returning {@code this}.
    * @param elements An iterable of supertypes elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withSupertypes(Iterable<String> elements) {
+  public final ImmutableMagicCard withSupertypes(Iterable<String> elements) {
     if (this.supertypes == elements) return this;
     Set<String> newValue = createUnmodifiableSet(createSafeList(elements, true, false));
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -706,13 +706,13 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object with elements that replace the content of {@link RawCard#subtypes() subtypes}.
+   * Copy the current immutable object with elements that replace the content of {@link MagicCard#subtypes() subtypes}.
    * @param elements The elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withSubtypes(String... elements) {
+  public final ImmutableMagicCard withSubtypes(String... elements) {
     Set<String> newValue = createUnmodifiableSet(createSafeList(Arrays.asList(elements), true, false));
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -730,15 +730,15 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object with elements that replace the content of {@link RawCard#subtypes() subtypes}.
+   * Copy the current immutable object with elements that replace the content of {@link MagicCard#subtypes() subtypes}.
    * A shallow reference equality check is used to prevent copying of the same value by returning {@code this}.
    * @param elements An iterable of subtypes elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withSubtypes(Iterable<String> elements) {
+  public final ImmutableMagicCard withSubtypes(Iterable<String> elements) {
     if (this.subtypes == elements) return this;
     Set<String> newValue = createUnmodifiableSet(createSafeList(elements, true, false));
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -756,14 +756,14 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object by setting a <i>present</i> value for the optional {@link RawCard#text() text} attribute.
+   * Copy the current immutable object by setting a <i>present</i> value for the optional {@link MagicCard#text() text} attribute.
    * @param value The value for text
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withText(String value) {
+  public final ImmutableMagicCard withText(String value) {
     String newValue = Objects.requireNonNull(value, "text");
     if (Objects.equals(this.text, newValue)) return this;
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -781,15 +781,15 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Copy the current immutable object by setting an optional value for the {@link RawCard#text() text} attribute.
+   * Copy the current immutable object by setting an optional value for the {@link MagicCard#text() text} attribute.
    * An equality check is used on inner nullable value to prevent copying of the same value by returning {@code this}.
    * @param optional A value for text
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawCard withText(Optional<String> optional) {
+  public final ImmutableMagicCard withText(Optional<String> optional) {
     String value = optional.orElse(null);
     if (Objects.equals(this.text, value)) return this;
-    return new ImmutableRawCard(
+    return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
         this.names,
@@ -813,11 +813,11 @@ public final class ImmutableRawCard implements RawCard {
   @Override
   public boolean equals(Object another) {
     if (this == another) return true;
-    return another instanceof ImmutableRawCard
-        && equalTo((ImmutableRawCard) another);
+    return another instanceof ImmutableMagicCard
+        && equalTo((ImmutableMagicCard) another);
   }
 
-  private boolean equalTo(ImmutableRawCard another) {
+  private boolean equalTo(ImmutableMagicCard another) {
     return Objects.equals(multiverseid, another.multiverseid)
         && name.equals(another.name)
         && names.equals(another.names)
@@ -911,7 +911,7 @@ public final class ImmutableRawCard implements RawCard {
   @Deprecated
   @JsonDeserialize
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
-  static final class Json implements RawCard {
+  static final class Json implements MagicCard {
     Optional<Long> multiverseid = Optional.empty();
     String name;
     List<String> names = Collections.emptyList();
@@ -1019,8 +1019,8 @@ public final class ImmutableRawCard implements RawCard {
    */
   @Deprecated
   @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-  static ImmutableRawCard fromJson(Json json) {
-    ImmutableRawCard.Builder builder = ImmutableRawCard.builder();
+  static ImmutableMagicCard fromJson(Json json) {
+    ImmutableMagicCard.Builder builder = ImmutableMagicCard.builder();
     if (json.multiverseid != null) {
       builder.multiverseid(json.multiverseid);
     }
@@ -1067,49 +1067,49 @@ public final class ImmutableRawCard implements RawCard {
   }
 
   /**
-   * Creates an immutable copy of a {@link RawCard} value.
+   * Creates an immutable copy of a {@link MagicCard} value.
    * Uses accessors to get values to initialize the new immutable instance.
    * If an instance is already immutable, it is returned as is.
    * @param instance The instance to copy
    * @return A copied immutable RawCard instance
    */
-  public static ImmutableRawCard copyOf(RawCard instance) {
-    if (instance instanceof ImmutableRawCard) {
-      return (ImmutableRawCard) instance;
+  public static ImmutableMagicCard copyOf(MagicCard instance) {
+    if (instance instanceof ImmutableMagicCard) {
+      return (ImmutableMagicCard) instance;
     }
-    return ImmutableRawCard.builder()
+    return ImmutableMagicCard.builder()
         .from(instance)
         .build();
   }
 
   /**
-   * Creates a builder for {@link ImmutableRawCard ImmutableRawCard}.
+   * Creates a builder for {@link ImmutableMagicCard ImmutableRawCard}.
    * <pre>
    * ImmutableRawCard.builder()
-   *    .multiverseid(Long) // optional {@link RawCard#multiverseid() multiverseid}
-   *    .name(String) // required {@link RawCard#name() name}
-   *    .addNames|addAllNames(String) // {@link RawCard#names() names} elements
-   *    .rarity(String) // required {@link RawCard#rarity() rarity}
-   *    .set(String) // required {@link RawCard#set() set}
-   *    .type(String) // required {@link RawCard#type() type}
-   *    .manaCost(String) // optional {@link RawCard#manaCost() manaCost}
-   *    .cmc(Integer) // optional {@link RawCard#cmc() cmc}
-   *    .addColorIdentity|addAllColorIdentity(String) // {@link RawCard#colorIdentity() colorIdentity} elements
-   *    .addColors|addAllColors(String) // {@link RawCard#colors() colors} elements
-   *    .addTypes|addAllTypes(String) // {@link RawCard#types() types} elements
-   *    .addSupertypes|addAllSupertypes(String) // {@link RawCard#supertypes() supertypes} elements
-   *    .addSubtypes|addAllSubtypes(String) // {@link RawCard#subtypes() subtypes} elements
-   *    .text(String) // optional {@link RawCard#text() text}
+   *    .multiverseid(Long) // optional {@link MagicCard#multiverseid() multiverseid}
+   *    .name(String) // required {@link MagicCard#name() name}
+   *    .addNames|addAllNames(String) // {@link MagicCard#names() names} elements
+   *    .rarity(String) // required {@link MagicCard#rarity() rarity}
+   *    .set(String) // required {@link MagicCard#set() set}
+   *    .type(String) // required {@link MagicCard#type() type}
+   *    .manaCost(String) // optional {@link MagicCard#manaCost() manaCost}
+   *    .cmc(Integer) // optional {@link MagicCard#cmc() cmc}
+   *    .addColorIdentity|addAllColorIdentity(String) // {@link MagicCard#colorIdentity() colorIdentity} elements
+   *    .addColors|addAllColors(String) // {@link MagicCard#colors() colors} elements
+   *    .addTypes|addAllTypes(String) // {@link MagicCard#types() types} elements
+   *    .addSupertypes|addAllSupertypes(String) // {@link MagicCard#supertypes() supertypes} elements
+   *    .addSubtypes|addAllSubtypes(String) // {@link MagicCard#subtypes() subtypes} elements
+   *    .text(String) // optional {@link MagicCard#text() text}
    *    .build();
    * </pre>
    * @return A new ImmutableRawCard builder
    */
-  public static ImmutableRawCard.Builder builder() {
-    return new ImmutableRawCard.Builder();
+  public static ImmutableMagicCard.Builder builder() {
+    return new ImmutableMagicCard.Builder();
   }
 
   /**
-   * Builds instances of type {@link ImmutableRawCard ImmutableRawCard}.
+   * Builds instances of type {@link ImmutableMagicCard ImmutableRawCard}.
    * Initialize attributes and then invoke the {@link #build()} method to create an
    * immutable instance.
    * <p><em>{@code Builder} is not thread-safe and generally should not be stored in a field or collection,
@@ -1149,7 +1149,7 @@ public final class ImmutableRawCard implements RawCard {
      * @param instance The instance from which to copy values
      * @return {@code this} builder for use in a chained invocation
      */
-    public final Builder from(RawCard instance) {
+    public final Builder from(MagicCard instance) {
       Objects.requireNonNull(instance, "instance");
       Optional<Long> multiverseidOptional = instance.multiverseid();
       if (multiverseidOptional.isPresent()) {
@@ -1181,7 +1181,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Initializes the optional value {@link RawCard#multiverseid() multiverseid} to multiverseid.
+     * Initializes the optional value {@link MagicCard#multiverseid() multiverseid} to multiverseid.
      * @param multiverseid The value for multiverseid
      * @return {@code this} builder for chained invocation
      */
@@ -1191,7 +1191,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Initializes the optional value {@link RawCard#multiverseid() multiverseid} to multiverseid.
+     * Initializes the optional value {@link MagicCard#multiverseid() multiverseid} to multiverseid.
      * @param multiverseid The value for multiverseid
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1202,7 +1202,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Initializes the value for the {@link RawCard#name() name} attribute.
+     * Initializes the value for the {@link MagicCard#name() name} attribute.
      * @param name The value for name 
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1214,7 +1214,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds one element to {@link RawCard#names() names} list.
+     * Adds one element to {@link MagicCard#names() names} list.
      * @param element A names element
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1224,7 +1224,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds elements to {@link RawCard#names() names} list.
+     * Adds elements to {@link MagicCard#names() names} list.
      * @param elements An array of names elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1237,7 +1237,7 @@ public final class ImmutableRawCard implements RawCard {
 
 
     /**
-     * Sets or replaces all elements for {@link RawCard#names() names} list.
+     * Sets or replaces all elements for {@link MagicCard#names() names} list.
      * @param elements An iterable of names elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1248,7 +1248,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds elements to {@link RawCard#names() names} list.
+     * Adds elements to {@link MagicCard#names() names} list.
      * @param elements An iterable of names elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1260,7 +1260,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Initializes the value for the {@link RawCard#rarity() rarity} attribute.
+     * Initializes the value for the {@link MagicCard#rarity() rarity} attribute.
      * @param rarity The value for rarity 
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1272,7 +1272,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Initializes the value for the {@link RawCard#set() set} attribute.
+     * Initializes the value for the {@link MagicCard#set() set} attribute.
      * @param set The value for set 
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1284,7 +1284,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Initializes the value for the {@link RawCard#type() type} attribute.
+     * Initializes the value for the {@link MagicCard#type() type} attribute.
      * @param type The value for type 
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1296,7 +1296,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Initializes the optional value {@link RawCard#manaCost() manaCost} to manaCost.
+     * Initializes the optional value {@link MagicCard#manaCost() manaCost} to manaCost.
      * @param manaCost The value for manaCost
      * @return {@code this} builder for chained invocation
      */
@@ -1306,7 +1306,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Initializes the optional value {@link RawCard#manaCost() manaCost} to manaCost.
+     * Initializes the optional value {@link MagicCard#manaCost() manaCost} to manaCost.
      * @param manaCost The value for manaCost
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1317,7 +1317,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Initializes the optional value {@link RawCard#cmc() cmc} to cmc.
+     * Initializes the optional value {@link MagicCard#cmc() cmc} to cmc.
      * @param cmc The value for cmc
      * @return {@code this} builder for chained invocation
      */
@@ -1327,7 +1327,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Initializes the optional value {@link RawCard#cmc() cmc} to cmc.
+     * Initializes the optional value {@link MagicCard#cmc() cmc} to cmc.
      * @param cmc The value for cmc
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1338,7 +1338,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds one element to {@link RawCard#colorIdentity() colorIdentity} set.
+     * Adds one element to {@link MagicCard#colorIdentity() colorIdentity} set.
      * @param element A colorIdentity element
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1348,7 +1348,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds elements to {@link RawCard#colorIdentity() colorIdentity} set.
+     * Adds elements to {@link MagicCard#colorIdentity() colorIdentity} set.
      * @param elements An array of colorIdentity elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1361,7 +1361,7 @@ public final class ImmutableRawCard implements RawCard {
 
 
     /**
-     * Sets or replaces all elements for {@link RawCard#colorIdentity() colorIdentity} set.
+     * Sets or replaces all elements for {@link MagicCard#colorIdentity() colorIdentity} set.
      * @param elements An iterable of colorIdentity elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1372,7 +1372,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds elements to {@link RawCard#colorIdentity() colorIdentity} set.
+     * Adds elements to {@link MagicCard#colorIdentity() colorIdentity} set.
      * @param elements An iterable of colorIdentity elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1384,7 +1384,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds one element to {@link RawCard#colors() colors} set.
+     * Adds one element to {@link MagicCard#colors() colors} set.
      * @param element A colors element
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1394,7 +1394,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds elements to {@link RawCard#colors() colors} set.
+     * Adds elements to {@link MagicCard#colors() colors} set.
      * @param elements An array of colors elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1407,7 +1407,7 @@ public final class ImmutableRawCard implements RawCard {
 
 
     /**
-     * Sets or replaces all elements for {@link RawCard#colors() colors} set.
+     * Sets or replaces all elements for {@link MagicCard#colors() colors} set.
      * @param elements An iterable of colors elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1418,7 +1418,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds elements to {@link RawCard#colors() colors} set.
+     * Adds elements to {@link MagicCard#colors() colors} set.
      * @param elements An iterable of colors elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1430,7 +1430,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds one element to {@link RawCard#types() types} set.
+     * Adds one element to {@link MagicCard#types() types} set.
      * @param element A types element
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1440,7 +1440,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds elements to {@link RawCard#types() types} set.
+     * Adds elements to {@link MagicCard#types() types} set.
      * @param elements An array of types elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1453,7 +1453,7 @@ public final class ImmutableRawCard implements RawCard {
 
 
     /**
-     * Sets or replaces all elements for {@link RawCard#types() types} set.
+     * Sets or replaces all elements for {@link MagicCard#types() types} set.
      * @param elements An iterable of types elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1464,7 +1464,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds elements to {@link RawCard#types() types} set.
+     * Adds elements to {@link MagicCard#types() types} set.
      * @param elements An iterable of types elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1476,7 +1476,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds one element to {@link RawCard#supertypes() supertypes} set.
+     * Adds one element to {@link MagicCard#supertypes() supertypes} set.
      * @param element A supertypes element
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1486,7 +1486,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds elements to {@link RawCard#supertypes() supertypes} set.
+     * Adds elements to {@link MagicCard#supertypes() supertypes} set.
      * @param elements An array of supertypes elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1499,7 +1499,7 @@ public final class ImmutableRawCard implements RawCard {
 
 
     /**
-     * Sets or replaces all elements for {@link RawCard#supertypes() supertypes} set.
+     * Sets or replaces all elements for {@link MagicCard#supertypes() supertypes} set.
      * @param elements An iterable of supertypes elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1510,7 +1510,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds elements to {@link RawCard#supertypes() supertypes} set.
+     * Adds elements to {@link MagicCard#supertypes() supertypes} set.
      * @param elements An iterable of supertypes elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1522,7 +1522,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds one element to {@link RawCard#subtypes() subtypes} set.
+     * Adds one element to {@link MagicCard#subtypes() subtypes} set.
      * @param element A subtypes element
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1532,7 +1532,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds elements to {@link RawCard#subtypes() subtypes} set.
+     * Adds elements to {@link MagicCard#subtypes() subtypes} set.
      * @param elements An array of subtypes elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1545,7 +1545,7 @@ public final class ImmutableRawCard implements RawCard {
 
 
     /**
-     * Sets or replaces all elements for {@link RawCard#subtypes() subtypes} set.
+     * Sets or replaces all elements for {@link MagicCard#subtypes() subtypes} set.
      * @param elements An iterable of subtypes elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1556,7 +1556,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Adds elements to {@link RawCard#subtypes() subtypes} set.
+     * Adds elements to {@link MagicCard#subtypes() subtypes} set.
      * @param elements An iterable of subtypes elements
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1568,7 +1568,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Initializes the optional value {@link RawCard#text() text} to text.
+     * Initializes the optional value {@link MagicCard#text() text} to text.
      * @param text The value for text
      * @return {@code this} builder for chained invocation
      */
@@ -1578,7 +1578,7 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Initializes the optional value {@link RawCard#text() text} to text.
+     * Initializes the optional value {@link MagicCard#text() text} to text.
      * @param text The value for text
      * @return {@code this} builder for use in a chained invocation
      */
@@ -1589,15 +1589,15 @@ public final class ImmutableRawCard implements RawCard {
     }
 
     /**
-     * Builds a new {@link ImmutableRawCard ImmutableRawCard}.
+     * Builds a new {@link ImmutableMagicCard ImmutableRawCard}.
      * @return An immutable instance of RawCard
      * @throws java.lang.IllegalStateException if any required attributes are missing
      */
-    public ImmutableRawCard build() {
+    public ImmutableMagicCard build() {
       if (initBits != 0) {
         throw new IllegalStateException(formatRequiredAttributesMessage());
       }
-      return new ImmutableRawCard(
+      return new ImmutableMagicCard(
           multiverseid,
           name,
           createUnmodifiableList(true, names),

@@ -19,12 +19,12 @@ import org.immutables.value.Generated;
 @SuppressWarnings({"all"})
 @javax.annotation.processing.Generated("org.immutables.processor.ProxyProcessor")
 public final class ImmutablePage implements Page {
-  private final List<RawCard> cards;
+  private final List<MagicCard> cards;
   private final Integer nextPageNumber;
   private final Integer lastPageNumber;
 
   private ImmutablePage(
-      List<RawCard> cards,
+      List<MagicCard> cards,
       Integer nextPageNumber,
       Integer lastPageNumber) {
     this.cards = cards;
@@ -36,7 +36,7 @@ public final class ImmutablePage implements Page {
    * @return The value of the {@code cards} attribute
    */
   @Override
-  public List<RawCard> cards() {
+  public List<MagicCard> cards() {
     return cards;
   }
 
@@ -61,8 +61,8 @@ public final class ImmutablePage implements Page {
    * @param elements The elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutablePage withCards(RawCard... elements) {
-    List<RawCard> newValue = createUnmodifiableList(false, createSafeList(Arrays.asList(elements), true, false));
+  public final ImmutablePage withCards(MagicCard... elements) {
+    List<MagicCard> newValue = createUnmodifiableList(false, createSafeList(Arrays.asList(elements), true, false));
     return new ImmutablePage(newValue, this.nextPageNumber, this.lastPageNumber);
   }
 
@@ -72,9 +72,9 @@ public final class ImmutablePage implements Page {
    * @param elements An iterable of cards elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutablePage withCards(Iterable<? extends RawCard> elements) {
+  public final ImmutablePage withCards(Iterable<? extends MagicCard> elements) {
     if (this.cards == elements) return this;
-    List<RawCard> newValue = createUnmodifiableList(false, createSafeList(elements, true, false));
+    List<MagicCard> newValue = createUnmodifiableList(false, createSafeList(elements, true, false));
     return new ImmutablePage(newValue, this.nextPageNumber, this.lastPageNumber);
   }
 
@@ -203,7 +203,7 @@ public final class ImmutablePage implements Page {
     private static final long INIT_BIT_LAST_PAGE_NUMBER = 0x1L;
     private long initBits = 0x1L;
 
-    private List<RawCard> cards = new ArrayList<RawCard>();
+    private List<MagicCard> cards = new ArrayList<MagicCard>();
     private Integer nextPageNumber;
     private Integer lastPageNumber;
 
@@ -234,7 +234,7 @@ public final class ImmutablePage implements Page {
      * @param element A cards element
      * @return {@code this} builder for use in a chained invocation
      */
-    public final Builder addCards(RawCard element) {
+    public final Builder addCards(MagicCard element) {
       this.cards.add(Objects.requireNonNull(element, "cards element"));
       return this;
     }
@@ -244,8 +244,8 @@ public final class ImmutablePage implements Page {
      * @param elements An array of cards elements
      * @return {@code this} builder for use in a chained invocation
      */
-    public final Builder addCards(RawCard... elements) {
-      for (RawCard element : elements) {
+    public final Builder addCards(MagicCard... elements) {
+      for (MagicCard element : elements) {
         this.cards.add(Objects.requireNonNull(element, "cards element"));
       }
       return this;
@@ -257,7 +257,7 @@ public final class ImmutablePage implements Page {
      * @param elements An iterable of cards elements
      * @return {@code this} builder for use in a chained invocation
      */
-    public final Builder cards(Iterable<? extends RawCard> elements) {
+    public final Builder cards(Iterable<? extends MagicCard> elements) {
       this.cards.clear();
       return addAllCards(elements);
     }
@@ -267,8 +267,8 @@ public final class ImmutablePage implements Page {
      * @param elements An iterable of cards elements
      * @return {@code this} builder for use in a chained invocation
      */
-    public final Builder addAllCards(Iterable<? extends RawCard> elements) {
-      for (RawCard element : elements) {
+    public final Builder addAllCards(Iterable<? extends MagicCard> elements) {
+      for (MagicCard element : elements) {
         this.cards.add(Objects.requireNonNull(element, "cards element"));
       }
       return this;

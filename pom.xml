@@ -18,9 +18,9 @@
 	<description>Demo project for Spring Boot</description>
 
 	<modules>
-<!--		<module>mtg-model</module>-->
+		<module>mtg-model</module>
 		<module>mtg-client</module>
-<!--		<module>mtg-ingest</module>-->
+		<module>mtg-ingest</module>
 	</modules>
 
 	<properties>

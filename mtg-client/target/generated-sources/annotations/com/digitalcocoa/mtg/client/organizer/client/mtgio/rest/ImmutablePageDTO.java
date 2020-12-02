@@ -13,7 +13,7 @@ import java.util.Objects;
 import org.immutables.value.Generated;
 
 /**
- * Immutable implementation of {@link RawPage}.
+ * Immutable implementation of {@link PageDTO}.
  * <p>
  * Use the builder to create immutable instances:
  * {@code ImmutableRawPage.builder()}.
@@ -25,20 +25,20 @@ import org.immutables.value.Generated;
 @Generated(from = "RawPage", generator = "Immutables")
 @SuppressWarnings({"all"})
 @javax.annotation.processing.Generated("org.immutables.processor.ProxyProcessor")
-final class ImmutableRawPage implements RawPage {
-  private final List<RawCard> cards;
+final class ImmutablePageDTO implements PageDTO {
+  private final List<MagicCard> cards;
 
-  private ImmutableRawPage() {
+  private ImmutablePageDTO() {
     this.cards = Collections.emptyList();
   }
 
-  private ImmutableRawPage(Iterable<? extends RawCard> cards) {
+  private ImmutablePageDTO(Iterable<? extends MagicCard> cards) {
     this.cards = createUnmodifiableList(false, createSafeList(cards, true, false));
   }
 
-  private ImmutableRawPage(
-      ImmutableRawPage original,
-      List<RawCard> cards) {
+  private ImmutablePageDTO(
+      ImmutablePageDTO original,
+      List<MagicCard> cards) {
     this.cards = cards;
   }
 
@@ -47,30 +47,30 @@ final class ImmutableRawPage implements RawPage {
    */
   @JsonProperty("cards")
   @Override
-  public List<RawCard> cards() {
+  public List<MagicCard> cards() {
     return cards;
   }
 
   /**
-   * Copy the current immutable object with elements that replace the content of {@link RawPage#cards() cards}.
+   * Copy the current immutable object with elements that replace the content of {@link PageDTO#cards() cards}.
    * @param elements The elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawPage withCards(RawCard... elements) {
-    List<RawCard> newValue = createUnmodifiableList(false, createSafeList(Arrays.asList(elements), true, false));
-    return validate(new ImmutableRawPage(this, newValue));
+  public final ImmutablePageDTO withCards(MagicCard... elements) {
+    List<MagicCard> newValue = createUnmodifiableList(false, createSafeList(Arrays.asList(elements), true, false));
+    return validate(new ImmutablePageDTO(this, newValue));
   }
 
   /**
-   * Copy the current immutable object with elements that replace the content of {@link RawPage#cards() cards}.
+   * Copy the current immutable object with elements that replace the content of {@link PageDTO#cards() cards}.
    * A shallow reference equality check is used to prevent copying of the same value by returning {@code this}.
    * @param elements An iterable of cards elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawPage withCards(Iterable<? extends RawCard> elements) {
+  public final ImmutablePageDTO withCards(Iterable<? extends MagicCard> elements) {
     if (this.cards == elements) return this;
-    List<RawCard> newValue = createUnmodifiableList(false, createSafeList(elements, true, false));
-    return validate(new ImmutableRawPage(this, newValue));
+    List<MagicCard> newValue = createUnmodifiableList(false, createSafeList(elements, true, false));
+    return validate(new ImmutablePageDTO(this, newValue));
   }
 
   /**
@@ -80,11 +80,11 @@ final class ImmutableRawPage implements RawPage {
   @Override
   public boolean equals(Object another) {
     if (this == another) return true;
-    return another instanceof ImmutableRawPage
-        && equalTo((ImmutableRawPage) another);
+    return another instanceof ImmutablePageDTO
+        && equalTo((ImmutablePageDTO) another);
   }
 
-  private boolean equalTo(ImmutableRawPage another) {
+  private boolean equalTo(ImmutablePageDTO another) {
     return cards.equals(another.cards);
   }
 
@@ -118,14 +118,14 @@ final class ImmutableRawPage implements RawPage {
   @Deprecated
   @JsonDeserialize
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
-  static final class Json implements RawPage {
-    List<RawCard> cards = Collections.emptyList();
+  static final class Json implements PageDTO {
+    List<MagicCard> cards = Collections.emptyList();
     @JsonProperty("cards")
-    public void setCards(List<RawCard> cards) {
+    public void setCards(List<MagicCard> cards) {
       this.cards = cards;
     }
     @Override
-    public List<RawCard> cards() { throw new UnsupportedOperationException(); }
+    public List<MagicCard> cards() { throw new UnsupportedOperationException(); }
   }
 
   /**
@@ -135,21 +135,21 @@ final class ImmutableRawPage implements RawPage {
    */
   @Deprecated
   @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-  static ImmutableRawPage fromJson(Json json) {
-    ImmutableRawPage.Builder builder = ImmutableRawPage.builder();
+  static ImmutablePageDTO fromJson(Json json) {
+    ImmutablePageDTO.Builder builder = ImmutablePageDTO.builder();
     if (json.cards != null) {
       builder.addAllCards(json.cards);
     }
     return builder.build();
   }
 
-  private static final ImmutableRawPage INSTANCE = validate(new ImmutableRawPage());
+  private static final ImmutablePageDTO INSTANCE = validate(new ImmutablePageDTO());
 
   /**
    * Returns the default immutable singleton value of {@code RawPage}
    * @return An immutable instance of RawPage
    */
-  public static ImmutableRawPage of() {
+  public static ImmutablePageDTO of() {
     return INSTANCE;
   }
 
@@ -158,8 +158,8 @@ final class ImmutableRawPage implements RawPage {
    * @param cards The value for the {@code cards} attribute
    * @return An immutable RawPage instance
    */
-  public static ImmutableRawPage of(List<RawCard> cards) {
-    return of((Iterable<? extends RawCard>) cards);
+  public static ImmutablePageDTO of(List<MagicCard> cards) {
+    return of((Iterable<? extends MagicCard>) cards);
   }
 
   /**
@@ -167,45 +167,45 @@ final class ImmutableRawPage implements RawPage {
    * @param cards The value for the {@code cards} attribute
    * @return An immutable RawPage instance
    */
-  public static ImmutableRawPage of(Iterable<? extends RawCard> cards) {
-    return validate(new ImmutableRawPage(cards));
+  public static ImmutablePageDTO of(Iterable<? extends MagicCard> cards) {
+    return validate(new ImmutablePageDTO(cards));
   }
 
-  private static ImmutableRawPage validate(ImmutableRawPage instance) {
+  private static ImmutablePageDTO validate(ImmutablePageDTO instance) {
     return INSTANCE != null && INSTANCE.equalTo(instance) ? INSTANCE : instance;
   }
 
   /**
-   * Creates an immutable copy of a {@link RawPage} value.
+   * Creates an immutable copy of a {@link PageDTO} value.
    * Uses accessors to get values to initialize the new immutable instance.
    * If an instance is already immutable, it is returned as is.
    * @param instance The instance to copy
    * @return A copied immutable RawPage instance
    */
-  public static ImmutableRawPage copyOf(RawPage instance) {
-    if (instance instanceof ImmutableRawPage) {
-      return (ImmutableRawPage) instance;
+  public static ImmutablePageDTO copyOf(PageDTO instance) {
+    if (instance instanceof ImmutablePageDTO) {
+      return (ImmutablePageDTO) instance;
     }
-    return ImmutableRawPage.builder()
+    return ImmutablePageDTO.builder()
         .from(instance)
         .build();
   }
 
   /**
-   * Creates a builder for {@link ImmutableRawPage ImmutableRawPage}.
+   * Creates a builder for {@link ImmutablePageDTO ImmutableRawPage}.
    * <pre>
    * ImmutableRawPage.builder()
-   *    .addCards|addAllCards(com.digitalcocoa.mtg.client.organizer.client.mtgio.rest.RawCard) // {@link RawPage#cards() cards} elements
+   *    .addCards|addAllCards(com.digitalcocoa.mtg.client.organizer.client.mtgio.rest.RawCard) // {@link PageDTO#cards() cards} elements
    *    .build();
    * </pre>
    * @return A new ImmutableRawPage builder
    */
-  public static ImmutableRawPage.Builder builder() {
-    return new ImmutableRawPage.Builder();
+  public static ImmutablePageDTO.Builder builder() {
+    return new ImmutablePageDTO.Builder();
   }
 
   /**
-   * Builds instances of type {@link ImmutableRawPage ImmutableRawPage}.
+   * Builds instances of type {@link ImmutablePageDTO ImmutableRawPage}.
    * Initialize attributes and then invoke the {@link #build()} method to create an
    * immutable instance.
    * <p><em>{@code Builder} is not thread-safe and generally should not be stored in a field or collection,
@@ -213,7 +213,7 @@ final class ImmutableRawPage implements RawPage {
    */
   @Generated(from = "RawPage", generator = "Immutables")
   public static final class Builder {
-    private List<RawCard> cards = new ArrayList<RawCard>();
+    private List<MagicCard> cards = new ArrayList<MagicCard>();
 
     private Builder() {
     }
@@ -226,29 +226,29 @@ final class ImmutableRawPage implements RawPage {
      * @param instance The instance from which to copy values
      * @return {@code this} builder for use in a chained invocation
      */
-    public final Builder from(RawPage instance) {
+    public final Builder from(PageDTO instance) {
       Objects.requireNonNull(instance, "instance");
       addAllCards(instance.cards());
       return this;
     }
 
     /**
-     * Adds one element to {@link RawPage#cards() cards} list.
+     * Adds one element to {@link PageDTO#cards() cards} list.
      * @param element A cards element
      * @return {@code this} builder for use in a chained invocation
      */
-    public final Builder addCards(RawCard element) {
+    public final Builder addCards(MagicCard element) {
       this.cards.add(Objects.requireNonNull(element, "cards element"));
       return this;
     }
 
     /**
-     * Adds elements to {@link RawPage#cards() cards} list.
+     * Adds elements to {@link PageDTO#cards() cards} list.
      * @param elements An array of cards elements
      * @return {@code this} builder for use in a chained invocation
      */
-    public final Builder addCards(RawCard... elements) {
-      for (RawCard element : elements) {
+    public final Builder addCards(MagicCard... elements) {
+      for (MagicCard element : elements) {
         this.cards.add(Objects.requireNonNull(element, "cards element"));
       }
       return this;
@@ -256,35 +256,35 @@ final class ImmutableRawPage implements RawPage {
 
 
     /**
-     * Sets or replaces all elements for {@link RawPage#cards() cards} list.
+     * Sets or replaces all elements for {@link PageDTO#cards() cards} list.
      * @param elements An iterable of cards elements
      * @return {@code this} builder for use in a chained invocation
      */
     @JsonProperty("cards")
-    public final Builder cards(Iterable<? extends RawCard> elements) {
+    public final Builder cards(Iterable<? extends MagicCard> elements) {
       this.cards.clear();
       return addAllCards(elements);
     }
 
     /**
-     * Adds elements to {@link RawPage#cards() cards} list.
+     * Adds elements to {@link PageDTO#cards() cards} list.
      * @param elements An iterable of cards elements
      * @return {@code this} builder for use in a chained invocation
      */
-    public final Builder addAllCards(Iterable<? extends RawCard> elements) {
-      for (RawCard element : elements) {
+    public final Builder addAllCards(Iterable<? extends MagicCard> elements) {
+      for (MagicCard element : elements) {
         this.cards.add(Objects.requireNonNull(element, "cards element"));
       }
       return this;
     }
 
     /**
-     * Builds a new {@link ImmutableRawPage ImmutableRawPage}.
+     * Builds a new {@link ImmutablePageDTO ImmutableRawPage}.
      * @return An immutable instance of RawPage
      * @throws java.lang.IllegalStateException if any required attributes are missing
      */
-    public ImmutableRawPage build() {
-      return ImmutableRawPage.validate(new ImmutableRawPage(null, createUnmodifiableList(true, cards)));
+    public ImmutablePageDTO build() {
+      return ImmutablePageDTO.validate(new ImmutablePageDTO(null, createUnmodifiableList(true, cards)));
     }
   }
 

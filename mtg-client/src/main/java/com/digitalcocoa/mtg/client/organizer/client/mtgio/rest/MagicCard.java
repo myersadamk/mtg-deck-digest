@@ -1,5 +1,6 @@
-package com.digitalcocoa.mtg.deck.organizer.client.mtgio;
+package com.digitalcocoa.mtg.client.organizer.client.mtgio.rest;
 
+import com.digitalcocoa.mtg.client.organizer.client.mtgio.ImmutableMagicCard;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.List;
 import java.util.Optional;
@@ -7,8 +8,8 @@ import java.util.Set;
 import org.immutables.value.Value.Immutable;
 
 @Immutable
-@JsonDeserialize(as = ImmutableRawCard.class)
-public interface RawCard {
+@JsonDeserialize(as = ImmutableMagicCard.class)
+public interface MagicCard {
   Optional<Long> multiverseid();
 
   String name();

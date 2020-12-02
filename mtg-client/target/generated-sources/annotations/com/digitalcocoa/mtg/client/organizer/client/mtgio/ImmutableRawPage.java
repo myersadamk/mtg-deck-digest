@@ -1,6 +1,6 @@
 package com.digitalcocoa.mtg.client.organizer.client.mtgio;
 
-import com.digitalcocoa.mtg.client.organizer.client.mtgio.rest.RawCard;
+import com.digitalcocoa.mtg.client.organizer.client.mtgio.rest.MagicCard;
 import com.digitalcocoa.mtg.client.organizer.client.mtgio.rest.RawPage;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -26,19 +26,19 @@ import org.immutables.value.Generated;
 @SuppressWarnings({"all"})
 @javax.annotation.processing.Generated("org.immutables.processor.ProxyProcessor")
 public final class ImmutableRawPage implements RawPage {
-  private final List<RawCard> cards;
+  private final List<MagicCard> cards;
 
   private ImmutableRawPage() {
     this.cards = Collections.emptyList();
   }
 
-  private ImmutableRawPage(Iterable<? extends RawCard> cards) {
+  private ImmutableRawPage(Iterable<? extends MagicCard> cards) {
     this.cards = createUnmodifiableList(false, createSafeList(cards, true, false));
   }
 
   private ImmutableRawPage(
       ImmutableRawPage original,
-      List<RawCard> cards) {
+      List<MagicCard> cards) {
     this.cards = cards;
   }
 
@@ -47,7 +47,7 @@ public final class ImmutableRawPage implements RawPage {
    */
   @JsonProperty("cards")
   @Override
-  public List<RawCard> cards() {
+  public List<MagicCard> cards() {
     return cards;
   }
 
@@ -56,8 +56,8 @@ public final class ImmutableRawPage implements RawPage {
    * @param elements The elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawPage withCards(RawCard... elements) {
-    List<RawCard> newValue = createUnmodifiableList(false, createSafeList(Arrays.asList(elements), true, false));
+  public final ImmutableRawPage withCards(MagicCard... elements) {
+    List<MagicCard> newValue = createUnmodifiableList(false, createSafeList(Arrays.asList(elements), true, false));
     return validate(new ImmutableRawPage(this, newValue));
   }
 
@@ -67,9 +67,9 @@ public final class ImmutableRawPage implements RawPage {
    * @param elements An iterable of cards elements to set
    * @return A modified copy of {@code this} object
    */
-  public final ImmutableRawPage withCards(Iterable<? extends RawCard> elements) {
+  public final ImmutableRawPage withCards(Iterable<? extends MagicCard> elements) {
     if (this.cards == elements) return this;
-    List<RawCard> newValue = createUnmodifiableList(false, createSafeList(elements, true, false));
+    List<MagicCard> newValue = createUnmodifiableList(false, createSafeList(elements, true, false));
     return validate(new ImmutableRawPage(this, newValue));
   }
 
@@ -119,13 +119,13 @@ public final class ImmutableRawPage implements RawPage {
   @JsonDeserialize
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
   static final class Json implements RawPage {
-    List<RawCard> cards = Collections.emptyList();
+    List<MagicCard> cards = Collections.emptyList();
     @JsonProperty("cards")
-    public void setCards(List<RawCard> cards) {
+    public void setCards(List<MagicCard> cards) {
       this.cards = cards;
     }
     @Override
-    public List<RawCard> cards() { throw new UnsupportedOperationException(); }
+    public List<MagicCard> cards() { throw new UnsupportedOperationException(); }
   }
 
   /**
@@ -155,8 +155,8 @@ public final class ImmutableRawPage implements RawPage {
    * @param cards The value for the {@code cards} attribute
    * @return An immutable RawPage instance
    */
-  public static ImmutableRawPage of(List<RawCard> cards) {
-    return of((Iterable<? extends RawCard>) cards);
+  public static ImmutableRawPage of(List<MagicCard> cards) {
+    return of((Iterable<? extends MagicCard>) cards);
   }
 
   /**
@@ -164,7 +164,7 @@ public final class ImmutableRawPage implements RawPage {
    * @param cards The value for the {@code cards} attribute
    * @return An immutable RawPage instance
    */
-  public static ImmutableRawPage of(Iterable<? extends RawCard> cards) {
+  public static ImmutableRawPage of(Iterable<? extends MagicCard> cards) {
     return validate(new ImmutableRawPage(cards));
   }
 

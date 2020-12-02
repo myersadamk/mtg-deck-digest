@@ -3,9 +3,9 @@ package com.digitalcocoa.mtg.client.organizer.client.mtgio;
 import static reactor.core.publisher.Flux.empty;
 import static reactor.core.publisher.Flux.just;
 
+import com.digitalcocoa.mtg.client.organizer.client.mtgio.rest.MagicCard;
 import com.digitalcocoa.mtg.client.organizer.client.mtgio.rest.MagicCardClient;
 import com.digitalcocoa.mtg.client.organizer.client.mtgio.rest.Page;
-import com.digitalcocoa.mtg.client.organizer.client.mtgio.rest.RawCard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -20,7 +20,7 @@ public final class CardCatalog {
     this.client = client;
   }
 
-  public Flux<RawCard> getCards(Filters filters) {
+  public Flux<MagicCard> getCards(Filters filters) {
     return client
         .getPage(1, filters)
         .flatMapMany(

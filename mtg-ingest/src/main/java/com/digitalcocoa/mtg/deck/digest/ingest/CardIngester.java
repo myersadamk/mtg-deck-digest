@@ -1,10 +1,5 @@
-package com.digitalcocoa.mtg.deck.organizer.service;
+package com.digitalcocoa.mtg.deck.digest.ingest;
 
-import com.digitalcocoa.mtg.deck.organizer.client.mtgio.CardCatalog;
-import com.digitalcocoa.mtg.deck.organizer.client.mtgio.ImmutableFilters;
-import com.digitalcocoa.mtg.deck.organizer.client.mtgio.RawCard;
-import com.digitalcocoa.mtg.deck.organizer.repository.CardRepository;
-import com.digitalcocoa.mtg.deck.organizer.repository.CodeSetRepository;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;

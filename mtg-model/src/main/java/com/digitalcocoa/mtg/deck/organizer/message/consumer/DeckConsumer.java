@@ -1,6 +1,5 @@
 package com.digitalcocoa.mtg.deck.organizer.message.consumer;
 
-import com.digitalcocoa.mtg.deck.organizer.domain.card.Card;
 import com.digitalcocoa.mtg.deck.organizer.domain.card.ImmutableCard;
 import com.digitalcocoa.mtg.deck.organizer.domain.deck.Deck;
 import com.digitalcocoa.mtg.deck.organizer.domain.deck.ImmutableDeck;

@@ -39,10 +39,10 @@ public final class MagicCardClient {
         .uri(uriBuilder -> appendParameters(uriBuilder.path("/cards"), pageNumber, filters))
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
-        .toEntity(RawPage.class)
+        .toEntity(PageDTO.class)
         .doOnNext(entity -> populatePagingProtocol(pageNumber, entity, pageBuilder))
-        .map(entity -> entity.getBody() == null ? RawPage.empty() : entity.getBody())
-        .flatMapIterable(RawPage::cards)
+        .map(entity -> entity.getBody() == null ? PageDTO.empty() : entity.getBody())
+        .flatMapIterable(PageDTO::cards)
         .filter(card -> card.multiverseid().isPresent()) // Consider logging
         .collectList()
         .map(pageBuilder::cards)
