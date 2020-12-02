@@ -1,6 +1,5 @@
 package com.digitalcocoa.mtg.client.organizer.client.mtgio.rest;
 
-import com.digitalcocoa.mtg.client.organizer.client.mtgio.ImmutableMagicCard;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.List;
 import java.util.Optional;

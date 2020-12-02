@@ -4,57 +4,67 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.common.base.MoreObjects;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import com.google.errorprone.annotations.Var;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import javax.annotation.CheckReturnValue;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 import org.immutables.value.Generated;
 
 /**
  * Immutable implementation of {@link MagicCard}.
  * <p>
  * Use the builder to create immutable instances:
- * {@code ImmutableRawCard.builder()}.
+ * {@code ImmutableMagicCard.builder()}.
  */
-@Generated(from = "RawCard", generator = "Immutables")
+@Generated(from = "MagicCard", generator = "Immutables")
 @SuppressWarnings({"all"})
+@ParametersAreNonnullByDefault
 @javax.annotation.processing.Generated("org.immutables.processor.ProxyProcessor")
-public final class ImmutableMagicCard implements MagicCard {
-  private final Long multiverseid;
+@Immutable
+@CheckReturnValue
+public final class ImmutableMagicCard
+    implements MagicCard {
+  private final @Nullable Long multiverseid;
   private final String name;
-  private final List<String> names;
+  private final ImmutableList<String> names;
   private final String rarity;
   private final String set;
   private final String type;
-  private final String manaCost;
-  private final Integer cmc;
-  private final Set<String> colorIdentity;
-  private final Set<String> colors;
-  private final Set<String> types;
-  private final Set<String> supertypes;
-  private final Set<String> subtypes;
-  private final String text;
+  private final @Nullable String manaCost;
+  private final @Nullable Integer cmc;
+  private final ImmutableSet<String> colorIdentity;
+  private final ImmutableSet<String> colors;
+  private final ImmutableSet<String> types;
+  private final ImmutableSet<String> supertypes;
+  private final ImmutableSet<String> subtypes;
+  private final @Nullable String text;
 
   private ImmutableMagicCard(
-      Long multiverseid,
+      @Nullable Long multiverseid,
       String name,
-      List<String> names,
+      ImmutableList<String> names,
       String rarity,
       String set,
       String type,
-      String manaCost,
-      Integer cmc,
-      Set<String> colorIdentity,
-      Set<String> colors,
-      Set<String> types,
-      Set<String> supertypes,
-      Set<String> subtypes,
-      String text) {
+      @Nullable String manaCost,
+      @Nullable Integer cmc,
+      ImmutableSet<String> colorIdentity,
+      ImmutableSet<String> colors,
+      ImmutableSet<String> types,
+      ImmutableSet<String> supertypes,
+      ImmutableSet<String> subtypes,
+      @Nullable String text) {
     this.multiverseid = multiverseid;
     this.name = name;
     this.names = names;
@@ -94,7 +104,7 @@ public final class ImmutableMagicCard implements MagicCard {
    */
   @JsonProperty("names")
   @Override
-  public List<String> names() {
+  public ImmutableList<String> names() {
     return names;
   }
 
@@ -148,7 +158,7 @@ public final class ImmutableMagicCard implements MagicCard {
    */
   @JsonProperty("colorIdentity")
   @Override
-  public Set<String> colorIdentity() {
+  public ImmutableSet<String> colorIdentity() {
     return colorIdentity;
   }
 
@@ -157,7 +167,7 @@ public final class ImmutableMagicCard implements MagicCard {
    */
   @JsonProperty("colors")
   @Override
-  public Set<String> colors() {
+  public ImmutableSet<String> colors() {
     return colors;
   }
 
@@ -166,7 +176,7 @@ public final class ImmutableMagicCard implements MagicCard {
    */
   @JsonProperty("types")
   @Override
-  public Set<String> types() {
+  public ImmutableSet<String> types() {
     return types;
   }
 
@@ -175,7 +185,7 @@ public final class ImmutableMagicCard implements MagicCard {
    */
   @JsonProperty("supertypes")
   @Override
-  public Set<String> supertypes() {
+  public ImmutableSet<String> supertypes() {
     return supertypes;
   }
 
@@ -184,7 +194,7 @@ public final class ImmutableMagicCard implements MagicCard {
    */
   @JsonProperty("subtypes")
   @Override
-  public Set<String> subtypes() {
+  public ImmutableSet<String> subtypes() {
     return subtypes;
   }
 
@@ -203,7 +213,7 @@ public final class ImmutableMagicCard implements MagicCard {
    * @return A modified copy of {@code this} object
    */
   public final ImmutableMagicCard withMultiverseid(long value) {
-    Long newValue = value;
+    @Nullable Long newValue = value;
     if (Objects.equals(this.multiverseid, newValue)) return this;
     return new ImmutableMagicCard(
         newValue,
@@ -229,7 +239,7 @@ public final class ImmutableMagicCard implements MagicCard {
    * @return A modified copy of {@code this} object
    */
   public final ImmutableMagicCard withMultiverseid(Optional<Long> optional) {
-    Long value = optional.orElse(null);
+    @Nullable Long value = optional.orElse(null);
     if (Objects.equals(this.multiverseid, value)) return this;
     return new ImmutableMagicCard(
         value,
@@ -280,7 +290,7 @@ public final class ImmutableMagicCard implements MagicCard {
    * @return A modified copy of {@code this} object
    */
   public final ImmutableMagicCard withNames(String... elements) {
-    List<String> newValue = createUnmodifiableList(false, createSafeList(Arrays.asList(elements), true, false));
+    ImmutableList<String> newValue = ImmutableList.copyOf(elements);
     return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
@@ -306,7 +316,7 @@ public final class ImmutableMagicCard implements MagicCard {
    */
   public final ImmutableMagicCard withNames(Iterable<String> elements) {
     if (this.names == elements) return this;
-    List<String> newValue = createUnmodifiableList(false, createSafeList(elements, true, false));
+    ImmutableList<String> newValue = ImmutableList.copyOf(elements);
     return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
@@ -408,7 +418,7 @@ public final class ImmutableMagicCard implements MagicCard {
    * @return A modified copy of {@code this} object
    */
   public final ImmutableMagicCard withManaCost(String value) {
-    String newValue = Objects.requireNonNull(value, "manaCost");
+    @Nullable String newValue = Objects.requireNonNull(value, "manaCost");
     if (Objects.equals(this.manaCost, newValue)) return this;
     return new ImmutableMagicCard(
         this.multiverseid,
@@ -434,7 +444,7 @@ public final class ImmutableMagicCard implements MagicCard {
    * @return A modified copy of {@code this} object
    */
   public final ImmutableMagicCard withManaCost(Optional<String> optional) {
-    String value = optional.orElse(null);
+    @Nullable String value = optional.orElse(null);
     if (Objects.equals(this.manaCost, value)) return this;
     return new ImmutableMagicCard(
         this.multiverseid,
@@ -459,7 +469,7 @@ public final class ImmutableMagicCard implements MagicCard {
    * @return A modified copy of {@code this} object
    */
   public final ImmutableMagicCard withCmc(int value) {
-    Integer newValue = value;
+    @Nullable Integer newValue = value;
     if (Objects.equals(this.cmc, newValue)) return this;
     return new ImmutableMagicCard(
         this.multiverseid,
@@ -485,7 +495,7 @@ public final class ImmutableMagicCard implements MagicCard {
    * @return A modified copy of {@code this} object
    */
   public final ImmutableMagicCard withCmc(Optional<Integer> optional) {
-    Integer value = optional.orElse(null);
+    @Nullable Integer value = optional.orElse(null);
     if (Objects.equals(this.cmc, value)) return this;
     return new ImmutableMagicCard(
         this.multiverseid,
@@ -510,7 +520,7 @@ public final class ImmutableMagicCard implements MagicCard {
    * @return A modified copy of {@code this} object
    */
   public final ImmutableMagicCard withColorIdentity(String... elements) {
-    Set<String> newValue = createUnmodifiableSet(createSafeList(Arrays.asList(elements), true, false));
+    ImmutableSet<String> newValue = ImmutableSet.copyOf(elements);
     return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
@@ -536,7 +546,7 @@ public final class ImmutableMagicCard implements MagicCard {
    */
   public final ImmutableMagicCard withColorIdentity(Iterable<String> elements) {
     if (this.colorIdentity == elements) return this;
-    Set<String> newValue = createUnmodifiableSet(createSafeList(elements, true, false));
+    ImmutableSet<String> newValue = ImmutableSet.copyOf(elements);
     return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
@@ -560,7 +570,7 @@ public final class ImmutableMagicCard implements MagicCard {
    * @return A modified copy of {@code this} object
    */
   public final ImmutableMagicCard withColors(String... elements) {
-    Set<String> newValue = createUnmodifiableSet(createSafeList(Arrays.asList(elements), true, false));
+    ImmutableSet<String> newValue = ImmutableSet.copyOf(elements);
     return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
@@ -586,7 +596,7 @@ public final class ImmutableMagicCard implements MagicCard {
    */
   public final ImmutableMagicCard withColors(Iterable<String> elements) {
     if (this.colors == elements) return this;
-    Set<String> newValue = createUnmodifiableSet(createSafeList(elements, true, false));
+    ImmutableSet<String> newValue = ImmutableSet.copyOf(elements);
     return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
@@ -610,7 +620,7 @@ public final class ImmutableMagicCard implements MagicCard {
    * @return A modified copy of {@code this} object
    */
   public final ImmutableMagicCard withTypes(String... elements) {
-    Set<String> newValue = createUnmodifiableSet(createSafeList(Arrays.asList(elements), true, false));
+    ImmutableSet<String> newValue = ImmutableSet.copyOf(elements);
     return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
@@ -636,7 +646,7 @@ public final class ImmutableMagicCard implements MagicCard {
    */
   public final ImmutableMagicCard withTypes(Iterable<String> elements) {
     if (this.types == elements) return this;
-    Set<String> newValue = createUnmodifiableSet(createSafeList(elements, true, false));
+    ImmutableSet<String> newValue = ImmutableSet.copyOf(elements);
     return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
@@ -660,7 +670,7 @@ public final class ImmutableMagicCard implements MagicCard {
    * @return A modified copy of {@code this} object
    */
   public final ImmutableMagicCard withSupertypes(String... elements) {
-    Set<String> newValue = createUnmodifiableSet(createSafeList(Arrays.asList(elements), true, false));
+    ImmutableSet<String> newValue = ImmutableSet.copyOf(elements);
     return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
@@ -686,7 +696,7 @@ public final class ImmutableMagicCard implements MagicCard {
    */
   public final ImmutableMagicCard withSupertypes(Iterable<String> elements) {
     if (this.supertypes == elements) return this;
-    Set<String> newValue = createUnmodifiableSet(createSafeList(elements, true, false));
+    ImmutableSet<String> newValue = ImmutableSet.copyOf(elements);
     return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
@@ -710,7 +720,7 @@ public final class ImmutableMagicCard implements MagicCard {
    * @return A modified copy of {@code this} object
    */
   public final ImmutableMagicCard withSubtypes(String... elements) {
-    Set<String> newValue = createUnmodifiableSet(createSafeList(Arrays.asList(elements), true, false));
+    ImmutableSet<String> newValue = ImmutableSet.copyOf(elements);
     return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
@@ -736,7 +746,7 @@ public final class ImmutableMagicCard implements MagicCard {
    */
   public final ImmutableMagicCard withSubtypes(Iterable<String> elements) {
     if (this.subtypes == elements) return this;
-    Set<String> newValue = createUnmodifiableSet(createSafeList(elements, true, false));
+    ImmutableSet<String> newValue = ImmutableSet.copyOf(elements);
     return new ImmutableMagicCard(
         this.multiverseid,
         this.name,
@@ -760,7 +770,7 @@ public final class ImmutableMagicCard implements MagicCard {
    * @return A modified copy of {@code this} object
    */
   public final ImmutableMagicCard withText(String value) {
-    String newValue = Objects.requireNonNull(value, "text");
+    @Nullable String newValue = Objects.requireNonNull(value, "text");
     if (Objects.equals(this.text, newValue)) return this;
     return new ImmutableMagicCard(
         this.multiverseid,
@@ -786,7 +796,7 @@ public final class ImmutableMagicCard implements MagicCard {
    * @return A modified copy of {@code this} object
    */
   public final ImmutableMagicCard withText(Optional<String> optional) {
-    String value = optional.orElse(null);
+    @Nullable String value = optional.orElse(null);
     if (Objects.equals(this.text, value)) return this;
     return new ImmutableMagicCard(
         this.multiverseid,
@@ -806,11 +816,11 @@ public final class ImmutableMagicCard implements MagicCard {
   }
 
   /**
-   * This instance is equal to all instances of {@code ImmutableRawCard} that have equal attribute values.
+   * This instance is equal to all instances of {@code ImmutableMagicCard} that have equal attribute values.
    * @return {@code true} if {@code this} is equal to {@code another} instance
    */
   @Override
-  public boolean equals(Object another) {
+  public boolean equals(@Nullable Object another) {
     if (this == another) return true;
     return another instanceof ImmutableMagicCard
         && equalTo((ImmutableMagicCard) another);
@@ -839,7 +849,7 @@ public final class ImmutableMagicCard implements MagicCard {
    */
   @Override
   public int hashCode() {
-    int h = 5381;
+    @Var int h = 5381;
     h += (h << 5) + Objects.hashCode(multiverseid);
     h += (h << 5) + name.hashCode();
     h += (h << 5) + names.hashCode();
@@ -858,73 +868,54 @@ public final class ImmutableMagicCard implements MagicCard {
   }
 
   /**
-   * Prints the immutable value {@code RawCard} with attribute values.
+   * Prints the immutable value {@code MagicCard} with attribute values.
    * @return A string representation of the value
    */
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder("RawCard{");
-    if (multiverseid != null) {
-      builder.append("multiverseid=").append(multiverseid);
-    }
-    if (builder.length() > 8) builder.append(", ");
-    builder.append("name=").append(name);
-    builder.append(", ");
-    builder.append("names=").append(names);
-    builder.append(", ");
-    builder.append("rarity=").append(rarity);
-    builder.append(", ");
-    builder.append("set=").append(set);
-    builder.append(", ");
-    builder.append("type=").append(type);
-    if (manaCost != null) {
-      builder.append(", ");
-      builder.append("manaCost=").append(manaCost);
-    }
-    if (cmc != null) {
-      builder.append(", ");
-      builder.append("cmc=").append(cmc);
-    }
-    builder.append(", ");
-    builder.append("colorIdentity=").append(colorIdentity);
-    builder.append(", ");
-    builder.append("colors=").append(colors);
-    builder.append(", ");
-    builder.append("types=").append(types);
-    builder.append(", ");
-    builder.append("supertypes=").append(supertypes);
-    builder.append(", ");
-    builder.append("subtypes=").append(subtypes);
-    if (text != null) {
-      builder.append(", ");
-      builder.append("text=").append(text);
-    }
-    return builder.append("}").toString();
+    return MoreObjects.toStringHelper("MagicCard")
+        .omitNullValues()
+        .add("multiverseid", multiverseid)
+        .add("name", name)
+        .add("names", names)
+        .add("rarity", rarity)
+        .add("set", set)
+        .add("type", type)
+        .add("manaCost", manaCost)
+        .add("cmc", cmc)
+        .add("colorIdentity", colorIdentity)
+        .add("colors", colors)
+        .add("types", types)
+        .add("supertypes", supertypes)
+        .add("subtypes", subtypes)
+        .add("text", text)
+        .toString();
   }
 
   /**
    * Utility type used to correctly read immutable object from JSON representation.
    * @deprecated Do not use this type directly, it exists only for the <em>Jackson</em>-binding infrastructure
    */
-  @Generated(from = "RawCard", generator = "Immutables")
+  @Generated(from = "MagicCard", generator = "Immutables")
   @Deprecated
+  @SuppressWarnings("Immutable")
   @JsonDeserialize
   @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
   static final class Json implements MagicCard {
-    Optional<Long> multiverseid = Optional.empty();
-    String name;
-    List<String> names = Collections.emptyList();
-    String rarity;
-    String set;
-    String type;
-    Optional<String> manaCost = Optional.empty();
-    Optional<Integer> cmc = Optional.empty();
-    Set<String> colorIdentity = Collections.emptySet();
-    Set<String> colors = Collections.emptySet();
-    Set<String> types = Collections.emptySet();
-    Set<String> supertypes = Collections.emptySet();
-    Set<String> subtypes = Collections.emptySet();
-    Optional<String> text = Optional.empty();
+    @Nullable Optional<Long> multiverseid = Optional.empty();
+    @Nullable String name;
+    @Nullable List<String> names = ImmutableList.of();
+    @Nullable String rarity;
+    @Nullable String set;
+    @Nullable String type;
+    @Nullable Optional<String> manaCost = Optional.empty();
+    @Nullable Optional<Integer> cmc = Optional.empty();
+    @Nullable Set<String> colorIdentity = ImmutableSet.of();
+    @Nullable Set<String> colors = ImmutableSet.of();
+    @Nullable Set<String> types = ImmutableSet.of();
+    @Nullable Set<String> supertypes = ImmutableSet.of();
+    @Nullable Set<String> subtypes = ImmutableSet.of();
+    @Nullable Optional<String> text = Optional.empty();
     @JsonProperty("multiverseid")
     public void setMultiverseid(Optional<Long> multiverseid) {
       this.multiverseid = multiverseid;
@@ -1070,7 +1061,7 @@ public final class ImmutableMagicCard implements MagicCard {
    * Uses accessors to get values to initialize the new immutable instance.
    * If an instance is already immutable, it is returned as is.
    * @param instance The instance to copy
-   * @return A copied immutable RawCard instance
+   * @return A copied immutable MagicCard instance
    */
   public static ImmutableMagicCard copyOf(MagicCard instance) {
     if (instance instanceof ImmutableMagicCard) {
@@ -1082,9 +1073,9 @@ public final class ImmutableMagicCard implements MagicCard {
   }
 
   /**
-   * Creates a builder for {@link ImmutableMagicCard ImmutableRawCard}.
+   * Creates a builder for {@link ImmutableMagicCard ImmutableMagicCard}.
    * <pre>
-   * ImmutableRawCard.builder()
+   * ImmutableMagicCard.builder()
    *    .multiverseid(Long) // optional {@link MagicCard#multiverseid() multiverseid}
    *    .name(String) // required {@link MagicCard#name() name}
    *    .addNames|addAllNames(String) // {@link MagicCard#names() names} elements
@@ -1101,20 +1092,21 @@ public final class ImmutableMagicCard implements MagicCard {
    *    .text(String) // optional {@link MagicCard#text() text}
    *    .build();
    * </pre>
-   * @return A new ImmutableRawCard builder
+   * @return A new ImmutableMagicCard builder
    */
   public static ImmutableMagicCard.Builder builder() {
     return new ImmutableMagicCard.Builder();
   }
 
   /**
-   * Builds instances of type {@link ImmutableMagicCard ImmutableRawCard}.
+   * Builds instances of type {@link ImmutableMagicCard ImmutableMagicCard}.
    * Initialize attributes and then invoke the {@link #build()} method to create an
    * immutable instance.
    * <p><em>{@code Builder} is not thread-safe and generally should not be stored in a field or collection,
    * but instead used immediately to create instances.</em>
    */
-  @Generated(from = "RawCard", generator = "Immutables")
+  @Generated(from = "MagicCard", generator = "Immutables")
+  @NotThreadSafe
   public static final class Builder {
     private static final long INIT_BIT_NAME = 0x1L;
     private static final long INIT_BIT_RARITY = 0x2L;
@@ -1122,32 +1114,33 @@ public final class ImmutableMagicCard implements MagicCard {
     private static final long INIT_BIT_TYPE = 0x8L;
     private long initBits = 0xfL;
 
-    private Long multiverseid;
-    private String name;
-    private List<String> names = new ArrayList<String>();
-    private String rarity;
-    private String set;
-    private String type;
-    private String manaCost;
-    private Integer cmc;
-    private List<String> colorIdentity = new ArrayList<String>();
-    private List<String> colors = new ArrayList<String>();
-    private List<String> types = new ArrayList<String>();
-    private List<String> supertypes = new ArrayList<String>();
-    private List<String> subtypes = new ArrayList<String>();
-    private String text;
+    private @Nullable Long multiverseid;
+    private @Nullable String name;
+    private ImmutableList.Builder<String> names = ImmutableList.builder();
+    private @Nullable String rarity;
+    private @Nullable String set;
+    private @Nullable String type;
+    private @Nullable String manaCost;
+    private @Nullable Integer cmc;
+    private ImmutableSet.Builder<String> colorIdentity = ImmutableSet.builder();
+    private ImmutableSet.Builder<String> colors = ImmutableSet.builder();
+    private ImmutableSet.Builder<String> types = ImmutableSet.builder();
+    private ImmutableSet.Builder<String> supertypes = ImmutableSet.builder();
+    private ImmutableSet.Builder<String> subtypes = ImmutableSet.builder();
+    private @Nullable String text;
 
     private Builder() {
     }
 
     /**
-     * Fill a builder with attribute values from the provided {@code RawCard} instance.
+     * Fill a builder with attribute values from the provided {@code MagicCard} instance.
      * Regular attribute values will be replaced with those from the given instance.
      * Absent optional values will not replace present values.
      * Collection elements and entries will be added, not replaced.
      * @param instance The instance from which to copy values
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder from(MagicCard instance) {
       Objects.requireNonNull(instance, "instance");
       Optional<Long> multiverseidOptional = instance.multiverseid();
@@ -1184,6 +1177,7 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param multiverseid The value for multiverseid
      * @return {@code this} builder for chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder multiverseid(long multiverseid) {
       this.multiverseid = multiverseid;
       return this;
@@ -1194,6 +1188,7 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param multiverseid The value for multiverseid
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     @JsonProperty("multiverseid")
     public final Builder multiverseid(Optional<Long> multiverseid) {
       this.multiverseid = multiverseid.orElse(null);
@@ -1205,6 +1200,7 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param name The value for name 
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     @JsonProperty("name")
     public final Builder name(String name) {
       this.name = Objects.requireNonNull(name, "name");
@@ -1217,8 +1213,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param element A names element
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addNames(String element) {
-      this.names.add(Objects.requireNonNull(element, "names element"));
+      this.names.add(element);
       return this;
     }
 
@@ -1227,10 +1224,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An array of names elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addNames(String... elements) {
-      for (String element : elements) {
-        this.names.add(Objects.requireNonNull(element, "names element"));
-      }
+      this.names.add(elements);
       return this;
     }
 
@@ -1240,9 +1236,10 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An iterable of names elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     @JsonProperty("names")
     public final Builder names(Iterable<String> elements) {
-      this.names.clear();
+      this.names = ImmutableList.builder();
       return addAllNames(elements);
     }
 
@@ -1251,10 +1248,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An iterable of names elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addAllNames(Iterable<String> elements) {
-      for (String element : elements) {
-        this.names.add(Objects.requireNonNull(element, "names element"));
-      }
+      this.names.addAll(elements);
       return this;
     }
 
@@ -1263,6 +1259,7 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param rarity The value for rarity 
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     @JsonProperty("rarity")
     public final Builder rarity(String rarity) {
       this.rarity = Objects.requireNonNull(rarity, "rarity");
@@ -1275,6 +1272,7 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param set The value for set 
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     @JsonProperty("set")
     public final Builder set(String set) {
       this.set = Objects.requireNonNull(set, "set");
@@ -1287,6 +1285,7 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param type The value for type 
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     @JsonProperty("type")
     public final Builder type(String type) {
       this.type = Objects.requireNonNull(type, "type");
@@ -1299,6 +1298,7 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param manaCost The value for manaCost
      * @return {@code this} builder for chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder manaCost(String manaCost) {
       this.manaCost = Objects.requireNonNull(manaCost, "manaCost");
       return this;
@@ -1309,6 +1309,7 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param manaCost The value for manaCost
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     @JsonProperty("manaCost")
     public final Builder manaCost(Optional<String> manaCost) {
       this.manaCost = manaCost.orElse(null);
@@ -1320,6 +1321,7 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param cmc The value for cmc
      * @return {@code this} builder for chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder cmc(int cmc) {
       this.cmc = cmc;
       return this;
@@ -1330,6 +1332,7 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param cmc The value for cmc
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     @JsonProperty("cmc")
     public final Builder cmc(Optional<Integer> cmc) {
       this.cmc = cmc.orElse(null);
@@ -1341,8 +1344,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param element A colorIdentity element
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addColorIdentity(String element) {
-      this.colorIdentity.add(Objects.requireNonNull(element, "colorIdentity element"));
+      this.colorIdentity.add(element);
       return this;
     }
 
@@ -1351,10 +1355,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An array of colorIdentity elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addColorIdentity(String... elements) {
-      for (String element : elements) {
-        this.colorIdentity.add(Objects.requireNonNull(element, "colorIdentity element"));
-      }
+      this.colorIdentity.add(elements);
       return this;
     }
 
@@ -1364,9 +1367,10 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An iterable of colorIdentity elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     @JsonProperty("colorIdentity")
     public final Builder colorIdentity(Iterable<String> elements) {
-      this.colorIdentity.clear();
+      this.colorIdentity = ImmutableSet.builder();
       return addAllColorIdentity(elements);
     }
 
@@ -1375,10 +1379,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An iterable of colorIdentity elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addAllColorIdentity(Iterable<String> elements) {
-      for (String element : elements) {
-        this.colorIdentity.add(Objects.requireNonNull(element, "colorIdentity element"));
-      }
+      this.colorIdentity.addAll(elements);
       return this;
     }
 
@@ -1387,8 +1390,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param element A colors element
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addColors(String element) {
-      this.colors.add(Objects.requireNonNull(element, "colors element"));
+      this.colors.add(element);
       return this;
     }
 
@@ -1397,10 +1401,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An array of colors elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addColors(String... elements) {
-      for (String element : elements) {
-        this.colors.add(Objects.requireNonNull(element, "colors element"));
-      }
+      this.colors.add(elements);
       return this;
     }
 
@@ -1410,9 +1413,10 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An iterable of colors elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     @JsonProperty("colors")
     public final Builder colors(Iterable<String> elements) {
-      this.colors.clear();
+      this.colors = ImmutableSet.builder();
       return addAllColors(elements);
     }
 
@@ -1421,10 +1425,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An iterable of colors elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addAllColors(Iterable<String> elements) {
-      for (String element : elements) {
-        this.colors.add(Objects.requireNonNull(element, "colors element"));
-      }
+      this.colors.addAll(elements);
       return this;
     }
 
@@ -1433,8 +1436,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param element A types element
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addTypes(String element) {
-      this.types.add(Objects.requireNonNull(element, "types element"));
+      this.types.add(element);
       return this;
     }
 
@@ -1443,10 +1447,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An array of types elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addTypes(String... elements) {
-      for (String element : elements) {
-        this.types.add(Objects.requireNonNull(element, "types element"));
-      }
+      this.types.add(elements);
       return this;
     }
 
@@ -1456,9 +1459,10 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An iterable of types elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     @JsonProperty("types")
     public final Builder types(Iterable<String> elements) {
-      this.types.clear();
+      this.types = ImmutableSet.builder();
       return addAllTypes(elements);
     }
 
@@ -1467,10 +1471,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An iterable of types elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addAllTypes(Iterable<String> elements) {
-      for (String element : elements) {
-        this.types.add(Objects.requireNonNull(element, "types element"));
-      }
+      this.types.addAll(elements);
       return this;
     }
 
@@ -1479,8 +1482,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param element A supertypes element
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addSupertypes(String element) {
-      this.supertypes.add(Objects.requireNonNull(element, "supertypes element"));
+      this.supertypes.add(element);
       return this;
     }
 
@@ -1489,10 +1493,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An array of supertypes elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addSupertypes(String... elements) {
-      for (String element : elements) {
-        this.supertypes.add(Objects.requireNonNull(element, "supertypes element"));
-      }
+      this.supertypes.add(elements);
       return this;
     }
 
@@ -1502,9 +1505,10 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An iterable of supertypes elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     @JsonProperty("supertypes")
     public final Builder supertypes(Iterable<String> elements) {
-      this.supertypes.clear();
+      this.supertypes = ImmutableSet.builder();
       return addAllSupertypes(elements);
     }
 
@@ -1513,10 +1517,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An iterable of supertypes elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addAllSupertypes(Iterable<String> elements) {
-      for (String element : elements) {
-        this.supertypes.add(Objects.requireNonNull(element, "supertypes element"));
-      }
+      this.supertypes.addAll(elements);
       return this;
     }
 
@@ -1525,8 +1528,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param element A subtypes element
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addSubtypes(String element) {
-      this.subtypes.add(Objects.requireNonNull(element, "subtypes element"));
+      this.subtypes.add(element);
       return this;
     }
 
@@ -1535,10 +1539,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An array of subtypes elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addSubtypes(String... elements) {
-      for (String element : elements) {
-        this.subtypes.add(Objects.requireNonNull(element, "subtypes element"));
-      }
+      this.subtypes.add(elements);
       return this;
     }
 
@@ -1548,9 +1551,10 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An iterable of subtypes elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     @JsonProperty("subtypes")
     public final Builder subtypes(Iterable<String> elements) {
-      this.subtypes.clear();
+      this.subtypes = ImmutableSet.builder();
       return addAllSubtypes(elements);
     }
 
@@ -1559,10 +1563,9 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param elements An iterable of subtypes elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addAllSubtypes(Iterable<String> elements) {
-      for (String element : elements) {
-        this.subtypes.add(Objects.requireNonNull(element, "subtypes element"));
-      }
+      this.subtypes.addAll(elements);
       return this;
     }
 
@@ -1571,6 +1574,7 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param text The value for text
      * @return {@code this} builder for chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder text(String text) {
       this.text = Objects.requireNonNull(text, "text");
       return this;
@@ -1581,6 +1585,7 @@ public final class ImmutableMagicCard implements MagicCard {
      * @param text The value for text
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     @JsonProperty("text")
     public final Builder text(Optional<String> text) {
       this.text = text.orElse(null);
@@ -1588,8 +1593,8 @@ public final class ImmutableMagicCard implements MagicCard {
     }
 
     /**
-     * Builds a new {@link ImmutableMagicCard ImmutableRawCard}.
-     * @return An immutable instance of RawCard
+     * Builds a new {@link ImmutableMagicCard ImmutableMagicCard}.
+     * @return An immutable instance of MagicCard
      * @throws java.lang.IllegalStateException if any required attributes are missing
      */
     public ImmutableMagicCard build() {
@@ -1599,17 +1604,17 @@ public final class ImmutableMagicCard implements MagicCard {
       return new ImmutableMagicCard(
           multiverseid,
           name,
-          createUnmodifiableList(true, names),
+          names.build(),
           rarity,
           set,
           type,
           manaCost,
           cmc,
-          createUnmodifiableSet(colorIdentity),
-          createUnmodifiableSet(colors),
-          createUnmodifiableSet(types),
-          createUnmodifiableSet(supertypes),
-          createUnmodifiableSet(subtypes),
+          colorIdentity.build(),
+          colors.build(),
+          types.build(),
+          supertypes.build(),
+          subtypes.build(),
           text);
     }
 
@@ -1619,52 +1624,7 @@ public final class ImmutableMagicCard implements MagicCard {
       if ((initBits & INIT_BIT_RARITY) != 0) attributes.add("rarity");
       if ((initBits & INIT_BIT_SET) != 0) attributes.add("set");
       if ((initBits & INIT_BIT_TYPE) != 0) attributes.add("type");
-      return "Cannot build RawCard, some of required attributes are not set " + attributes;
-    }
-  }
-
-  private static <T> List<T> createSafeList(Iterable<? extends T> iterable, boolean checkNulls, boolean skipNulls) {
-    ArrayList<T> list;
-    if (iterable instanceof Collection<?>) {
-      int size = ((Collection<?>) iterable).size();
-      if (size == 0) return Collections.emptyList();
-      list = new ArrayList<>();
-    } else {
-      list = new ArrayList<>();
-    }
-    for (T element : iterable) {
-      if (skipNulls && element == null) continue;
-      if (checkNulls) Objects.requireNonNull(element, "element");
-      list.add(element);
-    }
-    return list;
-  }
-
-  private static <T> List<T> createUnmodifiableList(boolean clone, List<T> list) {
-    switch(list.size()) {
-    case 0: return Collections.emptyList();
-    case 1: return Collections.singletonList(list.get(0));
-    default:
-      if (clone) {
-        return Collections.unmodifiableList(new ArrayList<>(list));
-      } else {
-        if (list instanceof ArrayList<?>) {
-          ((ArrayList<?>) list).trimToSize();
-        }
-        return Collections.unmodifiableList(list);
-      }
-    }
-  }
-
-  /** Unmodifiable set constructed from list to avoid rehashing. */
-  private static <T> Set<T> createUnmodifiableSet(List<T> list) {
-    switch(list.size()) {
-    case 0: return Collections.emptySet();
-    case 1: return Collections.singleton(list.get(0));
-    default:
-      Set<T> set = new LinkedHashSet<>(list.size());
-      set.addAll(list);
-      return Collections.unmodifiableSet(set);
+      return "Cannot build MagicCard, some of required attributes are not set " + attributes;
     }
   }
 }

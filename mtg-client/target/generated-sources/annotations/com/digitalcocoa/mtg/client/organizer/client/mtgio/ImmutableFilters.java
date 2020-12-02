@@ -1,11 +1,15 @@
 package com.digitalcocoa.mtg.client.organizer.client.mtgio;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import com.google.common.base.MoreObjects;
+import com.google.common.collect.ImmutableList;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import com.google.errorprone.annotations.Var;
 import java.util.Objects;
+import javax.annotation.CheckReturnValue;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 import org.immutables.value.Generated;
 
 /**
@@ -16,17 +20,20 @@ import org.immutables.value.Generated;
  */
 @Generated(from = "Filters", generator = "Immutables")
 @SuppressWarnings({"all"})
+@ParametersAreNonnullByDefault
 @javax.annotation.processing.Generated("org.immutables.processor.ProxyProcessor")
+@Immutable
+@CheckReturnValue
 public final class ImmutableFilters implements Filters {
-  private final List<String> sets;
+  private final ImmutableList<String> sets;
 
   private ImmutableFilters(ImmutableFilters.Builder builder) {
     this.sets = builder.setsIsSet()
-        ? createUnmodifiableList(true, builder.sets)
-        : createUnmodifiableList(false, createSafeList(Filters.super.sets(), true, false));
+        ? builder.sets.build()
+        : ImmutableList.copyOf(Filters.super.sets());
   }
 
-  private ImmutableFilters(List<String> sets) {
+  private ImmutableFilters(ImmutableList<String> sets) {
     this.sets = sets;
   }
 
@@ -34,7 +41,7 @@ public final class ImmutableFilters implements Filters {
    * @return The value of the {@code sets} attribute
    */
   @Override
-  public List<String> sets() {
+  public ImmutableList<String> sets() {
     return sets;
   }
 
@@ -44,7 +51,7 @@ public final class ImmutableFilters implements Filters {
    * @return A modified copy of {@code this} object
    */
   public final ImmutableFilters withSets(String... elements) {
-    List<String> newValue = createUnmodifiableList(false, createSafeList(Arrays.asList(elements), true, false));
+    ImmutableList<String> newValue = ImmutableList.copyOf(elements);
     return new ImmutableFilters(newValue);
   }
 
@@ -56,7 +63,7 @@ public final class ImmutableFilters implements Filters {
    */
   public final ImmutableFilters withSets(Iterable<String> elements) {
     if (this.sets == elements) return this;
-    List<String> newValue = createUnmodifiableList(false, createSafeList(elements, true, false));
+    ImmutableList<String> newValue = ImmutableList.copyOf(elements);
     return new ImmutableFilters(newValue);
   }
 
@@ -65,7 +72,7 @@ public final class ImmutableFilters implements Filters {
    * @return {@code true} if {@code this} is equal to {@code another} instance
    */
   @Override
-  public boolean equals(Object another) {
+  public boolean equals(@Nullable Object another) {
     if (this == another) return true;
     return another instanceof ImmutableFilters
         && equalTo((ImmutableFilters) another);
@@ -81,7 +88,7 @@ public final class ImmutableFilters implements Filters {
    */
   @Override
   public int hashCode() {
-    int h = 5381;
+    @Var int h = 5381;
     h += (h << 5) + sets.hashCode();
     return h;
   }
@@ -92,9 +99,10 @@ public final class ImmutableFilters implements Filters {
    */
   @Override
   public String toString() {
-    return "Filters{"
-        + "sets=" + sets
-        + "}";
+    return MoreObjects.toStringHelper("Filters")
+        .omitNullValues()
+        .add("sets", sets)
+        .toString();
   }
 
   /**
@@ -134,11 +142,12 @@ public final class ImmutableFilters implements Filters {
    * but instead used immediately to create instances.</em>
    */
   @Generated(from = "Filters", generator = "Immutables")
+  @NotThreadSafe
   public static final class Builder {
     private static final long OPT_BIT_SETS = 0x1L;
     private long optBits;
 
-    private List<String> sets = new ArrayList<String>();
+    private ImmutableList.Builder<String> sets = ImmutableList.builder();
 
     private Builder() {
     }
@@ -151,6 +160,7 @@ public final class ImmutableFilters implements Filters {
      * @param instance The instance from which to copy values
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder from(Filters instance) {
       Objects.requireNonNull(instance, "instance");
       addAllSets(instance.sets());
@@ -162,8 +172,9 @@ public final class ImmutableFilters implements Filters {
      * @param element A sets element
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addSets(String element) {
-      this.sets.add(Objects.requireNonNull(element, "sets element"));
+      this.sets.add(element);
       optBits |= OPT_BIT_SETS;
       return this;
     }
@@ -173,10 +184,9 @@ public final class ImmutableFilters implements Filters {
      * @param elements An array of sets elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addSets(String... elements) {
-      for (String element : elements) {
-        this.sets.add(Objects.requireNonNull(element, "sets element"));
-      }
+      this.sets.add(elements);
       optBits |= OPT_BIT_SETS;
       return this;
     }
@@ -187,8 +197,9 @@ public final class ImmutableFilters implements Filters {
      * @param elements An iterable of sets elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder sets(Iterable<String> elements) {
-      this.sets.clear();
+      this.sets = ImmutableList.builder();
       return addAllSets(elements);
     }
 
@@ -197,10 +208,9 @@ public final class ImmutableFilters implements Filters {
      * @param elements An iterable of sets elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addAllSets(Iterable<String> elements) {
-      for (String element : elements) {
-        this.sets.add(Objects.requireNonNull(element, "sets element"));
-      }
+      this.sets.addAll(elements);
       optBits |= OPT_BIT_SETS;
       return this;
     }
@@ -216,39 +226,6 @@ public final class ImmutableFilters implements Filters {
 
     private boolean setsIsSet() {
       return (optBits & OPT_BIT_SETS) != 0;
-    }
-  }
-
-  private static <T> List<T> createSafeList(Iterable<? extends T> iterable, boolean checkNulls, boolean skipNulls) {
-    ArrayList<T> list;
-    if (iterable instanceof Collection<?>) {
-      int size = ((Collection<?>) iterable).size();
-      if (size == 0) return Collections.emptyList();
-      list = new ArrayList<>();
-    } else {
-      list = new ArrayList<>();
-    }
-    for (T element : iterable) {
-      if (skipNulls && element == null) continue;
-      if (checkNulls) Objects.requireNonNull(element, "element");
-      list.add(element);
-    }
-    return list;
-  }
-
-  private static <T> List<T> createUnmodifiableList(boolean clone, List<T> list) {
-    switch(list.size()) {
-    case 0: return Collections.emptyList();
-    case 1: return Collections.singletonList(list.get(0));
-    default:
-      if (clone) {
-        return Collections.unmodifiableList(new ArrayList<>(list));
-      } else {
-        if (list instanceof ArrayList<?>) {
-          ((ArrayList<?>) list).trimToSize();
-        }
-        return Collections.unmodifiableList(list);
-      }
     }
   }
 }

@@ -1,0 +1,41 @@
+spring:
+  main:
+    banner-mode: 'off'
+
+  logging:
+    level:
+      org.springframework.jdbc.core.JdbcTemplate: DEBUG
+      org.springframework.jdbc.core.NamedParameterJdbcTemplate: DEBUG
+      org.springframework.jdbc.core.StatementCreatorUtils: TRACE
+      org.springframework.jdbc.core: TRACE
+
+  datasource:
+    url: jdbc:mysql://localhost:6033/mtg
+    username: root
+    password: root
+    driver-class-name: 'com.mysql.cj.jdbc.Driver'
+    hikari:
+      auto-commit: on
+
+  liquibase:
+    enabled: false
+    url: jdbc:mysql://localhost:6033/mtg
+    user: root
+    password: root
+    driver-class-name: 'com.mysql.cj.jdbc.Driver'
+    default-schema: mtg
+    change-log: classpath:db.changelog-master.yaml
+
+client:
+  mtgio:
+    base-uri: https://api.magicthegathering.io/v1/cards
+#      - cache-duration='PT12H'
+test:
+  # Properties defining how the integration tests will be run.
+  integration:
+    enabled: 'true'
+
+    # 200 is chosen as a default base because each page is (currently) 100 cards long.
+    take-n: 2
+
+

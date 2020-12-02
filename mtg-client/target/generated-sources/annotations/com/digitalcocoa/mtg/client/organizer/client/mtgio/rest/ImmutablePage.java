@@ -1,12 +1,18 @@
 package com.digitalcocoa.mtg.client.organizer.client.mtgio.rest;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.collect.ImmutableList;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import com.google.errorprone.annotations.Var;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.annotation.CheckReturnValue;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 import org.immutables.value.Generated;
 
 /**
@@ -17,15 +23,18 @@ import org.immutables.value.Generated;
  */
 @Generated(from = "Page", generator = "Immutables")
 @SuppressWarnings({"all"})
+@ParametersAreNonnullByDefault
 @javax.annotation.processing.Generated("org.immutables.processor.ProxyProcessor")
+@Immutable
+@CheckReturnValue
 public final class ImmutablePage implements Page {
-  private final List<MagicCard> cards;
-  private final Integer nextPageNumber;
+  private final ImmutableList<MagicCard> cards;
+  private final @Nullable Integer nextPageNumber;
   private final Integer lastPageNumber;
 
   private ImmutablePage(
-      List<MagicCard> cards,
-      Integer nextPageNumber,
+      ImmutableList<MagicCard> cards,
+      @Nullable Integer nextPageNumber,
       Integer lastPageNumber) {
     this.cards = cards;
     this.nextPageNumber = nextPageNumber;
@@ -36,7 +45,7 @@ public final class ImmutablePage implements Page {
    * @return The value of the {@code cards} attribute
    */
   @Override
-  public List<MagicCard> cards() {
+  public ImmutableList<MagicCard> cards() {
     return cards;
   }
 
@@ -62,7 +71,7 @@ public final class ImmutablePage implements Page {
    * @return A modified copy of {@code this} object
    */
   public final ImmutablePage withCards(MagicCard... elements) {
-    List<MagicCard> newValue = createUnmodifiableList(false, createSafeList(Arrays.asList(elements), true, false));
+    ImmutableList<MagicCard> newValue = ImmutableList.copyOf(elements);
     return new ImmutablePage(newValue, this.nextPageNumber, this.lastPageNumber);
   }
 
@@ -74,7 +83,7 @@ public final class ImmutablePage implements Page {
    */
   public final ImmutablePage withCards(Iterable<? extends MagicCard> elements) {
     if (this.cards == elements) return this;
-    List<MagicCard> newValue = createUnmodifiableList(false, createSafeList(elements, true, false));
+    ImmutableList<MagicCard> newValue = ImmutableList.copyOf(elements);
     return new ImmutablePage(newValue, this.nextPageNumber, this.lastPageNumber);
   }
 
@@ -84,7 +93,7 @@ public final class ImmutablePage implements Page {
    * @return A modified copy of {@code this} object
    */
   public final ImmutablePage withNextPageNumber(int value) {
-    Integer newValue = value;
+    @Nullable Integer newValue = value;
     if (Objects.equals(this.nextPageNumber, newValue)) return this;
     return new ImmutablePage(this.cards, newValue, this.lastPageNumber);
   }
@@ -96,7 +105,7 @@ public final class ImmutablePage implements Page {
    * @return A modified copy of {@code this} object
    */
   public final ImmutablePage withNextPageNumber(Optional<Integer> optional) {
-    Integer value = optional.orElse(null);
+    @Nullable Integer value = optional.orElse(null);
     if (Objects.equals(this.nextPageNumber, value)) return this;
     return new ImmutablePage(this.cards, value, this.lastPageNumber);
   }
@@ -118,7 +127,7 @@ public final class ImmutablePage implements Page {
    * @return {@code true} if {@code this} is equal to {@code another} instance
    */
   @Override
-  public boolean equals(Object another) {
+  public boolean equals(@Nullable Object another) {
     if (this == another) return true;
     return another instanceof ImmutablePage
         && equalTo((ImmutablePage) another);
@@ -136,7 +145,7 @@ public final class ImmutablePage implements Page {
    */
   @Override
   public int hashCode() {
-    int h = 5381;
+    @Var int h = 5381;
     h += (h << 5) + cards.hashCode();
     h += (h << 5) + Objects.hashCode(nextPageNumber);
     h += (h << 5) + lastPageNumber.hashCode();
@@ -149,15 +158,12 @@ public final class ImmutablePage implements Page {
    */
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder("Page{");
-    builder.append("cards=").append(cards);
-    if (nextPageNumber != null) {
-      builder.append(", ");
-      builder.append("nextPageNumber=").append(nextPageNumber);
-    }
-    builder.append(", ");
-    builder.append("lastPageNumber=").append(lastPageNumber);
-    return builder.append("}").toString();
+    return MoreObjects.toStringHelper("Page")
+        .omitNullValues()
+        .add("cards", cards)
+        .add("nextPageNumber", nextPageNumber)
+        .add("lastPageNumber", lastPageNumber)
+        .toString();
   }
 
   /**
@@ -180,7 +186,7 @@ public final class ImmutablePage implements Page {
    * Creates a builder for {@link ImmutablePage ImmutablePage}.
    * <pre>
    * ImmutablePage.builder()
-   *    .addCards|addAllCards(com.digitalcocoa.mtg.client.organizer.client.mtgio.rest.RawCard) // {@link Page#cards() cards} elements
+   *    .addCards|addAllCards(com.digitalcocoa.mtg.client.organizer.client.mtgio.rest.MagicCard) // {@link Page#cards() cards} elements
    *    .nextPageNumber(Integer) // optional {@link Page#nextPageNumber() nextPageNumber}
    *    .lastPageNumber(Integer) // required {@link Page#lastPageNumber() lastPageNumber}
    *    .build();
@@ -199,13 +205,14 @@ public final class ImmutablePage implements Page {
    * but instead used immediately to create instances.</em>
    */
   @Generated(from = "Page", generator = "Immutables")
+  @NotThreadSafe
   public static final class Builder {
     private static final long INIT_BIT_LAST_PAGE_NUMBER = 0x1L;
     private long initBits = 0x1L;
 
-    private List<MagicCard> cards = new ArrayList<MagicCard>();
-    private Integer nextPageNumber;
-    private Integer lastPageNumber;
+    private ImmutableList.Builder<MagicCard> cards = ImmutableList.builder();
+    private @Nullable Integer nextPageNumber;
+    private @Nullable Integer lastPageNumber;
 
     private Builder() {
     }
@@ -218,6 +225,7 @@ public final class ImmutablePage implements Page {
      * @param instance The instance from which to copy values
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder from(Page instance) {
       Objects.requireNonNull(instance, "instance");
       addAllCards(instance.cards());
@@ -234,8 +242,9 @@ public final class ImmutablePage implements Page {
      * @param element A cards element
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addCards(MagicCard element) {
-      this.cards.add(Objects.requireNonNull(element, "cards element"));
+      this.cards.add(element);
       return this;
     }
 
@@ -244,10 +253,9 @@ public final class ImmutablePage implements Page {
      * @param elements An array of cards elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addCards(MagicCard... elements) {
-      for (MagicCard element : elements) {
-        this.cards.add(Objects.requireNonNull(element, "cards element"));
-      }
+      this.cards.add(elements);
       return this;
     }
 
@@ -257,8 +265,9 @@ public final class ImmutablePage implements Page {
      * @param elements An iterable of cards elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder cards(Iterable<? extends MagicCard> elements) {
-      this.cards.clear();
+      this.cards = ImmutableList.builder();
       return addAllCards(elements);
     }
 
@@ -267,10 +276,9 @@ public final class ImmutablePage implements Page {
      * @param elements An iterable of cards elements
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder addAllCards(Iterable<? extends MagicCard> elements) {
-      for (MagicCard element : elements) {
-        this.cards.add(Objects.requireNonNull(element, "cards element"));
-      }
+      this.cards.addAll(elements);
       return this;
     }
 
@@ -279,6 +287,7 @@ public final class ImmutablePage implements Page {
      * @param nextPageNumber The value for nextPageNumber
      * @return {@code this} builder for chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder nextPageNumber(int nextPageNumber) {
       this.nextPageNumber = nextPageNumber;
       return this;
@@ -289,6 +298,7 @@ public final class ImmutablePage implements Page {
      * @param nextPageNumber The value for nextPageNumber
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder nextPageNumber(Optional<Integer> nextPageNumber) {
       this.nextPageNumber = nextPageNumber.orElse(null);
       return this;
@@ -299,6 +309,7 @@ public final class ImmutablePage implements Page {
      * @param lastPageNumber The value for lastPageNumber 
      * @return {@code this} builder for use in a chained invocation
      */
+    @CanIgnoreReturnValue 
     public final Builder lastPageNumber(Integer lastPageNumber) {
       this.lastPageNumber = Objects.requireNonNull(lastPageNumber, "lastPageNumber");
       initBits &= ~INIT_BIT_LAST_PAGE_NUMBER;
@@ -314,46 +325,13 @@ public final class ImmutablePage implements Page {
       if (initBits != 0) {
         throw new IllegalStateException(formatRequiredAttributesMessage());
       }
-      return new ImmutablePage(createUnmodifiableList(true, cards), nextPageNumber, lastPageNumber);
+      return new ImmutablePage(cards.build(), nextPageNumber, lastPageNumber);
     }
 
     private String formatRequiredAttributesMessage() {
       List<String> attributes = new ArrayList<>();
       if ((initBits & INIT_BIT_LAST_PAGE_NUMBER) != 0) attributes.add("lastPageNumber");
       return "Cannot build Page, some of required attributes are not set " + attributes;
-    }
-  }
-
-  private static <T> List<T> createSafeList(Iterable<? extends T> iterable, boolean checkNulls, boolean skipNulls) {
-    ArrayList<T> list;
-    if (iterable instanceof Collection<?>) {
-      int size = ((Collection<?>) iterable).size();
-      if (size == 0) return Collections.emptyList();
-      list = new ArrayList<>();
-    } else {
-      list = new ArrayList<>();
-    }
-    for (T element : iterable) {
-      if (skipNulls && element == null) continue;
-      if (checkNulls) Objects.requireNonNull(element, "element");
-      list.add(element);
-    }
-    return list;
-  }
-
-  private static <T> List<T> createUnmodifiableList(boolean clone, List<T> list) {
-    switch(list.size()) {
-    case 0: return Collections.emptyList();
-    case 1: return Collections.singletonList(list.get(0));
-    default:
-      if (clone) {
-        return Collections.unmodifiableList(new ArrayList<>(list));
-      } else {
-        if (list instanceof ArrayList<?>) {
-          ((ArrayList<?>) list).trimToSize();
-        }
-        return Collections.unmodifiableList(list);
-      }
     }
   }
 }
