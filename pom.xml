@@ -10,14 +10,23 @@
 	</parent>
 
 	<groupId>com.digitalcocoa</groupId>
-	<artifactId>mtg-deck-organizer</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>mtg-deck-organizer</name>
+	<artifactId>mtg-deck-digest-parent</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>mtg-deck-digest</name>
 	<description>Demo project for Spring Boot</description>
+
+	<modules>
+<!--		<module>mtg-model</module>-->
+		<module>mtg-client</module>
+<!--		<module>mtg-ingest</module>-->
+	</modules>
 
 	<properties>
 		<java.version>15</java.version>
-		<spring-cloud.version>2020.0.0-SNAPSHOT</spring-cloud.version>
+<!--		<spring-cloud.version>2020.0.0-SNAPSHOT</spring-cloud.version>-->
+		<spring-cloud.version>Hoxton.SR9</spring-cloud.version>
 	</properties>
 
 	<dependencies>
@@ -101,6 +110,12 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-junit-jupiter</artifactId>
 			<version>2.26.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.18.1</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -193,21 +208,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<repositories>
-		<repository>
-			<id>spring-snapshots</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-		</repository>
-	</repositories>
 
 </project>

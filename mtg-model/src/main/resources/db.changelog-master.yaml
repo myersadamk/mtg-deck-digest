@@ -1,0 +1,205 @@
+databaseChangeLog:
+  -  preConditions:
+  -  runningAs:
+       username: root
+
+  - changeSet:
+      id: create-base-table-card
+      author: amyers
+#      preConditions:
+#        - onFail: MARK_RAN
+#          not:
+#            tableExists:
+#              tableName: CARD
+      changes:
+        - createTable:
+            tableName: CARD
+            columns:
+              - column:
+                  name: ID
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: NAME
+                  type: varchar(512)
+              - column:
+                  name: COLOR_IDENTITY
+                  type: varchar(32)
+              - column:
+                  name: MANA_COST
+                  type: varchar(32)
+              - column:
+                  name: CMC
+                  type: varchar(16)
+        - createIndex:
+            clustered: true
+            columns:
+              - column:
+                  descending: true
+                  name: NAME
+            indexName: idx_card_name
+            tableName: CARD
+            unique: true
+        - createTable:
+            tableName: CODE_SET
+            columns:
+              - column:
+                  name: ID
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: MEANING
+                  type: varchar(512)
+                  constraints:
+                    unique: true
+                    nullable: false
+        - createIndex:
+            indexName: IDX_CODE_SET_ID
+            tableName: CODE_SET
+            unique: true
+            columns:
+              - column:
+                  descending: true
+                  name: ID
+        - createTable:
+            tableName: CODE_VALUE
+            columns:
+              - column:
+                  name: ID
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: VALUE
+                  type: varchar(512)
+                  constraints:
+                    - nullable: false
+              - column:
+                  name: CODE_SET_ID
+                  type: int
+                  constraints:
+                    foreignKeyName: FK_CODE_VALUE_TO_CODE_SET_ID
+                    references: CODE_SET(ID)
+                    nullable: false
+                    onDelete: cascade
+        - createIndex:
+            indexName: IDX_CODE_VALUE_ID
+            tableName: CODE_VALUE
+            unique: true
+            columns:
+              - column:
+                  descending: true
+                  name: ID
+        - addUniqueConstraint:
+            constraintName: CST_UNQ_CODE_SET_CODE_VALUE
+            tableName: CODE_VALUE
+            unique: true
+            columnNames: VALUE, CODE_SET_ID
+        - createTable:
+            tableName: CARD_ATTRIBUTES
+            columns:
+              - column:
+                  name: CARD_ID
+                  type: int
+                  constraints:
+                    foreignKeyName: FK_CARD_ATTRIBUTES_TO_CARD_ID
+                    references: CARD(ID)
+                    nullable: false
+                    onDelete: cascade
+              - column:
+                  name: CODE_SET_ID
+                  type: int
+                  constraints:
+                    foreignKeyName: FK_CARD_ATTRIBUTES_TO_CODE_SET_ID
+                    references: CODE_SET(ID)
+                    nullable: false
+                    onDelete: cascade
+              - column:
+                  name: CODE_VALUE_ID
+                  type: int
+                  constraints:
+                    foreignKeyName: FK_CARD_ATTRIBUTES_TO_VALUE_ID
+                    references: CODE_VALUE(ID)
+                    nullable: false
+                    onDelete: cascade
+        - createIndex:
+            indexName: IDX_CARD_ATTRIBUTES_COMPOSITE_KEY_CODE_VALUE_CODE_SET
+            tableName: CARD_ATTRIBUTES
+            unique: true
+            columns:
+              - column:
+                  name: CODE_SET_ID
+              - column:
+                  name: CODE_VALUE_ID
+#        - addForeignKeyConstraint:
+#            constraintName: FK_CARD_ENTITY_ATTRIBUTE
+#            baseTableName: CARD,ENTITY_ATTRIBUTE_CODE
+#            baseColumnNames: CARD_ID,ENTITY_ATTRIBUTE_CODE
+#            referencedTableName: CARD,ENTITY_ATTRIBUTE_CODE_ID
+#            referencedColumnNames: CARD_ID,ENTITY_ATTRIBUTE_CODE_ID
+
+  - changeSet:
+      id: create-table-formats
+      author: amyers
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: FORMATS
+      changes:
+        - createTable:
+            tableName: FORMATS
+            columns:
+              - column:
+                  name: ID
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: NAME
+                  type: varchar(512)
+  - changeSet:
+      id: create-table-banlist
+      author: amyers
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: BANLIST
+      changes:
+        - createTable:
+            tableName: BANLIST
+            columns:
+              - column:
+                  name: ID
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: CARD_NAME
+                  type: varchar(512)
+                  constraints:
+                    foreignKeyName: fk_banlist_to_card_name
+                    references: CARD(name)
+                    nullable: false
+#        - insert:
+#            columns:
+#              - column:
+#                  name: code
+#                  value: 'supertype'
+#            dbms: '!h2,  mysql'
+#            schemaName: mtg
+#            tableName: CODE_VALUE
+
