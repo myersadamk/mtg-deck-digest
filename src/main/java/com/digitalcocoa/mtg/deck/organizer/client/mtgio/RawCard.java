@@ -10,17 +10,30 @@ import org.immutables.value.Value.Immutable;
 @JsonDeserialize(as = ImmutableRawCard.class)
 public interface RawCard {
   Optional<Long> multiverseid();
+
   String name();
+
   List<String> names();
+
   String rarity();
+
   String set();
+
   String type();
+
   Optional<String> manaCost();
+
   Optional<Integer> cmc();
+
   Set<String> colorIdentity();
+
   Set<String> colors();
+
   Set<String> types();
+
   Set<String> supertypes();
+
   Set<String> subtypes();
+
   Optional<String> text();
 }

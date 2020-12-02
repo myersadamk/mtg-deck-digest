@@ -8,6 +8,8 @@ import org.immutables.value.Value.Immutable;
 @Immutable
 public interface Deck {
   List<Card> mainboard();
+
   List<Card> sideboard();
+
   Format format();
 }

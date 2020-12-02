@@ -6,25 +6,45 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.immutables.value.Value.Immutable;
+import org.immutables.value.Value.Parameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 @Repository
 public class CodeSetRepository {
 
-  private static final String INSERT_CODE_SET = """
-      INSERT IGNORE INTO ENTITY_ATTRIBUTE_CODE(CODE) VALUES (:code)
+  private static final String INSERT_CODE_SETS =
+      """
+      INSERT IGNORE INTO CODE_SET(MEANING) VALUES (:meanings)
       """;
 
-  private static final String SELECT_CODE_SETS = """
-      SELECT * FROM ENTITY_ATTRIBUTE_CODE WHERE CODE IN (:codes)
+  private static final String INSERT_CODE_VALUES =
+      """
+      INSERT IGNORE INTO CODE_VALUE(CODE_SET_ID, VALUE) VALUES (:codeSetId, :value);
       """;
 
-  private static final String GET_CODE_SETS = """
+  private static final String SELECT_CODE_SETS =
+      """
+      SELECT VALUE, MEANING, CODE_VALUE.ID FROM CODE_SET, CODE_VALUE
+      WHERE MEANING IN (:meanings) AND CODE_SET.ID = CODE_VALUE.CODE_SET_ID
+      """;
+
+  private static final String SELECT_CODE_SET_IDS =
+      """
+      SELECT * FROM CODE_SET
+      WHERE MEANING IN (:meanings)
+      """;
+
+  private static final String GET_CODE_SETS =
+      """
       SELECT * FROM ENTITY_ATTRIBUTE_CODE c
-      WHERE c.CODE IN (:codes) 
+      WHERE c.CODE IN (:codes)
       LEFT JOIN ENTITY_ATTRIBUTE_VALUE v on c.CODE_ID = v.CODE_ID
       """;
 
@@ -34,31 +54,69 @@ public class CodeSetRepository {
     this.jdbc = jdbc;
   }
 
-  public Mono<Void> createCodeSets(Map<String, Set<String>> values) {
-    return Mono.fromRunnable(() -> {
-      final List<String> codes = List.copyOf(values.keySet());
-      final MapSqlParameterSource[] parameterSource = new MapSqlParameterSource[codes.size()];
-      for (int i = 0; i < values.size(); ++i) {
-        parameterSource[i] = new MapSqlParameterSource("code", codes.get(i));
-      }
-      jdbc.batchUpdate(INSERT_CODE_SET, parameterSource);
-    });
+  public Mono<Integer> insertCodeSets(Set<String> meanings) {
+    return Mono.fromCallable(
+        () ->
+            jdbc.batchUpdate(
+                    INSERT_CODE_SETS,
+                    batch(meanings.stream().map(meaning -> Map.of("meanings", meaning))))
+                .length);
   }
 
-  public Map<String, List<CodifiedValue>> getCodeSets(Set<String> codeSets) {
+  public record CodeValueEntity(String value, Integer codeSetId) {}
+
+  public Mono<Integer> insertCodeValues(Set<CodeValueEntity> entities) {
+    return Mono.fromCallable(
+        () ->
+            jdbc.batchUpdate(
+                    INSERT_CODE_VALUES,
+                    batch(
+                        entities.stream()
+                            .map(v -> Map.of("codeSetId", v.codeSetId, "value", v.value))))
+                .length);
+  }
+
+  private static SqlParameterSource[] batch(Stream<Map<String, ?>> arguments) {
+    return SqlParameterSourceUtils.createBatch(arguments.toArray());
+  }
+
+  public Map<String, Integer> getCodeSetIds(Set<String> codeSets) {
+    if (codeSets.isEmpty()) {
+      return Map.of();
+    }
+
+    return jdbc
+        .query(
+            SELECT_CODE_SET_IDS,
+            new MapSqlParameterSource("meanings", codeSets),
+            (rs, rowNum) -> ImmutableCodeSetEntity.of(rs.getInt("ID"), rs.getString("MEANING")))
+        .stream()
+        .collect(Collectors.toMap(CodeSetEntity::getMeaning, CodeSetEntity::getID));
+  }
+
+  @Immutable(builder = false)
+  interface CodeSetEntity {
+    @Parameter
+    Integer getID();
+
+    @Parameter
+    String getMeaning();
+  }
+
+  public Map<String, List<CodifiedValue>> loadCodeSetAndValues(Set<String> codeSets) {
     if (codeSets.isEmpty()) {
       return Map.of();
     }
     return jdbc
-        .query(SELECT_CODE_SETS, new MapSqlParameterSource("codes", codeSets), (rs, rowNum) ->
-            ImmutableCodifiedValue.builder()
-                .code(rs.getString("CODE"))
-                .value(rs.getString("VALUE"))
-                .codeId(rs.getInt("CODE_ID"))
-                .valueId(rs.getInt("TYPE_ID"))
-                .build())
-        .stream().collect(
-            Collectors.groupingBy(CodifiedValue::code));
+        .query(
+            SELECT_CODE_SETS,
+            new MapSqlParameterSource("meanings", codeSets),
+            (rs, rowNum) ->
+                ImmutableCodifiedValue.builder()
+                    .id(rs.getInt("ID"))
+                    .value(rs.getString("VALUE"))
+                    .build())
+        .stream()
+        .collect(Collectors.groupingBy(CodifiedValue::meaning));
   }
 }
-

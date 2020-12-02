@@ -21,8 +21,7 @@ class CardCatalogIntegrationTest {
   private final int n;
 
   @Autowired
-  CardCatalogIntegrationTest(
-      CardCatalog cardCatalog, @Value("${test.integration.take-n}") int n) {
+  CardCatalogIntegrationTest(CardCatalog cardCatalog, @Value("${test.integration.take-n}") int n) {
     this.cardCatalog = cardCatalog;
     this.n = n;
   }
@@ -40,30 +39,30 @@ class CardCatalogIntegrationTest {
             cardCatalog.getCards(Filters.NONE).take(n).count().block(), n));
   }
 
-//  @Test
-//  void printCardsWithGreenColorIdentity() {
-//    cardCatalog
-//        .matchCards(ImmutableCardCriteria.builder().colorIdentity(Set.of(Color.GREEN)).build())
-//        .take(n / 4)
-//        .doOnEach(out::println)
-//        .blockLast();
-//  }
-//
-//  @Test
-//  void printUniqueCard() {
-//    cardCatalog
-//        .matchCards(ImmutableCardCriteria.builder().nameContains("Nekrataal").build())
-//        .take(1)
-//        .doOnEach(System.out::println)
-//        .blockLast();
-//  }
-//
-//  @Test
-//  void printCardsWithTheInName() {
-//    cardCatalog
-//        .matchCards(ImmutableCardCriteria.builder().nameContains("the").build())
-//        .take(n / 4)
-//        .doOnEach(System.out::println)
-//        .blockLast();
-//  }
+  //  @Test
+  //  void printCardsWithGreenColorIdentity() {
+  //    cardCatalog
+  //        .matchCards(ImmutableCardCriteria.builder().colorIdentity(Set.of(Color.GREEN)).build())
+  //        .take(n / 4)
+  //        .doOnEach(out::println)
+  //        .blockLast();
+  //  }
+  //
+  //  @Test
+  //  void printUniqueCard() {
+  //    cardCatalog
+  //        .matchCards(ImmutableCardCriteria.builder().nameContains("Nekrataal").build())
+  //        .take(1)
+  //        .doOnEach(System.out::println)
+  //        .blockLast();
+  //  }
+  //
+  //  @Test
+  //  void printCardsWithTheInName() {
+  //    cardCatalog
+  //        .matchCards(ImmutableCardCriteria.builder().nameContains("the").build())
+  //        .take(n / 4)
+  //        .doOnEach(System.out::println)
+  //        .blockLast();
+  //  }
 }

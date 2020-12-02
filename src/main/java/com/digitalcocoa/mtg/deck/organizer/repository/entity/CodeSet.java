@@ -6,5 +6,6 @@ import org.immutables.value.Value.Immutable;
 @Immutable
 public interface CodeSet {
   String type();
+
   Set<String> values();
 }

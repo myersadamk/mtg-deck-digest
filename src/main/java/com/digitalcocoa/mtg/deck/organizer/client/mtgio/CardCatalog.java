@@ -37,7 +37,8 @@ public final class CardCatalog {
                             }
 
                             return Flux.concat(
-                                Flux.range(nextPageNumber, lastPageNumber).map(pageNumber -> client.getPage(pageNumber, filters)));
+                                Flux.range(nextPageNumber, lastPageNumber)
+                                    .map(pageNumber -> client.getPage(pageNumber, filters)));
                           })
                       .orElse(empty());
 

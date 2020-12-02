@@ -4,8 +4,9 @@ import org.immutables.value.Value.Immutable;
 
 @Immutable
 public interface CodifiedValue {
-  int codeId();
-  int valueId();
-  String code();
+  int id();
+
   String value();
+
+  String meaning();
 }

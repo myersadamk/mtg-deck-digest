@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class MtgDeckOrganizerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MtgDeckOrganizerApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(MtgDeckOrganizerApplication.class, args);
+  }
 }

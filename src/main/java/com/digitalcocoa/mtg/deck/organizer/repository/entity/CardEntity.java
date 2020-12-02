@@ -7,7 +7,10 @@ import org.immutables.value.Value.Modifiable;
 @Modifiable
 public interface CardEntity {
   int id();
+
   String name();
+
   String rarity();
+
   String colorIdentity();
 }

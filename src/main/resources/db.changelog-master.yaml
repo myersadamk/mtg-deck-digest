@@ -16,7 +16,7 @@ databaseChangeLog:
             tableName: CARD
             columns:
               - column:
-                  name: CARD_ID
+                  name: ID
                   type: int
                   autoIncrement: true
                   constraints:
@@ -44,34 +44,34 @@ databaseChangeLog:
             tableName: CARD
             unique: true
         - createTable:
-            tableName: ENTITY_ATTRIBUTE_CODE
+            tableName: CODE_SET
             columns:
               - column:
-                  name: CODE_ID
+                  name: ID
                   type: int
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: CODE
+                  name: MEANING
                   type: varchar(512)
                   constraints:
                     unique: true
                     nullable: false
         - createIndex:
-            indexName: IDX_ENTITY_ATTRIBUTE_CODE_ID
-            tableName: ENTITY_ATTRIBUTE_CODE
+            indexName: IDX_CODE_SET_ID
+            tableName: CODE_SET
             unique: true
             columns:
               - column:
                   descending: true
-                  name: CODE_ID
+                  name: ID
         - createTable:
-            tableName: ENTITY_ATTRIBUTE_VALUE
+            tableName: CODE_VALUE
             columns:
               - column:
-                  name: VALUE_ID
+                  name: ID
                   type: int
                   autoIncrement: true
                   constraints:
@@ -79,44 +79,66 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: VALUE
-                  type: varchar(1024)
+                  type: varchar(512)
                   constraints:
                     - nullable: false
               - column:
-                  name: CODE_ID
+                  name: CODE_SET_ID
                   type: int
                   constraints:
-                    foreignKeyName: FK_ENTITY_ATTRIBUTE_VALUE_TO_CODE
-                    references: ENTITY_ATTRIBUTE_CODE(CODE_ID)
+                    foreignKeyName: FK_CODE_VALUE_TO_CODE_SET_ID
+                    references: CODE_SET(ID)
                     nullable: false
+                    onDelete: cascade
         - createIndex:
-            indexName: IDX_ENTITY_ATTRIBUTE_VALUE_ID
-            tableName: ENTITY_ATTRIBUTE_VALUE
+            indexName: IDX_CODE_VALUE_ID
+            tableName: CODE_VALUE
             unique: true
             columns:
               - column:
                   descending: true
-                  name: VALUE_ID
+                  name: ID
+        - addUniqueConstraint:
+            constraintName: CST_UNQ_CODE_SET_CODE_VALUE
+            tableName: CODE_VALUE
+            unique: true
+            columnNames: VALUE, CODE_SET_ID
         - createTable:
-            tableName: CARD_ENTITY_ATTRIBUTES
+            tableName: CARD_ATTRIBUTES
             columns:
               - column:
                   name: CARD_ID
                   type: int
                   constraints:
-                    foreignKeyName: fk_card_entity_attribute_to_card_id
-                    references: CARD(CARD_ID)
+                    foreignKeyName: FK_CARD_ATTRIBUTES_TO_CARD_ID
+                    references: CARD(ID)
                     nullable: false
+                    onDelete: cascade
               - column:
-                  name: CODE_ID
+                  name: CODE_SET_ID
                   type: int
                   constraints:
-                    foreignKeyName: fk_card_entity_attribute_to_code_id
-                    references: ENTITY_ATTRIBUTE_CODE(CODE_ID)
+                    foreignKeyName: FK_CARD_ATTRIBUTES_TO_CODE_SET_ID
+                    references: CODE_SET(ID)
                     nullable: false
+                    onDelete: cascade
               - column:
-                  name: ATTRIBUTE_ID
+                  name: CODE_VALUE_ID
                   type: int
+                  constraints:
+                    foreignKeyName: FK_CARD_ATTRIBUTES_TO_VALUE_ID
+                    references: CODE_VALUE(ID)
+                    nullable: false
+                    onDelete: cascade
+        - createIndex:
+            indexName: IDX_CARD_ATTRIBUTES_COMPOSITE_KEY_CODE_VALUE_CODE_SET
+            tableName: CARD_ATTRIBUTES
+            unique: true
+            columns:
+              - column:
+                  name: CODE_SET_ID
+              - column:
+                  name: CODE_VALUE_ID
 #        - addForeignKeyConstraint:
 #            constraintName: FK_CARD_ENTITY_ATTRIBUTE
 #            baseTableName: CARD,ENTITY_ATTRIBUTE_CODE
@@ -172,12 +194,12 @@ databaseChangeLog:
                     foreignKeyName: fk_banlist_to_card_name
                     references: CARD(name)
                     nullable: false
-        - insert:
-            columns:
-              - column:
-                  name: code
-                  value: 'supertype'
-            dbms: '!h2,  mysql'
-            schemaName: mtg
-            tableName: ENTITY_ATTRIBUTE_CODE
+#        - insert:
+#            columns:
+#              - column:
+#                  name: code
+#                  value: 'supertype'
+#            dbms: '!h2,  mysql'
+#            schemaName: mtg
+#            tableName: CODE_VALUE
 

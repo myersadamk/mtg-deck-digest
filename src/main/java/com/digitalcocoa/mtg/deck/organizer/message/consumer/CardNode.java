@@ -6,5 +6,6 @@ import org.immutables.value.Value.Immutable;
 @Immutable
 public interface CardNode {
   String name();
+
   Map<String, String> properties();
 }

@@ -14,15 +14,20 @@ public class CardRepository {
     this.template = template;
   }
 
-  private static final String BATCH_INSERT_CARDS = """
+  private static final String BATCH_INSERT_CARDS =
+      """
       INSERT INTO CARD(NAME, MANA_COST, CMC) values(?, ?, ?)
       """;
 
   public void batchInsert(List<RawCard> cards) {
-    template.batchUpdate(BATCH_INSERT_CARDS, cards, cards.size(), (statement, card) -> {
-      statement.setString(1, card.name());
-      statement.setString(2, card.manaCost().orElse(null));
-      statement.setInt(3, card.cmc().orElse(0));
-    });
+    template.batchUpdate(
+        BATCH_INSERT_CARDS,
+        cards,
+        cards.size(),
+        (statement, card) -> {
+          statement.setString(1, card.name());
+          statement.setString(2, card.manaCost().orElse(null));
+          statement.setInt(3, card.cmc().orElse(0));
+        });
   }
 }

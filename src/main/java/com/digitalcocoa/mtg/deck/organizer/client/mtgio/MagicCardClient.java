@@ -17,21 +17,19 @@ public final class MagicCardClient {
 
   private final URI baseUri;
   private final WebClient client;
-//  private final BodyParser parser;
+  //  private final BodyParser parser;
 
   public MagicCardClient() {
     this.baseUri = URI.create("some URI");
     this.client = WebClient.builder().build();
-//    this.parser = new BodyParser(new ObjectMapper());
+    //    this.parser = new BodyParser(new ObjectMapper());
   }
 
-
   @Autowired
-  public MagicCardClient(
-      @Value("${api.mtgio.cards.uri}") String baseUri, WebClient client) {
+  public MagicCardClient(@Value("${api.mtgio.cards.uri}") String baseUri, WebClient client) {
     this.baseUri = URI.create(baseUri);
     this.client = client;
-//    this.parser = parser;
+    //    this.parser = parser;
   }
 
   public Mono<Integer> getLastPageNumber() {
@@ -43,11 +41,16 @@ public final class MagicCardClient {
   }
 
   public Mono<Page> getPage(int pageNumber, Filters filters) {
-//    checkArgument(pageNumber > 0, "The given pageNumber must be > 0 (the mtgio API is 1-based).");
+    //    checkArgument(pageNumber > 0, "The given pageNumber must be > 0 (the mtgio API is
+    // 1-based).");
 
     final var pageBuilder = ImmutablePage.builder();
 
-    return client.get().uri(constructUriForPage(pageNumber, filters)).retrieve().toEntity(RawPage.class)
+    return client
+        .get()
+        .uri(constructUriForPage(pageNumber, filters))
+        .retrieve()
+        .toEntity(RawPage.class)
         .doOnNext(entity -> populatePagingProtocol(pageBuilder, pageNumber, entity))
         .map(entity -> entity.getBody() == null ? ImmutableRawPage.of() : entity.getBody())
         .flatMapIterable(RawPage::cards)
@@ -57,7 +60,8 @@ public final class MagicCardClient {
         .map(Builder::build);
   }
 
-  private static void populatePagingProtocol(ImmutablePage.Builder pageBuilder, int currentPage, ResponseEntity<?> entity) {
+  private static void populatePagingProtocol(
+      ImmutablePage.Builder pageBuilder, int currentPage, ResponseEntity<?> entity) {
     final var headers = entity.getHeaders();
 
     PagingProtocol.getNextPageUri(headers)
@@ -66,8 +70,8 @@ public final class MagicCardClient {
 
     PagingProtocol.getLastPageUri(headers)
         .map(MagicCardClient::stripPageNumberFromUri)
-        .ifPresentOrElse(pageBuilder::lastPageNumber, () -> pageBuilder.lastPageNumber(currentPage).build());
-
+        .ifPresentOrElse(
+            pageBuilder::lastPageNumber, () -> pageBuilder.lastPageNumber(currentPage).build());
   }
 
   private static String anyMatching(Collection<String> parameters) {

@@ -4,15 +4,16 @@ spring:
 
   logging:
     level:
-      org:
-        springframework='OFF'
-        root='OFF'
+      org.springframework.jdbc.core.NamedParameterJdbcTemplate: DEBUG
+      org.springframework.jdbc.core.StatementCreatorUtils: TRACE
 
   datasource:
     url: jdbc:mysql://localhost:6033/mtg
     username: root
     password: root
     driver-class-name: 'com.mysql.cj.jdbc.Driver'
+    hikari:
+      auto-commit: on
 
   liquibase:
     enabled: false
