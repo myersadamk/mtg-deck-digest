@@ -1,20 +1,12 @@
 package com.digitalcocoa.mtg.client.organizer.client.mtgio.rest;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
-import org.immutables.value.Value.Immutable;
-import org.immutables.value.Value.Parameter;
-import org.immutables.value.Value.Style;
 
-@Style(jdkOnly = true)
-@Immutable(builder = false, singleton = true)
-@JsonDeserialize(as = ImmutablePageDTO.class)
-interface PageDTO {
+record PageDTO(@JsonProperty("cards") List<MagicCard> cards) {
+  private static final PageDTO EMPTY = new PageDTO(List.of());
 
-  @Parameter
-  List<MagicCard> cards();
-
-  static PageDTO empty() {
-    return ImmutablePageDTO.of();
+  static PageDTO nullToEmpty(PageDTO pageDTO) {
+    return pageDTO == null ? EMPTY : pageDTO;
   }
 }

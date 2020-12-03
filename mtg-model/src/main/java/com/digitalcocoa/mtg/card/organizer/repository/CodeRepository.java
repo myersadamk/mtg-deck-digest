@@ -1,7 +1,6 @@
 package com.digitalcocoa.mtg.card.organizer.repository;
 
 import com.digitalcocoa.mtg.card.organizer.domain.code.Codifiable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -79,20 +78,15 @@ public class CodeRepository {
     return SqlParameterSourceUtils.createBatch(arguments.toArray());
   }
 
-  public List<CodeEntity> selectAllCodes() {
-    return List.copyOf(new ArrayList<>(jdbc.query(SELECT_ALL_CODES, CodeEntity::fromResultSet)));
-  }
-
   public List<CodeEntity> selectCodesByMeaning(Codifiable codeMeaning) {
     return selectCodesByMeaning(Set.of(codeMeaning));
   }
 
   public List<CodeEntity> selectCodesByMeaning(Set<Codifiable> meanings) {
-    return List.copyOf(
-        new ArrayList<>(
-            jdbc.query(
-                SELECT_ALL_CODES_WITH_MEANING,
-                new MapSqlParameterSource("meanings", meanings.stream().map(Codifiable::getMeaning).collect(Collectors.toSet())),
-                CodeEntity::fromResultSet)));
+    return jdbc.query(
+        SELECT_ALL_CODES_WITH_MEANING,
+        new MapSqlParameterSource(
+            "meanings", meanings.stream().map(Codifiable::getMeaning).collect(Collectors.toSet())),
+        CodeEntity::fromResultSet);
   }
 }

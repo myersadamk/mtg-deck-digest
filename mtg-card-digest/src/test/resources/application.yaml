@@ -28,7 +28,7 @@ spring:
 
 client:
   mtgio:
-    base-uri: https://api.magicthegathering.io/v1/cards
+    base-uri: https://api.magicthegathering.io/v1
 #      - cache-duration='PT12H'
 test:
   # Properties defining how the integration tests will be run.

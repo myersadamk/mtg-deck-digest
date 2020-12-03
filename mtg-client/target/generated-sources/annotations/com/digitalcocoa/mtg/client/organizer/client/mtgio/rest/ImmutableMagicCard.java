@@ -1,9 +1,6 @@
 package com.digitalcocoa.mtg.client.organizer.client.mtgio.rest;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -13,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -890,170 +886,6 @@ public final class ImmutableMagicCard
         .add("subtypes", subtypes)
         .add("text", text)
         .toString();
-  }
-
-  /**
-   * Utility type used to correctly read immutable object from JSON representation.
-   * @deprecated Do not use this type directly, it exists only for the <em>Jackson</em>-binding infrastructure
-   */
-  @Generated(from = "MagicCard", generator = "Immutables")
-  @Deprecated
-  @SuppressWarnings("Immutable")
-  @JsonDeserialize
-  @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
-  static final class Json implements MagicCard {
-    @Nullable Optional<Long> multiverseid = Optional.empty();
-    @Nullable String name;
-    @Nullable List<String> names = ImmutableList.of();
-    @Nullable String rarity;
-    @Nullable String set;
-    @Nullable String type;
-    @Nullable Optional<String> manaCost = Optional.empty();
-    @Nullable Optional<Integer> cmc = Optional.empty();
-    @Nullable Set<String> colorIdentity = ImmutableSet.of();
-    @Nullable Set<String> colors = ImmutableSet.of();
-    @Nullable Set<String> types = ImmutableSet.of();
-    @Nullable Set<String> supertypes = ImmutableSet.of();
-    @Nullable Set<String> subtypes = ImmutableSet.of();
-    @Nullable Optional<String> text = Optional.empty();
-    @JsonProperty("multiverseid")
-    public void setMultiverseid(Optional<Long> multiverseid) {
-      this.multiverseid = multiverseid;
-    }
-    @JsonProperty("name")
-    public void setName(String name) {
-      this.name = name;
-    }
-    @JsonProperty("names")
-    public void setNames(List<String> names) {
-      this.names = names;
-    }
-    @JsonProperty("rarity")
-    public void setRarity(String rarity) {
-      this.rarity = rarity;
-    }
-    @JsonProperty("set")
-    public void setSet(String set) {
-      this.set = set;
-    }
-    @JsonProperty("type")
-    public void setType(String type) {
-      this.type = type;
-    }
-    @JsonProperty("manaCost")
-    public void setManaCost(Optional<String> manaCost) {
-      this.manaCost = manaCost;
-    }
-    @JsonProperty("cmc")
-    public void setCmc(Optional<Integer> cmc) {
-      this.cmc = cmc;
-    }
-    @JsonProperty("colorIdentity")
-    public void setColorIdentity(Set<String> colorIdentity) {
-      this.colorIdentity = colorIdentity;
-    }
-    @JsonProperty("colors")
-    public void setColors(Set<String> colors) {
-      this.colors = colors;
-    }
-    @JsonProperty("types")
-    public void setTypes(Set<String> types) {
-      this.types = types;
-    }
-    @JsonProperty("supertypes")
-    public void setSupertypes(Set<String> supertypes) {
-      this.supertypes = supertypes;
-    }
-    @JsonProperty("subtypes")
-    public void setSubtypes(Set<String> subtypes) {
-      this.subtypes = subtypes;
-    }
-    @JsonProperty("text")
-    public void setText(Optional<String> text) {
-      this.text = text;
-    }
-    @Override
-    public Optional<Long> multiverseid() { throw new UnsupportedOperationException(); }
-    @Override
-    public String name() { throw new UnsupportedOperationException(); }
-    @Override
-    public List<String> names() { throw new UnsupportedOperationException(); }
-    @Override
-    public String rarity() { throw new UnsupportedOperationException(); }
-    @Override
-    public String set() { throw new UnsupportedOperationException(); }
-    @Override
-    public String type() { throw new UnsupportedOperationException(); }
-    @Override
-    public Optional<String> manaCost() { throw new UnsupportedOperationException(); }
-    @Override
-    public Optional<Integer> cmc() { throw new UnsupportedOperationException(); }
-    @Override
-    public Set<String> colorIdentity() { throw new UnsupportedOperationException(); }
-    @Override
-    public Set<String> colors() { throw new UnsupportedOperationException(); }
-    @Override
-    public Set<String> types() { throw new UnsupportedOperationException(); }
-    @Override
-    public Set<String> supertypes() { throw new UnsupportedOperationException(); }
-    @Override
-    public Set<String> subtypes() { throw new UnsupportedOperationException(); }
-    @Override
-    public Optional<String> text() { throw new UnsupportedOperationException(); }
-  }
-
-  /**
-   * @param json A JSON-bindable data structure
-   * @return An immutable value type
-   * @deprecated Do not use this method directly, it exists only for the <em>Jackson</em>-binding infrastructure
-   */
-  @Deprecated
-  @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-  static ImmutableMagicCard fromJson(Json json) {
-    ImmutableMagicCard.Builder builder = ImmutableMagicCard.builder();
-    if (json.multiverseid != null) {
-      builder.multiverseid(json.multiverseid);
-    }
-    if (json.name != null) {
-      builder.name(json.name);
-    }
-    if (json.names != null) {
-      builder.addAllNames(json.names);
-    }
-    if (json.rarity != null) {
-      builder.rarity(json.rarity);
-    }
-    if (json.set != null) {
-      builder.set(json.set);
-    }
-    if (json.type != null) {
-      builder.type(json.type);
-    }
-    if (json.manaCost != null) {
-      builder.manaCost(json.manaCost);
-    }
-    if (json.cmc != null) {
-      builder.cmc(json.cmc);
-    }
-    if (json.colorIdentity != null) {
-      builder.addAllColorIdentity(json.colorIdentity);
-    }
-    if (json.colors != null) {
-      builder.addAllColors(json.colors);
-    }
-    if (json.types != null) {
-      builder.addAllTypes(json.types);
-    }
-    if (json.supertypes != null) {
-      builder.addAllSupertypes(json.supertypes);
-    }
-    if (json.subtypes != null) {
-      builder.addAllSubtypes(json.subtypes);
-    }
-    if (json.text != null) {
-      builder.text(json.text);
-    }
-    return builder.build();
   }
 
   /**

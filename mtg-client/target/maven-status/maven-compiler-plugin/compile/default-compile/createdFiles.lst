@@ -1,5 +1,4 @@
 com/digitalcocoa/mtg/client/organizer/client/mtgio/rest/MagicCard.class
-com/digitalcocoa/mtg/client/organizer/client/mtgio/rest/ImmutablePageDTO.class
 com/digitalcocoa/mtg/client/organizer/client/mtgio/rest/MagicCardClient.class
 com/digitalcocoa/mtg/client/organizer/client/mtgio/ImmutableFilters$Builder.class
 com/digitalcocoa/mtg/client/organizer/client/mtgio/rest/PageDTO.class
@@ -10,9 +9,7 @@ com/digitalcocoa/mtg/client/organizer/client/mtgio/CardCatalogAutoConfiguration.
 com/digitalcocoa/mtg/client/organizer/client/mtgio/rest/ImmutablePage.class
 com/digitalcocoa/mtg/client/organizer/client/mtgio/rest/ImmutablePage$Builder.class
 com/digitalcocoa/mtg/client/organizer/client/mtgio/rest/PagingProtocol.class
-com/digitalcocoa/mtg/client/organizer/client/mtgio/rest/ImmutablePageDTO$Json.class
 com/digitalcocoa/mtg/client/organizer/client/mtgio/Filters.class
 com/digitalcocoa/mtg/client/organizer/client/mtgio/rest/ImmutableMagicCard.class
 com/digitalcocoa/mtg/client/organizer/client/mtgio/rest/Page.class
-com/digitalcocoa/mtg/client/organizer/client/mtgio/rest/ImmutableMagicCard$Json.class
 com/digitalcocoa/mtg/client/organizer/client/mtgio/CardCatalog.class

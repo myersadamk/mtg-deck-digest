@@ -7,7 +7,7 @@ import java.util.Set;
 import org.immutables.value.Value.Immutable;
 
 @Immutable
-@JsonDeserialize(as = ImmutableMagicCard.class)
+@JsonDeserialize(builder = ImmutableMagicCard.Builder.class)
 public interface MagicCard {
   Optional<Long> multiverseid();
 

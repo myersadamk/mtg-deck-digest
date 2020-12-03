@@ -6,7 +6,6 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -31,30 +30,27 @@ public final class CodeRegistryService {
     return readCache(codeMeaning).map(Mono::just).orElseGet(Mono::empty);
   }
 
-  public Mono<Void> registerCodeValues(Codifiable meaning, String... codeValues) {
+  public Mono<Integer> registerCodeValues(Codifiable meaning, String... codeValues) {
     return registerCodeValues(meaning, Set.of(codeValues));
   }
 
-  public Mono<Void> registerCodeValues(Codifiable meaning, Set<String> codeValues) {
-    final Set<String> existingCodeValues = new HashSet<>();
-
-    return Flux.fromIterable(codeValues)
-        .doFirst(
-            () ->
-                existingCodeValues.addAll(
-                    repository.selectCodesByMeaning(meaning).stream()
-                        .map(CodeEntity::value)
-                        .collect(Collectors.toSet())))
-        .filter(existingCodeValues::contains)
-        .collectList()
-        .map(Set::copyOf)
-        .map(
-            newValues ->
-                getCodeSet(meaning)
-                    .switchIfEmpty(registerCodeSets(meaning).then(getCodeSet(meaning)))
-                    .map(codeSet -> repository.insertCodeValues(codeSet.id(), newValues)))
-        .doOnTerminate(() -> codeSetCache.refresh(meaning))
-        .then();
+  public Mono<Integer> registerCodeValues(Codifiable meaning, Set<String> codeValues) {
+    return getCodeSet(meaning)
+        .switchIfEmpty(registerCodeSets(meaning).then(getCodeSet(meaning)))
+        .flatMap(
+            codeSet -> {
+              final Set<String> existingCodeValues = codeSet.getCodeValues();
+              return Flux.fromIterable(codeValues)
+                  .filter(value -> !existingCodeValues.contains(value))
+                  .collectList()
+                  .map(Set::copyOf)
+                  .flatMap(
+                      newCodeValues ->
+                          newCodeValues.isEmpty()
+                              ? Mono.just(0)
+                              : repository.insertCodeValues(codeSet.id(), newCodeValues));
+            })
+        .doOnTerminate(() -> codeSetCache.refresh(meaning));
   }
 
   public Mono<Void> registerCodeSets(Codifiable... meanings) {
@@ -63,8 +59,7 @@ public final class CodeRegistryService {
 
   public Mono<Void> registerCodeSets(Set<Codifiable> meanings) {
     final Flux<Codifiable> unregisteredMeanings =
-        Flux.fromIterable(meanings)
-            .filter(meaning -> readCache(meaning).isEmpty());
+        Flux.fromIterable(meanings).filter(meaning -> readCache(meaning).isEmpty());
 
     return unregisteredMeanings
         .doOnNext(System.out::println)
@@ -85,6 +80,14 @@ public final class CodeRegistryService {
         });
   }
 
+  private Optional<CodeSet> readCache(Codifiable codifiable) {
+    try {
+      return Optional.of(codeSetCache.get(codifiable));
+    } catch (Exception e) {
+      return Optional.empty();
+    }
+  }
+
   private static Optional<CodeSet> mapCodeEntities(Collection<CodeEntity> codeEntities) {
     if (codeEntities.isEmpty()) {
       return Optional.empty();
@@ -97,33 +100,14 @@ public final class CodeRegistryService {
         .map(
             entry -> {
               final List<CodeEntity> entities = entry.getValue();
-
               final Integer codeSetID =
                   entities.stream().findFirst().map(CodeEntity::codeSetId).orElseThrow();
 
               final CardProperty meaning = CardProperty.valueOf(entry.getKey().toUpperCase());
-
-              final Set<Code> codes =
-                  entities.stream()
-                      .filter(e -> e.value() != null && e.codeSetId() > 0)
-                      .map(
-                          e ->
-                              new Code(
-                                  e.codeValueId(), CardProperty.valueOf(e.meaning()), e.value()))
-                      .collect(Collectors.toSet());
-
-              return new CodeSet(codeSetID, meaning, codes);
+              return new CodeSet(codeSetID, meaning, CodeEntity.toCodes(entities));
             })
         .collect(Collectors.toSet())
         .stream()
         .findAny();
-  }
-
-  private Optional<CodeSet> readCache(Codifiable codifiable) {
-    try {
-      return Optional.of(codeSetCache.get(codifiable));
-    } catch (Exception e) {
-      return Optional.empty();
-    }
   }
 }

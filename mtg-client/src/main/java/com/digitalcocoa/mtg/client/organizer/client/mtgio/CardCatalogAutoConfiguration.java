@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -22,7 +23,10 @@ public class CardCatalogAutoConfiguration {
   public WebClient mtgApiWebClient(@Value("${client.mtgio.base-uri}") String baseUri) {
     return WebClient.builder()
         .baseUrl(baseUri)
-        .defaultHeader("Accept", MediaType.APPLICATION_JSON_VALUE)
+        .defaultHeader(
+            HttpHeaders.ACCEPT,
+            MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_JSON_UTF8_VALUE)
         .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(16 * 1024 * 1024))
         .build();
   }

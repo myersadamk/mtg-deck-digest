@@ -1,6 +1,8 @@
 package com.digitalcocoa.mtg.card.digest;
 
 import com.digitalcocoa.mtg.card.digest.codes.CodeValueExtractor;
+import com.digitalcocoa.mtg.card.organizer.domain.card.CardRegistryService;
+import com.digitalcocoa.mtg.card.organizer.domain.card.ImmutableNewCard;
 import com.digitalcocoa.mtg.card.organizer.domain.code.CodeRegistryService;
 import com.digitalcocoa.mtg.client.organizer.client.mtgio.CardCatalog;
 import com.digitalcocoa.mtg.client.organizer.client.mtgio.ImmutableFilters;
@@ -17,13 +19,18 @@ public class CardDigest {
   private final CardCatalog catalog;
   private final Set<CodeValueExtractor> extractors;
   private final CodeRegistryService codeRegistry;
+  private final CardRegistryService cardRegistry;
 
   @Autowired
   public CardDigest(
-      CardCatalog catalog, Set<CodeValueExtractor> extractors, CodeRegistryService codeRegistry) {
+      CardCatalog catalog,
+      Set<CodeValueExtractor> extractors,
+      CodeRegistryService codeRegistry,
+      CardRegistryService cardRegistry) {
     this.catalog = catalog;
     this.extractors = extractors;
     this.codeRegistry = codeRegistry;
+    this.cardRegistry = cardRegistry;
   }
 
   public Mono<Void> run() {
@@ -37,10 +44,12 @@ public class CardDigest {
         .flatMap(codeRegistry::registerCodeSets)
         .thenMany(Flux.fromIterable(extractors))
         .flatMap(extractor -> saveNewCodeValues(extractor, cards))
+        .thenMany(cards)
+        .flatMap(this::saveNewCard)
         .then();
   }
 
-  private Mono<Set<String>> saveNewCodeValues(CodeValueExtractor extractor, Flux<MagicCard> cards) {
+  private Mono<Integer> saveNewCodeValues(CodeValueExtractor extractor, Flux<MagicCard> cards) {
     return codeRegistry
         .getCodeSet(extractor.codifies())
         .flatMap(
@@ -52,10 +61,25 @@ public class CardDigest {
                   .doOnEach(System.out::println)
                   .filter(extractedValue -> !existingCodeValues.contains(extractedValue))
                   .collectList()
-                  .map(Set::copyOf)
-                  .doOnNext(
-                      newValues ->
-                          codeRegistry.registerCodeValues(extractor.codifies(), newValues));
-            });
+                  .map(Set::copyOf);
+            })
+        .flatMap(newValues -> codeRegistry.registerCodeValues(extractor.codifies(), newValues));
+  }
+
+  private Mono<Integer> saveNewCard(MagicCard card) {
+    return cardRegistry
+        .getCard(card.name())
+        .map(existingCard -> 0)
+        .switchIfEmpty(
+            Mono.just(card)
+                .map(
+                    c ->
+                        ImmutableNewCard.builder()
+                            .name(c.name())
+                            .type(c.type())
+                            .manaCost(c.manaCost().orElse(""))
+                            .cmc(c.cmc().orElse(0))
+                            .build())
+                .flatMap(cardRegistry::registerCard));
   }
 }

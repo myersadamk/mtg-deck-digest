@@ -1,5 +1,3 @@
 package com.digitalcocoa.mtg.card.organizer.repository;
 
-public record CodeSetEntity() {
-
-}
+public record CodeSetEntity() {}

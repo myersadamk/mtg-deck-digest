@@ -26,6 +26,9 @@ databaseChangeLog:
                   name: NAME
                   type: varchar(512)
               - column:
+                  name: TYPE
+                  type: varchar(128)
+              - column:
                   name: COLOR_IDENTITY
                   type: varchar(32)
               - column:
@@ -33,7 +36,7 @@ databaseChangeLog:
                   type: varchar(32)
               - column:
                   name: CMC
-                  type: varchar(16)
+                  type: tinyint
         - createIndex:
             clustered: true
             columns:

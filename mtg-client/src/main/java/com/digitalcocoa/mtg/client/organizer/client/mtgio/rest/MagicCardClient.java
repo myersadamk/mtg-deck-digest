@@ -40,8 +40,8 @@ public final class MagicCardClient {
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .toEntity(PageDTO.class)
-        .doOnNext(entity -> populatePagingProtocol(pageNumber, entity, pageBuilder))
-        .map(entity -> entity.getBody() == null ? PageDTO.empty() : entity.getBody())
+        .doOnNext(response -> populatePagingProtocol(pageNumber, response, pageBuilder))
+        .map(response -> PageDTO.nullToEmpty(response.getBody()))
         .flatMapIterable(PageDTO::cards)
         .filter(card -> card.multiverseid().isPresent()) // Consider logging
         .collectList()

@@ -24,10 +24,10 @@ spring:
     default-schema: mtg
     change-log: classpath:db.changelog-master.yaml
 
-api:
+client:
   mtgio:
     cards:
-      uri: https://api.magicthegathering.io/v1/cards
+      uri: https://api.magicthegathering.io/v1
 #      - cache-duration='PT12H'
 test:
   # Properties defining how the integration tests will be run.
