@@ -36,6 +36,6 @@ public class CardRegistryService {
 
   private Mono<Card> readCache(String cardName) {
     return Mono.fromCallable(() -> cardCache.get(cardName))
-        .onErrorContinue((error, item) -> error.getCause());
+        .onErrorResume(error -> Mono.empty());
   }
 }

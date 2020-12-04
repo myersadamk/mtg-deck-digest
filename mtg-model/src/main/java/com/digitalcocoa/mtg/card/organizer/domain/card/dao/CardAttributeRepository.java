@@ -39,7 +39,7 @@ public class CardAttributeRepository {
     this.objectMapper = objectMapper;
   }
 
-  public Mono<Integer> insertCardAttributtes(Set<CardAttributeEntity> attributes) {
+  public Mono<Integer> insertCardAttributes(Set<CardAttributeEntity> attributes) {
     return Flux.fromIterable(attributes)
         .map(this::toParameters)
         .collectList()

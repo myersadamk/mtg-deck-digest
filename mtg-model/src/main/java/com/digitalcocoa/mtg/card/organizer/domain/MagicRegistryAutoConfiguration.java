@@ -1,6 +1,7 @@
 package com.digitalcocoa.mtg.card.organizer.domain;
 
 import com.digitalcocoa.mtg.card.organizer.domain.card.CardRegistryService;
+import com.digitalcocoa.mtg.card.organizer.domain.card.dao.CardAttributeRepository;
 import com.digitalcocoa.mtg.card.organizer.domain.card.dao.CardRepository;
 import com.digitalcocoa.mtg.card.organizer.domain.code.CodeRegistryService;
 import com.digitalcocoa.mtg.card.organizer.domain.code.dao.CodeRepository;
@@ -15,7 +16,8 @@ import org.springframework.context.annotation.Import;
   CodeRegistryService.class,
   CodeRepository.class,
   CardRegistryService.class,
-  CardRepository.class
+  CardRepository.class,
+  CardAttributeRepository.class,
 })
 public class MagicRegistryAutoConfiguration {
 

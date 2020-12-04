@@ -1,6 +1,6 @@
 package com.digitalcocoa.mtg.card.organizer.domain.code;
 
-public enum CardProperty implements Codifiable<String> {
+public enum CardProperty implements Codifiable {
   TYPE,
   SUBTYPE,
   SUPERTYPE;

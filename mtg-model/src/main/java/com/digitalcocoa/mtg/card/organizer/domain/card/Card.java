@@ -1,15 +1,27 @@
 package com.digitalcocoa.mtg.card.organizer.domain.card;
 
-import com.digitalcocoa.mtg.card.organizer.domain.code.Codifiable;
+import com.digitalcocoa.mtg.card.organizer.domain.code.Code;
 import java.util.Set;
-import liquibase.pro.packaged.T;
+import org.immutables.value.Value.Default;
+import org.immutables.value.Value.Immutable;
 
-public record Card(
-    Integer id,
-    String name,
-    String type,
-    String manaCost,
-    int cmc,
-    Set<Attribute<T>> cardAttribute) {
-  public record Attribute<T>(Codifiable<T> meaning, T value) {}
+@Immutable
+public interface Card {
+  Integer id();
+
+  String name();
+
+  String type();
+
+  @Default
+  default String manaCost() {
+    return "";
+  }
+
+  @Default
+  default int cmc() {
+    return 0;
+  }
+
+  Set<Code> cardAttribute();
 }

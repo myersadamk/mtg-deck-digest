@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 @Service
 public final class CodeRegistryService {
 
-  private final LoadingCache<Codifiable<?>, CodeSet> codeSetCache;
+  private final LoadingCache<Codifiable, CodeSet> codeSetCache;
   private final CodeRepository repository;
 
   public CodeRegistryService(
@@ -26,15 +26,15 @@ public final class CodeRegistryService {
     this.codeSetCache = codeSetCacheBuilder.initialCapacity(600).build(cacheLoader());
   }
 
-  public Mono<CodeSet> getCodeSet(Codifiable<?> codeMeaning) {
+  public Mono<CodeSet> getCodeSet(Codifiable codeMeaning) {
     return readCache(codeMeaning).map(Mono::just).orElseGet(Mono::empty);
   }
 
-  public Mono<Integer> registerCodeValues(Codifiable<?> meaning, String... codeValues) {
+  public Mono<Integer> registerCodeValues(Codifiable meaning, String... codeValues) {
     return registerCodeValues(meaning, Set.of(codeValues));
   }
 
-  public Mono<Integer> registerCodeValues(Codifiable<?> meaning, Set<String> codeValues) {
+  public Mono<Integer> registerCodeValues(Codifiable meaning, Set<String> codeValues) {
     return getCodeSet(meaning)
         .switchIfEmpty(registerCodeSets(meaning).then(getCodeSet(meaning)))
         .flatMap(
@@ -53,12 +53,12 @@ public final class CodeRegistryService {
         .doOnTerminate(() -> codeSetCache.refresh(meaning));
   }
 
-  public Mono<Void> registerCodeSets(Codifiable<?>... meanings) {
+  public Mono<Void> registerCodeSets(Codifiable... meanings) {
     return registerCodeSets(Set.of(meanings));
   }
 
-  public Mono<Void> registerCodeSets(Set<Codifiable<?>> meanings) {
-    final Flux<Codifiable<?>> unregisteredMeanings =
+  public Mono<Void> registerCodeSets(Set<Codifiable> meanings) {
+    final Flux<Codifiable> unregisteredMeanings =
         Flux.fromIterable(meanings).filter(meaning -> readCache(meaning).isEmpty());
 
     return unregisteredMeanings
@@ -72,15 +72,15 @@ public final class CodeRegistryService {
         .then();
   }
 
-  private CacheLoader<Codifiable<?>, CodeSet> cacheLoader() {
+  private CacheLoader<Codifiable, CodeSet> cacheLoader() {
     return CacheLoader.from(
-        (Codifiable<?> meaning) -> {
+        (Codifiable meaning) -> {
           final List<CodeEntity> codes = repository.selectCodesByMeaning(meaning);
           return mapCodeEntities(codes).orElseThrow();
         });
   }
 
-  private Optional<CodeSet> readCache(Codifiable<?> codifiable) {
+  private Optional<CodeSet> readCache(Codifiable codifiable) {
     try {
       return Optional.of(codeSetCache.get(codifiable));
     } catch (Exception e) {

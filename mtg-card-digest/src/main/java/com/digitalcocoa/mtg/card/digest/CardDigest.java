@@ -4,7 +4,6 @@ import com.digitalcocoa.mtg.card.digest.codes.CodeValueExtractor;
 import com.digitalcocoa.mtg.card.organizer.domain.card.CardRegistryService;
 import com.digitalcocoa.mtg.card.organizer.domain.card.ImmutableNewCard;
 import com.digitalcocoa.mtg.card.organizer.domain.code.CodeRegistryService;
-import com.digitalcocoa.mtg.card.organizer.domain.code.Codifiable;
 import com.digitalcocoa.mtg.client.organizer.client.mtgio.CardCatalog;
 import com.digitalcocoa.mtg.client.organizer.client.mtgio.ImmutableFilters;
 import com.digitalcocoa.mtg.client.organizer.client.mtgio.rest.MagicCard;
@@ -19,14 +18,14 @@ import reactor.core.publisher.Mono;
 public class CardDigest {
 
   private final CardCatalog catalog;
-  private final Set<CodeValueExtractor<?>> extractors;
+  private final Set<CodeValueExtractor> extractors;
   private final CodeRegistryService codeRegistry;
   private final CardRegistryService cardRegistry;
 
   @Autowired
   public CardDigest(
       CardCatalog catalog,
-      Set<CodeValueExtractor<?>> extractors,
+      Set<CodeValueExtractor> extractors,
       CodeRegistryService codeRegistry,
       CardRegistryService cardRegistry) {
     this.catalog = catalog;
@@ -41,7 +40,7 @@ public class CardDigest {
 
     return Flux.fromIterable(extractors)
         .map(CodeValueExtractor::codifies)
-        .collect(Collectors.<Codifiable<?>>toSet())
+        .collect(Collectors.toSet())
         .flatMap(codeRegistry::registerCodeSets)
         .thenMany(Flux.fromIterable(extractors))
         .flatMap(extractor -> saveNewCodeValues(extractor, cards))
@@ -50,7 +49,7 @@ public class CardDigest {
         .then();
   }
 
-  private Mono<Integer> saveNewCodeValues(CodeValueExtractor<?> extractor, Flux<MagicCard> cards) {
+  private Mono<Integer> saveNewCodeValues(CodeValueExtractor extractor, Flux<MagicCard> cards) {
     return codeRegistry
         .getCodeSet(extractor.codifies())
         .flatMap(

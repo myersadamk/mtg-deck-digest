@@ -1,5 +1,5 @@
 package com.digitalcocoa.mtg.card.organizer.domain.code;
 
-public interface Codifiable<T> {
+public interface Codifiable {
   String getMeaning();
 }

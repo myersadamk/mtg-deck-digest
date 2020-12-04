@@ -3,6 +3,7 @@ package com.digitalcocoa.mtg.card.organizer.service;
 import com.digitalcocoa.mtg.card.digest.CardDigest;
 import com.digitalcocoa.mtg.card.digest.DigestApplication;
 import com.digitalcocoa.mtg.card.organizer.domain.MagicRegistryAutoConfiguration;
+import com.digitalcocoa.mtg.card.organizer.domain.card.dao.CardRepository;
 import com.digitalcocoa.mtg.card.organizer.domain.code.CodeRegistryService;
 import com.digitalcocoa.mtg.card.organizer.domain.code.dao.CodeRepository;
 import com.digitalcocoa.mtg.client.organizer.client.mtgio.CardCatalog;
@@ -22,7 +23,8 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
       CardCatalog.class,
       MagicCardClient.class,
       CodeRegistryService.class,
-      CodeRepository.class
+      CodeRepository.class,
+      CardRepository.class
     })
 @ImportAutoConfiguration(
     classes = {
@@ -33,10 +35,12 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 class CardDigestTest {
 
   private final CardDigest cardIngester;
+  private final CardRepository cardRepository;
 
   @Autowired
-  CardDigestTest(CardDigest cardIngester) {
+  CardDigestTest(CardDigest cardIngester, CardRepository cardRepository) {
     this.cardIngester = cardIngester;
+    this.cardRepository = cardRepository;
   }
 
   @Test
@@ -46,7 +50,8 @@ class CardDigestTest {
 
   @Test
   void blah() {
-    //    System.out.println(a);
+//    System.out.println(cardRepository.getCardByName("Beacon of Destruction"));
+    System.out.println(cardRepository.selectAllCards());
   }
 
   @Test
