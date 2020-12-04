@@ -1,4 +1,4 @@
-package com.digitalcocoa.mtg.card.organizer.repository;
+package com.digitalcocoa.mtg.card.organizer.domain.code.dao;
 
 import com.digitalcocoa.mtg.card.organizer.domain.code.Codifiable;
 import java.util.List;
@@ -78,11 +78,11 @@ public class CodeRepository {
     return SqlParameterSourceUtils.createBatch(arguments.toArray());
   }
 
-  public List<CodeEntity> selectCodesByMeaning(Codifiable codeMeaning) {
+  public List<CodeEntity> selectCodesByMeaning(Codifiable<?> codeMeaning) {
     return selectCodesByMeaning(Set.of(codeMeaning));
   }
 
-  public List<CodeEntity> selectCodesByMeaning(Set<Codifiable> meanings) {
+  public List<CodeEntity> selectCodesByMeaning(Set<Codifiable<?>> meanings) {
     return jdbc.query(
         SELECT_ALL_CODES_WITH_MEANING,
         new MapSqlParameterSource(

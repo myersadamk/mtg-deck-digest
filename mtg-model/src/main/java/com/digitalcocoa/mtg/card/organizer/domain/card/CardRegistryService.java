@@ -1,10 +1,9 @@
 package com.digitalcocoa.mtg.card.organizer.domain.card;
 
-import com.digitalcocoa.mtg.card.organizer.repository.CardRepository;
+import com.digitalcocoa.mtg.card.organizer.domain.card.dao.CardRepository;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import java.util.Optional;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -36,11 +35,7 @@ public class CardRegistryService {
   }
 
   private Mono<Card> readCache(String cardName) {
-    Card card = null;
-    try {
-      card = cardCache.get(cardName);
-    } catch (Exception e) {
-    }
-    return Optional.ofNullable(card).map(Mono::just).orElse(Mono.empty());
+    return Mono.fromCallable(() -> cardCache.get(cardName))
+        .onErrorContinue((error, item) -> error.getCause());
   }
 }

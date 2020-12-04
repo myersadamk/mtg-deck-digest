@@ -1,4 +1,4 @@
-package com.digitalcocoa.mtg.card.organizer.repository;
+package com.digitalcocoa.mtg.card.organizer.domain.code.dao;
 
 import com.digitalcocoa.mtg.card.organizer.domain.code.Code;
 import java.sql.ResultSet;
@@ -19,7 +19,10 @@ public record CodeEntity(int codeValueId, String value, int codeSetId, String me
   public static Set<Code> toCodes(Collection<CodeEntity> entities) {
     return entities.stream()
         .filter(entity -> entity.value() != null && entity.codeSetId() > 0)
-        .map(entity -> new Code(entity.codeValueId(), entity.meaning(), entity.value()))
+        .map(
+            entity ->
+                new Code(
+                    entity.value(), entity.codeValueId(), entity.meaning(), entity.codeSetId()))
         .collect(Collectors.toSet());
   }
 }

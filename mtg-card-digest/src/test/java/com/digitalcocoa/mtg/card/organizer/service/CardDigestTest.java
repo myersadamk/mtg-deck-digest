@@ -4,7 +4,7 @@ import com.digitalcocoa.mtg.card.digest.CardDigest;
 import com.digitalcocoa.mtg.card.digest.DigestApplication;
 import com.digitalcocoa.mtg.card.organizer.domain.MagicRegistryAutoConfiguration;
 import com.digitalcocoa.mtg.card.organizer.domain.code.CodeRegistryService;
-import com.digitalcocoa.mtg.card.organizer.repository.CodeRepository;
+import com.digitalcocoa.mtg.card.organizer.domain.code.dao.CodeRepository;
 import com.digitalcocoa.mtg.client.organizer.client.mtgio.CardCatalog;
 import com.digitalcocoa.mtg.client.organizer.client.mtgio.CardCatalogAutoConfiguration;
 import com.digitalcocoa.mtg.client.organizer.client.mtgio.rest.MagicCardClient;

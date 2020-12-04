@@ -1,7 +1,7 @@
 package com.digitalcocoa.mtg.card.organizer.domain.code;
 
-public record Code(int id, CardProperty meaning, String value) {
-  public Code(int id, String meaning, String value) {
-    this(id, CardProperty.valueOf(meaning.toUpperCase()), value);
+public record Code(String value, int valueId, CardProperty meaning, int meaningId) {
+  public Code(String value, int valueId, String meaning, int meaningId) {
+    this(value, valueId, CardProperty.valueOf(meaning.toUpperCase()), meaningId);
   }
 }

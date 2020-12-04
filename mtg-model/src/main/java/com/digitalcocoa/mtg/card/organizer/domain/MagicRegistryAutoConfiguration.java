@@ -1,9 +1,9 @@
 package com.digitalcocoa.mtg.card.organizer.domain;
 
 import com.digitalcocoa.mtg.card.organizer.domain.card.CardRegistryService;
+import com.digitalcocoa.mtg.card.organizer.domain.card.dao.CardRepository;
 import com.digitalcocoa.mtg.card.organizer.domain.code.CodeRegistryService;
-import com.digitalcocoa.mtg.card.organizer.repository.CardRepository;
-import com.digitalcocoa.mtg.card.organizer.repository.CodeRepository;
+import com.digitalcocoa.mtg.card.organizer.domain.code.dao.CodeRepository;
 import com.google.common.cache.CacheBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

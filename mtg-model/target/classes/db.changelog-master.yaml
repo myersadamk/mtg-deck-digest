@@ -4,7 +4,7 @@ databaseChangeLog:
        username: root
 
   - changeSet:
-      id: create-base-table-card
+      id: initialize-schema
       author: amyers
 #      preConditions:
 #        - onFail: MARK_RAN
@@ -148,16 +148,6 @@ databaseChangeLog:
 #            baseColumnNames: CARD_ID,ENTITY_ATTRIBUTE_CODE
 #            referencedTableName: CARD,ENTITY_ATTRIBUTE_CODE_ID
 #            referencedColumnNames: CARD_ID,ENTITY_ATTRIBUTE_CODE_ID
-
-  - changeSet:
-      id: create-table-formats
-      author: amyers
-      preConditions:
-        - onFail: MARK_RAN
-          not:
-            tableExists:
-              tableName: FORMATS
-      changes:
         - createTable:
             tableName: FORMATS
             columns:
@@ -171,38 +161,3 @@ databaseChangeLog:
               - column:
                   name: NAME
                   type: varchar(512)
-  - changeSet:
-      id: create-table-banlist
-      author: amyers
-      preConditions:
-        - onFail: MARK_RAN
-          not:
-            tableExists:
-              tableName: BANLIST
-      changes:
-        - createTable:
-            tableName: BANLIST
-            columns:
-              - column:
-                  name: ID
-                  type: int
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
-                  name: CARD_NAME
-                  type: varchar(512)
-                  constraints:
-                    foreignKeyName: fk_banlist_to_card_name
-                    references: CARD(name)
-                    nullable: false
-#        - insert:
-#            columns:
-#              - column:
-#                  name: code
-#                  value: 'supertype'
-#            dbms: '!h2,  mysql'
-#            schemaName: mtg
-#            tableName: CODE_VALUE
-

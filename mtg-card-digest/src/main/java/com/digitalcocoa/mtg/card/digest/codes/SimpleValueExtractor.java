@@ -6,7 +6,7 @@ import com.digitalcocoa.mtg.client.organizer.client.mtgio.rest.MagicCard;
 import java.util.function.Function;
 import reactor.core.publisher.Flux;
 
-final class SimpleValueExtractor implements CodeValueExtractor {
+final class SimpleValueExtractor implements CodeValueExtractor<String> {
 
   private final Function<MagicCard, String> extractor;
   private final CardProperty codeSet;
@@ -22,7 +22,7 @@ final class SimpleValueExtractor implements CodeValueExtractor {
   }
 
   @Override
-  public Codifiable codifies() {
+  public Codifiable<String> codifies() {
     return () -> codeSet.name().toLowerCase();
   }
 }
