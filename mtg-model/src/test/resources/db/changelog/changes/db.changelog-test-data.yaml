@@ -1,0 +1,29 @@
+databaseChangeLog:
+  -  preConditions:
+  -  runningAs:
+       username: root
+#  - includeAll:
+#     path: db/changelog/changes/
+
+  - changeSet:
+      id: initialize-schema
+      author: amyers
+      changes:
+        - insert:
+            tableName: CODE_SET
+            columns:
+              - column:
+                  name: ID
+                  value: 1
+              - column:
+                  name: MEANING
+                  value: 'type'
+        - insert:
+            tableName: CODE_VALUE
+            columns:
+              - column:
+                  name: ID
+                  value: 1
+              - column:
+                  name: VALUE
+                  value: 'Artifact'

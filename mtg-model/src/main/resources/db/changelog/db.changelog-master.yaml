@@ -2,6 +2,8 @@ databaseChangeLog:
   -  preConditions:
   -  runningAs:
        username: root
+  - includeAll:
+     path: db/changelog/changes/
 
   - changeSet:
       id: initialize-schema

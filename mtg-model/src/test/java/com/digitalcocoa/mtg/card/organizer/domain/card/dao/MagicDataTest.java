@@ -1,9 +1,9 @@
 package com.digitalcocoa.mtg.card.organizer.domain.card.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.digitalcocoa.mtg.card.organizer.domain.card.dao.CardAttributeRepositoryTest.TestConfiguration;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.digitalcocoa.mtg.card.organizer.domain.card.dao.MagicDataTest.TestConfiguration;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,29 +13,32 @@ import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+@ActiveProfiles("h2")
 @AutoConfigureTestDatabase
-@SpringJUnitConfig(classes = {CardAttributeRepository.class})
+@SpringJUnitConfig(classes = {
+    CardRepository.class,
+    CardAttributeRepository.class,
+})
 @ImportAutoConfiguration({JdbcTemplateAutoConfiguration.class, LiquibaseAutoConfiguration.class})
 @Import(TestConfiguration.class)
-@ActiveProfiles("h2")
-class CardAttributeRepositoryTest {
+class MagicDataTest {
 
-  @Autowired private CardAttributeRepository repository;
+  @Autowired private CardRepository cardRepository;
+  @Autowired private CardAttributeRepository cardAttributeRepository;
 
   @Test
   void insertEmptyCardAttributes() {
-    assertThat(repository.insertCardAttributes(Set.of()).block()).isZero();
+    assertThat(cardAttributeRepository.insertCardAttributes(Set.of()).block()).isZero();
   }
 
   @Test
-  void insertCardAttributes() {
-    assertThat(repository.insertCardAttributes(Set.of(new CardAttributeEntity(1, 2, 3))).block())
-        .isZero();
+  void foreignKeyConstraints() {
+    assertThatThrownBy(() -> cardAttributeRepository.insertCardAttributes(Set.of(new CardAttributeEntity(1, 1, 1))).block()).isInstanceOf(DataAccessException.class);
   }
 
   //  @Configuration
@@ -43,9 +46,5 @@ class CardAttributeRepositoryTest {
   @SpringBootConfiguration
   @AutoConfigurationPackage
   public static class TestConfiguration {
-    @Bean
-    public ObjectMapper objectMapper() {
-      return new ObjectMapper();
-    }
   }
 }

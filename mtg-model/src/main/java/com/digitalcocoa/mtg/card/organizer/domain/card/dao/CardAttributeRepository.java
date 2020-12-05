@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
@@ -30,7 +31,7 @@ public class CardAttributeRepository {
   public Mono<Integer> insertCardAttributes(Set<CardAttributeEntity> attributes) {
     return Flux.fromIterable(attributes)
         .collectList()
-        .map(
+        .flatMap(
             parameters -> {
               JdbcBatchItemWriter<CardAttributeEntity> writer = new JdbcBatchItemWriter<>();
               writer.setDataSource(dataSource);
@@ -41,9 +42,9 @@ public class CardAttributeRepository {
               try {
                 writer.write(parameters);
               } catch (Exception e) {
-                e.printStackTrace();
+                return Mono.error(new DataAccessException("Failed to insert card entity attributes", e) {});
               }
-              return attributes.size();
+              return Mono.just(attributes.size());
             });
   }
 }
