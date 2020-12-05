@@ -7,8 +7,8 @@ import java.util.Set;
 import org.immutables.value.Value.Immutable;
 
 @Immutable
-@JsonDeserialize(builder = ImmutableNewCard.Builder.class)
 @JsonSerialize(as = ImmutableNewCard.class)
+@JsonDeserialize(builder = ImmutableNewCard.Builder.class)
 public interface NewCard {
   String name();
 

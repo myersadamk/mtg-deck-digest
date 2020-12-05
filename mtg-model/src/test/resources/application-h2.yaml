@@ -16,14 +16,14 @@ spring:
       auto-commit: on
 
   liquibase:
-    enabled: false
-#    url: jdbc:mysql://localhost:6033/mtg
-    url: jdbc:mysql://localhost:6033/mtg
-    user: root
-    password: root
+    enabled: true
+    drop-first: true
+    #    url: jdbc:mysql://localhost:6033/mtg
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;INIT=CREATE SCHEMA IF NOT EXISTS mtg
+    user: sa
+    password:
     driver-class-name: 'com.mysql.cj.jdbc.Driver'
     default-schema: mtg
-#    change-log: classpath:db.changelog-master.yaml
     change-log: classpath:db/changelog/db.changelog-master.yaml
 
 client:

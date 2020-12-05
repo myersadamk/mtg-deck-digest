@@ -58,7 +58,6 @@ public class CardDigest {
 
               return cards
                   .flatMap(extractor::extract)
-                  .doOnEach(System.out::println)
                   .filter(extractedValue -> !existingCodeValues.contains(extractedValue))
                   .collectList()
                   .map(Set::copyOf);
@@ -66,19 +65,19 @@ public class CardDigest {
         .flatMap(newValues -> codeRegistry.registerCodeValues(extractor.codifies(), newValues));
   }
 
-  private Mono<Integer> saveNewCard(MagicCard card) {
+  private Mono<Integer> saveNewCard(MagicCard magicCard) {
     return cardRegistry
-        .getCard(card.name())
+        .getCard(magicCard.name())
         .map(existingCard -> 0)
         .switchIfEmpty(
-            Mono.just(card)
+            Mono.just(magicCard)
                 .map(
-                    c ->
+                    card ->
                         ImmutableNewCard.builder()
-                            .name(c.name())
-                            .type(c.type())
-                            .manaCost(c.manaCost().orElse(""))
-                            .cmc(c.cmc().orElse(0))
+                            .name(card.name())
+                            .type(card.type())
+                            .manaCost(card.manaCost().orElse(""))
+                            .cmc(card.cmc().orElse(0))
                             .build())
                 .flatMap(cardRegistry::registerCard));
   }

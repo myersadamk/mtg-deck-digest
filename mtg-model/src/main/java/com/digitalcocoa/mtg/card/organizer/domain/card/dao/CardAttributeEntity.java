@@ -2,12 +2,13 @@ package com.digitalcocoa.mtg.card.organizer.domain.card.dao;
 
 import com.digitalcocoa.mtg.card.organizer.domain.code.Code;
 import com.digitalcocoa.mtg.card.organizer.domain.code.dao.CodeEntity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public record CardAttributeEntity(int cardId, int codeSetId, int codeValueId) {
+public record CardAttributeEntity(@JsonProperty int cardId, @JsonProperty int codeSetId, @JsonProperty int codeValueId) {
 
   public static CodeEntity fromResultSet(ResultSet resultSet, int rowNumber) throws SQLException {
     return new CodeEntity(

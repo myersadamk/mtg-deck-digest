@@ -2,7 +2,6 @@ package com.digitalcocoa.mtg.card.organizer.domain.card.dao;
 
 import com.digitalcocoa.mtg.card.organizer.domain.card.Card;
 import com.digitalcocoa.mtg.card.organizer.domain.card.NewCard;
-import com.digitalcocoa.mtg.card.organizer.domain.code.dao.CodeRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.sql.Types;
@@ -12,7 +11,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.sql.DataSource;
@@ -42,12 +40,12 @@ public class CardRepository {
 
   private static final String SELECT_CARD_BY_NAME =
       """
-      SELECT * FROM CARD WHERE NAME in (:cardNames)
+      SELECT ID FROM CARD WHERE NAME in (:cardNames)
       """;
 
   private static final String SELECT_CARD_IDS =
       """
-      SELECT ID FROM CARD WHERE NAME in (:cardNames)
+      SELECT CARD.ID FROM CARD WHERE NAME in (:cardNames)
       """;
 
   private static final String SELECT_CARD_AND_ATTRIBUTES =
@@ -58,15 +56,14 @@ public class CardRepository {
       left outer join CODE_VALUE on CODE_SET.ID = CODE_VALUE.CODE_SET_ID
       """;
 
-  private static final String SELECT_ALL_BY_CARD_NAME = SELECT_CARD_AND_ATTRIBUTES +
-      """
+  private static final String SELECT_ALL_BY_CARD_NAME =
+      SELECT_CARD_AND_ATTRIBUTES + """
       where NAME in (:cardNames)
       """;
 
   private final NamedParameterJdbcTemplate jdbc;
   private final ObjectMapper objectMapper;
   private final CardAttributeRepository cardAttributeRepository;
-  private final CodeRepository codeRepository;
   private final DataSource dataSource;
 
   @Autowired
@@ -74,11 +71,10 @@ public class CardRepository {
       NamedParameterJdbcTemplate jdbc,
       ObjectMapper objectMapper,
       CardAttributeRepository cardAttributeRepository,
-      CodeRepository codeRepository, DataSource dataSource) {
+      DataSource dataSource) {
     this.jdbc = jdbc;
     this.objectMapper = objectMapper;
     this.cardAttributeRepository = cardAttributeRepository;
-    this.codeRepository = codeRepository;
     this.dataSource = dataSource;
   }
 
@@ -88,20 +84,30 @@ public class CardRepository {
         .map(this::toParameters)
         .collectList()
         .map(parameters -> jdbc.batchUpdate(INSERT_CARD, batch(parameters.stream())))
-        .thenMany(Flux.fromArray(cards))
+        .then(
+            Mono.fromCallable(
+                () ->
+                    selectCardIDs(
+                        Arrays.stream(cards).map(NewCard::name).collect(Collectors.toSet()))))
         .flatMap(
-            card -> {
-              final Integer cardID = cardIDs.get(card.name());
-              if (cardID == null || cardID < 0) {
-                return Flux.error(RuntimeException::new);
-              }
+            cardIDs ->
+                Flux.fromArray(cards)
+                    .flatMap(
+                        card -> {
+                          final Integer cardID = cardIDs.get(card.name());
+                          if (cardID == null || cardID < 0) {
+                            return Flux.error(RuntimeException::new);
+                            //              return null;
+                          }
 
-              return Flux.fromIterable(card.attributes())
-                  .collect(Collectors.toUnmodifiableSet())
-                  .map(attributes -> CardAttributeEntity.fromAttributes(cardID, attributes));
-            })
-        .flatMap(Flux::fromIterable)
-        .collect(Collectors.toSet())
+                          return Flux.fromIterable(card.attributes())
+                              .collect(Collectors.toUnmodifiableSet())
+                              .map(
+                                  attributes ->
+                                      CardAttributeEntity.fromAttributes(cardID, attributes));
+                        })
+                    .flatMap(Flux::fromIterable)
+                    .collect(Collectors.toSet()))
         .flatMap(cardAttributeRepository::insertCardAttributes);
   }
 

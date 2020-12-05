@@ -50,7 +50,7 @@ class CardDigestTest {
 
   @Test
   void blah() {
-//    System.out.println(cardRepository.getCardByName("Beacon of Destruction"));
+    //    System.out.println(cardRepository.getCardByName("Beacon of Destruction"));
     System.out.println(cardRepository.selectAllCards());
   }
 

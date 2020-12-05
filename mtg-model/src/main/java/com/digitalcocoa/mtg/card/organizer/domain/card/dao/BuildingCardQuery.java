@@ -32,7 +32,6 @@ public class BuildingCardQuery extends MappingSqlQuery<Code> {
 
   public BuildingCardQuery(DataSource ds, String sql) {
     super(ds, sql);
-
   }
 
   private final ImmutableList.Builder<Card> builtCards = ImmutableList.builder();
@@ -43,11 +42,12 @@ public class BuildingCardQuery extends MappingSqlQuery<Code> {
   @Override
   protected Code mapRow(ResultSet rs, int rowNum) throws SQLException {
     final int currentID = Column.ID.readInteger(rs);
-    final Code code = new Code(
-        Column.VALUE.readString(rs),
-        rs.getInt("CODE_VALUE.ID"),
-        Column.MEANING.readString(rs),
-        rs.getInt("CODE_SET.ID"));
+    final Code code =
+        new Code(
+            Column.VALUE.readString(rs),
+            rs.getInt("CODE_VALUE.ID"),
+            Column.MEANING.readString(rs),
+            rs.getInt("CODE_SET.ID"));
 
     cardBuilder.addCardAttribute(code);
 
