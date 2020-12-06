@@ -25,7 +25,7 @@ databaseChangeLog:
                   value: 2
               - column:
                   name: MEANING
-                  value: 'subtypetype'
+                  value: 'subtype'
         - insert:
             tableName: CODE_VALUE
             columns:

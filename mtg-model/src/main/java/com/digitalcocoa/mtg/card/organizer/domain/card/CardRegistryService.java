@@ -4,6 +4,7 @@ import com.digitalcocoa.mtg.card.organizer.domain.card.dao.CardRepository;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -23,15 +24,18 @@ public class CardRegistryService {
     return readCache(cardName);
   }
 
+  // TODO =\
+  @SneakyThrows
   public Mono<Integer> registerCard(NewCard card) {
-    return readCache(card.name())
-        .map(ignored -> 0)
-        .switchIfEmpty(repository.insertCards(card))
-        .doOnSuccess(inserts -> cardCache.refresh(card.name()));
+    return null;
+//    return readCache(card.name())
+//        .map(ignored -> 0)
+//        .switchIfEmpty(repository.insertCards(null))
+//        .doOnSuccess(inserts -> cardCache.refresh(card.name()));
   }
 
   private CacheLoader<String, Card> cacheLoader() {
-    return CacheLoader.from(cardName -> repository.getCardByName(cardName).orElse(null));
+    return CacheLoader.from(cardName -> repository.selectCardByName(cardName).orElse(null));
   }
 
   private Mono<Card> readCache(String cardName) {

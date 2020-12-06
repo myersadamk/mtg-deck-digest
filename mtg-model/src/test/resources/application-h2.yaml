@@ -1,6 +1,6 @@
 spring:
   main:
-    banner-mode: 'off'
+    banner-mode: off
 
   logging:
     level:
@@ -11,7 +11,7 @@ spring:
     url: jdbc:mysql://localhost:6033/mtg
     username: root
     password: root
-    driver-class-name: 'com.mysql.cj.jdbc.Driver'
+    driver-class-name: org.h2.Driver
     hikari:
       auto-commit: on
 
@@ -22,10 +22,10 @@ spring:
     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;INIT=CREATE SCHEMA IF NOT EXISTS mtg
     user: sa
     password:
-    driver-class-name: 'com.mysql.cj.jdbc.Driver'
+    driver-class-name: org.h2.Driver
     default-schema: mtg
 #    change-log: classpath:db/changelog/db.changelog-master.yaml
-    change-log: classpath:db/changelog/db.changelog-test.yaml
+#    changeLog: classpath:db/changelog/db.changelog-test.yaml
 
 client:
   mtgio:

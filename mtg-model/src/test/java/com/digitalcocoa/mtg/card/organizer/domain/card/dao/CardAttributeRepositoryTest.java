@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ActiveProfiles;
@@ -20,12 +22,14 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 @ActiveProfiles("h2")
 @AutoConfigureTestDatabase
+@SpringBootTest
 @SpringJUnitConfig(
     classes = {
       CardAttributeRepository.class,
     })
-@ImportAutoConfiguration({JdbcTemplateAutoConfiguration.class, LiquibaseAutoConfiguration.class})
+@ImportAutoConfiguration({JdbcTemplateAutoConfiguration.class, DataSourceAutoConfiguration.class, LiquibaseAutoConfiguration.class})
 @Import(TestConfiguration.class)
+//@Disabled("adfl;kjasdf liquibase")
 class CardAttributeRepositoryTest {
 
   @Autowired private CardAttributeRepository cardAttributeRepository;

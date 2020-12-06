@@ -1,6 +1,0 @@
-databaseChangeLog:
-  - preConditions:
-  - runningAs:
-      username: root
-  - includeAll:
-      path: classpath:db/changelog/changes
