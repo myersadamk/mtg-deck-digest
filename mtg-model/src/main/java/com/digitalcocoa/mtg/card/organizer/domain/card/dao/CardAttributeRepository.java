@@ -17,7 +17,7 @@ public class CardAttributeRepository {
       INSERT INTO CARD_ATTRIBUTES(CARD_ID, CODE_SET_ID, CODE_VALUE_ID) VALUES (:cardId, :codeSetId, :codeValueId)
       """;
 
-  private JdbcBatchItemWriterFactory batchWriterFactory;
+  private final JdbcBatchItemWriterFactory batchWriterFactory;
 
   public Mono<Integer> insertCardAttributes(Set<CardAttributeEntity> attributes) {
     return Flux.fromIterable(attributes)

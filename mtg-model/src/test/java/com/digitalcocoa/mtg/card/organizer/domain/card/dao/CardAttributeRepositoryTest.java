@@ -26,6 +26,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 @SpringJUnitConfig(
     classes = {
       CardAttributeRepository.class,
+        JdbcBatchItemWriterFactory.class
     })
 @ImportAutoConfiguration({JdbcTemplateAutoConfiguration.class, DataSourceAutoConfiguration.class, LiquibaseAutoConfiguration.class})
 @Import(TestConfiguration.class)

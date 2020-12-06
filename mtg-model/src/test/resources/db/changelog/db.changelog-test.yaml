@@ -4,3 +4,5 @@ databaseChangeLog:
       username: root
   - include:
       file: db/changelog/changes/code-set-schema.yaml
+  - include:
+      file: db/changelog/data/card-and-code-data.yaml

@@ -24,7 +24,7 @@ spring:
     password: root
     driver-class-name: 'com.mysql.cj.jdbc.Driver'
     default-schema: mtg
-    change-log: classpath:db.changelog-master.yaml
+    change-log: classpath:db.changelog-test.yaml
 
 client:
   mtgio:

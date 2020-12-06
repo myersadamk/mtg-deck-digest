@@ -23,8 +23,8 @@ spring:
     user: sa
     password:
     driver-class-name: org.h2.Driver
-    default-schema: mtg
-#    change-log: classpath:db/changelog/db.changelog-master.yaml
+#    default-schema: mtg
+    change-log: db/changelog/db.changelog-test.yaml
 #    changeLog: classpath:db/changelog/db.changelog-test.yaml
 
 client:
