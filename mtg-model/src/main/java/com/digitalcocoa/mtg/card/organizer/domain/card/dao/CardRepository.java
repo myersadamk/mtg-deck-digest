@@ -8,13 +8,16 @@ import java.sql.Types;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.sql.DataSource;
+import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
+import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.SqlParameterValue;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -35,17 +38,17 @@ public class CardRepository {
 
   private static final String INSERT_CARD =
       """
-      INSERT IGNORE INTO CARD(NAME, TYPE, MANA_COST, CMC) VALUES (:name, :type, :manaCost, :cmc)
+      INSERT INTO CARD(NAME, TYPE, MANA_COST, CMC) VALUES (:name, :type, :manaCost, :cmc)
       """;
 
-  private static final String SELECT_CARD_BY_NAME =
-      """
-      SELECT ID FROM CARD WHERE NAME in (:cardNames)
-      """;
+  //  private static final String SELECT_CARD_BY_NAME =
+  //      """
+  //      SELECT ID FROM CARD WHERE NAME in (:cardNames)
+  //      """;
 
   private static final String SELECT_CARD_IDS =
       """
-      SELECT CARD.ID FROM CARD WHERE NAME in (:cardNames)
+      select NAME, ID from CARD where name in (:cardNames)
       """;
 
   private static final String SELECT_CARD_AND_ATTRIBUTES =
@@ -78,6 +81,22 @@ public class CardRepository {
     this.dataSource = dataSource;
   }
 
+  public Integer insertCards(List<CardEntity> cards) {
+    JdbcBatchItemWriter<CardEntity> writer = new JdbcBatchItemWriter<>();
+    writer.setDataSource(dataSource);
+    writer.setJdbcTemplate(jdbc);
+    writer.setSql(INSERT_CARD);
+    writer.afterPropertiesSet();
+    writer.setItemSqlParameterSourceProvider(
+        card -> new BeanPropertyItemSqlParameterSourceProvider<>().createSqlParameterSource(card));
+    try {
+      writer.write(cards);
+    } catch (Exception e) {
+      throw new DataAccessException("Failed to insert card entity attributes", e) {};
+    }
+    return cards.size();
+  }
+
   public Mono<Integer> insertCards(NewCard... cards) {
 
     return Flux.fromArray(cards)
@@ -96,7 +115,7 @@ public class CardRepository {
                         card -> {
                           final Integer cardID = cardIDs.get(card.name());
                           if (cardID == null || cardID < 0) {
-                            return Flux.error(RuntimeException::new);
+                            return Flux.error(new RuntimeException("Failed to find it!"));
                             //              return null;
                           }
 
@@ -111,19 +130,34 @@ public class CardRepository {
         .flatMap(cardAttributeRepository::insertCardAttributes);
   }
 
-  private Map<String, Integer> selectCardIDs(Set<String> cardNames) {
+  public record CardEntity(Integer ID, String name, String type, String manaCost, int cmc) {}
+
+  public Map<String, Integer> selectCardIDs(Set<String> cardNames) {
     return jdbc
-        .queryForMap(SELECT_CARD_IDS, new MapSqlParameterSource("cardNames", cardNames))
-        .entrySet()
+        .query(
+            SELECT_CARD_IDS,
+            new MapSqlParameterSource("cardNames", cardNames),
+            DataClassRowMapper.newInstance(CardEntity.class))
         .stream()
         .collect(
             Collectors.toMap(
-                Entry::getKey,
-                d ->
-                    Optional.ofNullable(d.getValue())
+                CardEntity::name,
+                card ->
+                    Optional.ofNullable(card.ID)
                         .map(Object::toString)
                         .map(Integer::valueOf)
                         .orElse(-1)));
+    //    return map
+    //        .entrySet()
+    //        .stream()
+    //        .collect(
+    //            Collectors.toMap(
+    //                Entry::getKey,
+    //                d ->
+    //                    Optional.ofNullable(d.getValue())
+    //                        .map(Object::toString)
+    //                        .map(Integer::valueOf)
+    //                        .orElse(-1)));
   }
 
   // TODO: this was the easiest thing for what was wanted, but more advanced filters will be needed

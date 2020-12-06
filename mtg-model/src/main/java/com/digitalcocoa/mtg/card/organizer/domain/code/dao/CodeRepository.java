@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
 @Repository
@@ -56,6 +57,7 @@ public class CodeRepository {
     this.jdbc = jdbc;
   }
 
+  @Transactional
   public Mono<Integer> insertCodeSets(Set<String> meanings) {
     return Mono.fromCallable(
         () ->
@@ -65,6 +67,7 @@ public class CodeRepository {
                 .length);
   }
 
+  @Transactional
   public Mono<Integer> insertCodeValues(int codeSetID, Set<String> values) {
     return Mono.fromCallable(
         () ->

@@ -1,1 +1,0 @@
--- insert into CODE_VALUE(ID, MEANING) values(1, 'type')

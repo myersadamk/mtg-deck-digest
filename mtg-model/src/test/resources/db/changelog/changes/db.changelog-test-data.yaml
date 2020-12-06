@@ -1,12 +1,11 @@
 databaseChangeLog:
-  -  preConditions:
   -  runningAs:
        username: root
 #  - includeAll:
 #     path: db/changelog/changes/
 
   - changeSet:
-      id: initialize-schema
+      id: doop-doop
       author: amyers
       changes:
         - insert:
@@ -19,11 +18,44 @@ databaseChangeLog:
                   name: MEANING
                   value: 'type'
         - insert:
+            tableName: CODE_SET
+            columns:
+              - column:
+                  name: ID
+                  value: 2
+              - column:
+                  name: MEANING
+                  value: 'subtypetype'
+        - insert:
             tableName: CODE_VALUE
             columns:
               - column:
                   name: ID
                   value: 1
               - column:
+                  name: CODE_SET_ID
+                  value: 1
+              - column:
                   name: VALUE
-                  value: 'Artifact'
+                  value: 'Land'
+        - insert:
+            tableName: CODE_VALUE
+            columns:
+              - column:
+                  name: ID
+                  value: 2
+              - column:
+                  name: CODE_SET_ID
+                  value: 2
+              - column:
+                  name: VALUE
+                  value: 'Snow'
+        - insert:
+            tableName: CARD
+            columns:
+              - column:
+                  name: ID
+                  value: 1
+              - column:
+                  name: NAME
+                  value: 'Snow-Covered Forest'
