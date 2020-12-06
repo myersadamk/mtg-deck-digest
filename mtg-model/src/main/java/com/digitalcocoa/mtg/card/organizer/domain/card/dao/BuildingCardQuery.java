@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import javax.sql.DataSource;
 import org.springframework.jdbc.object.MappingSqlQuery;
 
@@ -19,10 +20,12 @@ public class BuildingCardQuery extends MappingSqlQuery<Code> {
     CMC,
     MANA_COST,
     MEANING,
-    VALUE;
+    CODE_SET,
+    CODE_VALUE;
 
-    Integer readInteger(ResultSet rs) throws SQLException {
-      return rs.getInt(name());
+
+    Optional<Integer> readInteger(ResultSet rs) throws SQLException {
+      return Optional.ofNullable(rs.getString(name())).map(Integer::getInteger);
     }
 
     String readString(ResultSet rs) throws SQLException {
@@ -41,15 +44,21 @@ public class BuildingCardQuery extends MappingSqlQuery<Code> {
 
   @Override
   protected Code mapRow(ResultSet rs, int rowNum) throws SQLException {
-    final int currentID = Column.ID.readInteger(rs);
-    final Code code =
-        new Code(
-            Column.VALUE.readString(rs),
-            rs.getInt("CODE_VALUE.ID"),
-            Column.MEANING.readString(rs),
-            rs.getInt("CODE_SET.ID"));
+    final int currentID = Column.ID.readInteger(rs).orElseThrow();
 
-    cardBuilder.addCardAttribute(code);
+    final var codeSetID = Column.CODE_SET.readInteger(rs);
+    final var codeValueID = Column.CODE_VALUE.readInteger(rs);
+
+    if (codeSetID.isPresent() && codeValueID.isPresent()) {
+      final Code code =
+          new Code(
+              Column.CODE_SET.readString(rs),
+              rs.getInt("CODE_VALUE.ID"),
+              Column.MEANING.readString(rs),
+              rs.getInt("CODE_SET.ID"));
+
+      cardBuilder.addCardAttribute(code);
+    }
 
     if (lastID != currentID) {
       builtCards.add(
@@ -57,14 +66,14 @@ public class BuildingCardQuery extends MappingSqlQuery<Code> {
               .id(currentID)
               .name(Column.NAME.readString(rs))
               .type(Column.TYPE.readString(rs))
-              .cmc(Column.CMC.readInteger(rs))
+              .cmc(Column.CMC.readInteger(rs).orElse(0))
               .manaCost(Column.MANA_COST.readString(rs))
               .build());
       cardBuilder = ImmutableCard.builder();
     }
     lastID = currentID;
 
-    return code;
+    return null;
   }
 
   List<Card> aggregateCards() {

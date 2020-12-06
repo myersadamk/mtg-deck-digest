@@ -24,7 +24,7 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: NAME
+                  name: TITLE
                   type: varchar(512)
               - column:
                   name: TYPE
@@ -43,7 +43,7 @@ databaseChangeLog:
             columns:
               - column:
                   descending: true
-                  name: NAME
+                  name: TITLE
             indexName: idx_card_name
             tableName: CARD
             unique: true
@@ -160,5 +160,5 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: NAME
+                  name: TITLE
                   type: varchar(512)

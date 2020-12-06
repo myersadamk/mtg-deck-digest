@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.sql.DataSource;
-import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.SqlParameterValue;
@@ -23,15 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class CardRepository {
 
-  private static final String INSERT_CARD =
-      """
-      INSERT INTO CARD(NAME, TYPE, MANA_COST, CMC) VALUES (:name, :type, :manaCost, :cmc)
-      """;
-
-  //  private static final String SELECT_CARD_BY_NAME =
-  //      """
-  //      SELECT ID FROM CARD WHERE NAME in (:cardNames)
-  //      """;
+  private static final String INSERT_CARD = "INSERT INTO CARD(TITLE, TYPE, MANA_COST, CMC) VALUES (:title, :type, :manaCost, :cmc)";
 
   private static final String SELECT_CARD_IDS =
       """
@@ -48,7 +39,7 @@ public class CardRepository {
 
   private static final String SELECT_ALL_BY_CARD_NAME =
       SELECT_CARD_AND_ATTRIBUTES + """
-      where NAME in (:cardNames)
+      where TITLE in (:cardNames)
       """;
 
   private final JdbcBatchItemWriterFactory batchItemWriterFactory;
@@ -83,12 +74,13 @@ public class CardRepository {
 //    return cards.size();
 //  }
 //
-  @Transactional
-  public int insertCards(List<CardEntity> cardEntities) throws Exception {
-      final JdbcBatchItemWriter<CardEntity> writer = batchItemWriterFactory.create(INSERT_CARD);
-      writer.write(cardEntities);
-      return cardEntities.size();
+@Transactional
+public int insertCards(List<CardEntity> cardEntities) {
+    return jdbc.batchUpdate(
+        INSERT_CARD,
+        SqlParameterSourceUtils.createBatch(cardEntities.toArray())).length;
   }
+
 
 //  public Mono<Integer> insertCards(NewCard... cards) {
 //
@@ -128,8 +120,9 @@ public class CardRepository {
 //        .flatMap(cardAttributeRepository::insertCardAttributes);
 //  }
 
-  public record CardEntity(Integer ID, String name, String type, String manaCost, int cmc) {}
+  public record CardEntity(Integer ID, String title, String type, String manaCost, int cmc) {}
 
+  @Transactional
   public Map<String, Integer> selectCardIDs(Set<String> cardNames) {
     return jdbc
         .query(
@@ -139,7 +132,7 @@ public class CardRepository {
         .stream()
         .collect(
             Collectors.toMap(
-                CardEntity::name,
+                CardEntity::title,
                 card ->
                     Optional.ofNullable(card.ID)
                         .map(Object::toString)

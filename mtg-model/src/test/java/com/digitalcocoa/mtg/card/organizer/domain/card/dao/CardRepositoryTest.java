@@ -11,22 +11,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 @ActiveProfiles("h2")
 @AutoConfigureTestDatabase
+@SpringBootTest
 @SpringJUnitConfig(
     classes = {
       CardRepository.class,
       CardAttributeRepository.class,
       JdbcBatchItemWriterFactory.class
     })
-@ImportAutoConfiguration({JdbcTemplateAutoConfiguration.class, LiquibaseAutoConfiguration.class})
+@ImportAutoConfiguration({DataSourceAutoConfiguration.class, JdbcTemplateAutoConfiguration.class, LiquibaseAutoConfiguration.class})
 @Import(TestConfiguration.class)
 class CardRepositoryTest {
 
@@ -34,7 +37,7 @@ class CardRepositoryTest {
   @Autowired private CardAttributeRepository fudge;
 
   @Test
-  void insertAndSelectCards() throws Exception {
+  void insertAndSelectCards() {
     final var card = new CardEntity(1, "Abundance", "Enchantment", "1{G}{G}", 1);
     cardRepository.insertCards(List.of(card));
 

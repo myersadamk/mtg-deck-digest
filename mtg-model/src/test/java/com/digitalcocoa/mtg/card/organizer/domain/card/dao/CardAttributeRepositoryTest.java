@@ -4,7 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.digitalcocoa.mtg.card.organizer.domain.card.dao.CardAttributeRepositoryTest.TestConfiguration;
-import java.util.Set;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import java.util.List;
+import javax.sql.DataSource;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
@@ -15,7 +18,9 @@ import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -28,16 +33,15 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
       CardAttributeRepository.class,
         JdbcBatchItemWriterFactory.class
     })
-@ImportAutoConfiguration({JdbcTemplateAutoConfiguration.class, DataSourceAutoConfiguration.class, LiquibaseAutoConfiguration.class})
 @Import(TestConfiguration.class)
-//@Disabled("adfl;kjasdf liquibase")
+@ImportAutoConfiguration({JdbcTemplateAutoConfiguration.class, LiquibaseAutoConfiguration.class, DataSourceAutoConfiguration.class})
 class CardAttributeRepositoryTest {
 
   @Autowired private CardAttributeRepository cardAttributeRepository;
 
   @Test
   void insertNone() {
-    assertThat(cardAttributeRepository.insertCardAttributes(Set.of()).block()).isZero();
+    assertThat(cardAttributeRepository.insertCardAttributes(List.of())).isZero();
   }
 
   @Test
@@ -45,8 +49,7 @@ class CardAttributeRepositoryTest {
     assertThat(
             cardAttributeRepository
                 .insertCardAttributes(
-                    Set.of(new CardAttributeEntity(1, 1, 1), new CardAttributeEntity(1, 2, 2)))
-                .block())
+                    List.of(new CardAttributeEntity(1, 1, 1), new CardAttributeEntity(1, 2, 2))))
         .isEqualTo(2);
   }
 
@@ -55,12 +58,20 @@ class CardAttributeRepositoryTest {
     assertThatThrownBy(
             () ->
                 cardAttributeRepository
-                    .insertCardAttributes(Set.of(new CardAttributeEntity(2, 1, 1)))
-                    .block())
+                    .insertCardAttributes(List.of(new CardAttributeEntity(2, 1, 1))))
         .isInstanceOf(DataAccessException.class);
   }
 
   @SpringBootConfiguration
   @AutoConfigurationPackage
-  public static class TestConfiguration {}
+  public static class TestConfiguration {
+
+    @Bean
+    @Primary
+    public DataSource dataSource(HikariConfig hikariConfig) {
+      final var dataSource = new HikariDataSource(hikariConfig);
+      dataSource.setSchema("AETHERBASE");
+      return dataSource;
+    }
+  }
 }

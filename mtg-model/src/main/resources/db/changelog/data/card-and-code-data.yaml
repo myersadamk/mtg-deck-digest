@@ -57,5 +57,5 @@ databaseChangeLog:
                   name: ID
                   value: 1
               - column:
-                  name: NAME
+                  name: TITLE
                   value: 'Snow-Covered Forest'
