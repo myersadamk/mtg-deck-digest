@@ -135,10 +135,12 @@ databaseChangeLog:
                     nullable: false
                     onDelete: cascade
         - createIndex:
-            indexName: IDX_CARD_ATTRIBUTES_COMPOSITE_KEY_CODE_VALUE_CODE_SET
+            indexName: IDX_CARD_ATTRIBUTES_COMPOSITE_INDEX
             tableName: CARD_ATTRIBUTES
             unique: true
             columns:
+              - column:
+                  name: CARD_ID
               - column:
                   name: CODE_SET_ID
               - column:
